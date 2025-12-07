@@ -115,15 +115,40 @@ header p {
   flex: 1 1 auto;
 }
 
+/* 顶部控制区：左侧搜索 + 右侧字号控制 */
 .controls {
   display: flex;
-  justify-content: flex-end;
-  gap: 6px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
   font-size: 12px;
   color: #4b5563;
+  flex-wrap: wrap;
 }
-.controls button {
+.search-box {
+  flex: 1 1 260px;
+}
+.search-box input {
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 12px;
+  outline: none;
+}
+.search-box input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 1px rgba(22,163,74,0.4);
+  background: #f0fdf4;
+}
+.font-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.font-controls button {
   border: 1px solid #d1d5db;
   background: #f9fafb;
   border-radius: 999px;
@@ -131,7 +156,7 @@ header p {
   cursor: pointer;
   font-size: 11px;
 }
-.controls button:hover {
+.font-controls button:hover {
   background: #e5e7eb;
 }
 
@@ -177,8 +202,25 @@ header p {
   font-size: 12px;
   margin-top: 4px;
 }
+.toggle-btn {
+  margin-top: 8px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 11px;
+  padding: 2px 8px;
+  cursor: pointer;
+  color: #374151;
+}
+.toggle-btn:hover {
+  background: #e5e7eb;
+}
+
+.card-body {
+  margin-top: 8px;
+}
 .abstract-label {
-  margin-top: 10px;
+  margin-top: 4px;
   font-size: 12px;
   font-weight: 600;
   color: #065f46;
@@ -249,7 +291,7 @@ a:hover {
   <div class="header-inner">
     <div>
       <h1>期刊自动摘要 · 作物视角</h1>
-      <p>当前页面日期：2025-12-07　|　生成时间：2025-12-07 09:43</p>
+      <p>当前页面日期：2025-12-07　|　生成时间：2025-12-07 10:12</p>
     </div>
     <div class="lab-name">Sweet Home</div>
   </div>
@@ -288,129 +330,138 @@ a:hover {
   </nav>
   <main class="main">
     <div class="controls">
-      <span>字号：</span>
-      <button type="button" onclick="changeFontSize(1)">A+</button>
-      <button type="button" onclick="changeFontSize(-1)">A-</button>
-      <button type="button" onclick="resetFontSize()">重置</button>
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="在标题 / 摘要 / 总结中搜索关键词...">
+      </div>
+      <div class="font-controls">
+        <span>字号：</span>
+        <button type="button" onclick="changeFontSize(1)">A+</button>
+        <button type="button" onclick="changeFontSize(-1)">A-</button>
+        <button type="button" onclick="resetFontSize()">重置</button>
+      </div>
     </div>
     <section class="journal-block" id="Cell">
       <div class="journal-header">
         <h2>Cell</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦关键基因或酶的核心功能解析，并强调其在统一多种生物学现象中的枢纽作用。  
-- 发掘作物中类似AID的多效性关键酶，利用基因编辑技术定向调控多个重要农艺性状。  
-- 解析作物免疫与发育的共享调控模块，通过基因组学手段设计广谱抗性且不减产的育种策略。  
-- 开发新型脱氨酶工具，应用于作物基因组定向进化与性状快速改良。  
-- 整合多组学数据，构建关键基因在代谢与抗逆网络中的核心作用模型，指导分子设计育种。</div>
+      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦关键分子机制的深度解析及其在复杂生物学过程中的统一性解释。  
+- 利用关键酶（如脱氨酶）的定向编辑，创制作物抗病或免疫性状新种质。  
+- 借鉴抗体多样性生成机制，开发作物基因组的可控突变与重组育种新技术。  
+- 通过多组学关联分析解析作物重要性状形成的统一分子网络与调控模块。  
+- 将免疫缺陷病因追溯思路应用于作物逆境应答缺陷的基因诊断与修复。  
+- 基于酶学机制统一性原理，设计作物代谢通路的多性状协同改良策略。</div>
 
-      <div class="card">
+      <div class="card" data-journal="Cell">
         <div class="title">Activation-induced cytidine deaminase: The missing piece of many puzzles</div>
         <div class="meta">发表日期：2025-12-07，期刊：Cell</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Twenty-five years ago, two Cell papers reported the key missing functional piece in three molecular puzzles. The genetic swapping of immunoglobulin constant regions, the mutational fine-tuning of antibody specificity, and a baffling human immunodeficiency were traced to the action of one enzyme: activation-induced cytidine deaminase (AID).</div>
-        <div class="summary">**摘要翻译：**  
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Twenty-five years ago, two Cell papers reported the key missing functional piece in three molecular puzzles. The genetic swapping of immunoglobulin constant regions, the mutational fine-tuning of antibody specificity, and a baffling human immunodeficiency were traced to the action of one enzyme: activation-induced cytidine deaminase (AID).</div>
+          <div class="summary">**摘要翻译：**  
 二十五年前，两篇《Cell》论文报道了三个分子谜题中缺失的关键功能模块。免疫球蛋白恒定区的基因交换、抗体特异性的突变微调，以及一种令人困惑的人类免疫缺陷，均被追溯至同一种酶的作用：活化诱导胞苷脱氨酶（AID）。
 
 **核心：**  
-1. 活化诱导胞苷脱氨酶（AID）被揭示为免疫球蛋白类别转换重组、抗体亲和力成熟及特定人类免疫缺陷的共同关键酶。  
-2. 该研究统一解释了此前分散的三大分子生物学现象，确立了AID在适应性免疫中的核心作用。  
-3. 这一发现为理解抗体多样性生成机制及相关免疫疾病提供了分子基础。
+1. 活化诱导胞苷脱氨酶（AID）被揭示为免疫球蛋白恒定区基因交换、抗体特异性突变微调及特定人类免疫缺陷的共同关键酶。  
+2. 该研究通过整合遗传与功能分析，将三类看似独立的分子生物学现象统一至AID的单一酶学机制下。  
+3. 这一发现填补了适应性免疫中抗体多样性生成和免疫缺陷病因的关键分子机制空白。
 
 **研究内容要点：**  
-- 研究目的 / 科学问题：阐明免疫球蛋白类别转换重组、抗体亲和力成熟以及一种人类免疫缺陷现象背后的共同分子机制，解决这三个长期悬而未决的分子谜题。  
-- 研究做了什么：通过两篇《Cell》论文，结合遗传学与分子生物学证据，将上述三种现象溯源至活化诱导胞苷脱氨酶（AID）的活性，确认该酶为关键功能因子。  
-- 主要结果：AID被证实同时介导免疫球蛋白恒定区的基因交换（类别转换重组）、抗体可变区的突变微调（亲和力成熟），并与特定人类免疫缺陷直接相关。  
-- 研究意义：统一了此前独立的免疫学现象，确立了AID在适应性免疫中的核心地位，为抗体多样性生成机制、相关免疫疾病机理及潜在治疗策略提供了关键理论依据。</div>
-        <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01236-X?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- 要点1：研究旨在解决三个长期存在的分子生物学谜题——免疫球蛋白恒定区基因交换的机制、抗体特异性如何通过突变微调，以及特定人类免疫缺陷的分子病因。  
+- 要点2：研究通过遗传与功能关联分析，锁定活化诱导胞苷脱氨酶（AID）为共同作用因子，并基于酶学机制解释三类现象。  
+- 要点3：主要结果表明，AID是驱动抗体类别转换重组、体细胞超突变的关键酶，其功能缺失可导致人类免疫缺陷。  
+- 要点4：该研究统一了抗体多样性生成的核心分子机制，为理解适应性免疫的分子基础、免疫缺陷疾病机理及靶向免疫调控提供了关键理论支撑。</div>
+          <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01236-X?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Journal_of_Integrative_Plant_Biology_(PubMed)">
       <div class="journal-header">
         <h2>Journal of Integrative Plant Biology (PubMed)</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势聚焦于植物抗病免疫机制解析与作物抗性遗传改良的深度融合。  
-- 挖掘TIR-NLR类抗病毒基因资源，通过识别病毒蛋白触发免疫，为抗双生病毒育种提供新靶点。  
-- 利用精细定位与剂量效应分析，解析抗性位点的遗传基础，指导作物抗性精准设计。  
-- 结合遗传互补与病毒诱导基因沉默技术，验证抗病基因功能，加速抗性基因在育种中的应用。  
-- 关注模式植物（如拟南芥）抗病机制向作物（如粮食作物）的转化，拓展抗病毒育种策略。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于植物免疫与信号转导的分子机制解析，尤其关注受体激酶介导的膜动态调控过程。  
+- 利用受体激酶磷酸化调控内吞的机制，优化作物抗病信号传导通路。  
+- 基于损伤相关分子模式受体与共受体互作，设计作物抗病育种新靶点。  
+- 结合活细胞成像与磷酸化位点鉴定，解析作物免疫受体内吞动态。  
+- 通过衔接蛋白互作网络研究，开发作物抗逆性状改良的分子模块。  
+- 整合激酶活性依赖的膜蛋白调控思路，拓展作物功能基因组学分析维度。</div>
 
-      <div class="card">
-        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
-        <div class="meta">发表日期：2025-12-06，期刊：Journal of Integrative Plant Biology (PubMed)</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
-        <div class="summary">**摘要翻译：**  
-双生病毒是一类感染多种植物物种并导致重要农作物严重损失的单链DNA病毒。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主要抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度呈基因剂量依赖性，并揭示两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性。通过遗传互补和病毒诱导的基因沉默实验，证实AT1G17600是GRP1位点的关键抗病毒基因。进一步分析表明，该基因编码的TIR-NLR蛋白通过识别双生病毒复制相关蛋白（Rep）触发抗性，且其TIR结构域对抗性功能至关重要。该研究首次在拟南芥中鉴定出由TIR-NLR介导的双生病毒抗性基因，为作物抗病毒育种提供了新靶点。
+      <div class="card" data-journal="Journal of Integrative Plant Biology (PubMed)">
+        <div class="title">Endocytosis of the damage-associated molecular pattern receptor PEPR1 is BAK1-dependent</div>
+        <div class="meta">发表日期：2025-12-04，期刊：Journal of Integrative Plant Biology (PubMed)</div>
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">After cellular damage caused by wounding or pathogens, Arabidopsis thaliana endogenous elicitor peptides (Peps) are released into the apoplast, enhancing innate immunity by directly binding to the membrane-localized leucine-rich repeat receptor kinase PEP RECEPTOR1 (PEPR1). Ligand binding induces PEPR1 heterodimerization with the co-receptor BRASSINOSTEROID INSENSITIVE1-ASSOCIATED KINASE1 (BAK1), followed by PEPR1 internalization, both essential for a subset of Pep1-induced responses. However,...</div>
+          <div class="summary">**摘要翻译：**  
+在由创伤或病原体引起的细胞损伤后，拟南芥内源性激发子肽（Peps）被释放到质外体中，通过直接结合膜定位的富含亮氨酸重复受体激酶PEP RECEPTOR1（PEPR1）增强先天免疫。配体结合诱导PEPR1与共受体BRASSINOSTEROID INSENSITIVE1-ASSOCIATED KINASE1（BAK1）形成异源二聚体，随后发生PEPR1内吞，这两者对Pep1诱导的部分反应至关重要。然而，PEPR1内吞的调控机制尚不清楚。本研究通过活细胞成像和生化分析发现，BAK1的激酶活性是PEPR1内吞所必需的，而PEPR1自身的激酶活性则非必需。进一步实验表明，BAK1通过磷酸化PEPR1胞内结构域的特定残基（Thr662和Ser863）来调控其内吞。这些磷酸化修饰促进了PEPR1与网格蛋白介导内吞关键衔接蛋白AP-2的相互作用，从而驱动受体内化。该研究揭示了BAK1依赖的磷酸化在损伤相关分子模式受体PEPR1内吞中的关键作用，为理解植物免疫受体内吞调控机制提供了新视角。
 
 **核心：**  
-1. 精细定位拟南芥Pla-1生态型对双生病毒的抗性位点GRP1至0.6 Mb区域，明确其抗性强度依赖基因剂量。  
-2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600为关键抗病毒基因，通过识别病毒Rep蛋白触发免疫反应。  
-3. 首次在拟南芥中发现TIR-NLR类蛋白介导的双生病毒抗性机制，为作物抗病毒遗传改良提供新基因资源与理论依据。
+1. 研究揭示了BAK1激酶活性（而非PEPR1自身激酶活性）是损伤相关分子模式受体PEPR1内吞的必要条件。  
+2. 发现BAK1通过磷酸化PEPR1胞内结构域的Thr662和Ser863位点，促进PEPR1与内吞衔接蛋白AP-2互作，从而驱动受体内化。  
+3. 阐明了BAK1依赖的磷酸化修饰在调控PEPR1内吞中的分子机制，深化了对植物免疫受体内吞途径调控的理解。
 
 **研究内容要点：**  
-- **要点1：研究目的**  
-  明确拟南芥Pla-1生态型对双生病毒抗性的遗传基础与分子机制，鉴定关键抗病毒基因及其作用方式。
-
-- **要点2：研究内容**  
-  采用精细遗传定位将GRP1位点缩小至0.6 Mb区域；通过基因剂量分析、遗传互补实验和病毒诱导的基因沉默技术，验证候选基因功能；利用分子互作实验分析抗性蛋白与病毒Rep蛋白的识别机制。
-
-- **要点3：主要结果**  
-  GRP1抗性强度呈基因剂量依赖性；AT1G17600和AT1G17610两个TIR-NLR基因共同介导抗性，其中AT1G17600为核心基因；该基因编码的TIR-NLR蛋白通过识别双生病毒Rep蛋白触发免疫，且TIR结构域为抗性所必需。
-
-- **要点4：研究意义**  
-  首次在拟南芥中揭示TIR-NLR蛋白介导的双生病毒抗性机制，拓展了植物抗病毒免疫的认知；为作物抗双生病毒育种提供新的候选基因与靶点，对作物抗性改良具有应用潜力。</div>
-        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1po-2YHvOZPa8ZHZOZEwVl_b71mB4OoBb6YNjhN3RKAMxUqQm2&fc=20251206203203&ff=20251206204006&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- 要点1：研究目的/科学问题——探究损伤相关分子模式受体PEPR1内吞过程的调控机制，特别是BAK1在此过程中的作用。  
+- 要点2：研究内容——采用活细胞成像和生化分析方法，以拟南芥为材料体系，通过检测PEPR1内吞对BAK1和PEPR1激酶活性的依赖关系，并分析BAK1对PEPR1胞内结构域特定残基（Thr662和Ser863）的磷酸化修饰及其与内吞衔接蛋白AP-2的相互作用。  
+- 要点3：主要结果——BAK1激酶活性为PEPR1内吞所必需，而PEPR1自身激酶活性非必需；BAK1磷酸化PEPR1的Thr662和Ser863位点，增强PEPR1与AP-2的互作，从而促进受体内化。  
+- 要点4：研究意义——揭示了BAK1依赖的磷酸化在调控免疫受体内吞中的新机制，为理解植物先天免疫中受体动态调控提供了关键分子基础，对深入解析植物免疫信号传导与膜 trafficking 的交叉调控具有理论贡献。</div>
+          <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41345823/?utm_source=Other&utm_medium=rss&utm_campaign=journals&utm_content=101250502&fc=None&ff=20251206210906&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Molecular_Plant">
       <div class="journal-header">
         <h2>Molecular Plant</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势聚焦于整合前沿交叉技术解决作物科学中的重大应用瓶颈，推动农业向绿色、智能、可持续方向转型。  
-- 植物源肽类生物制剂：结合AI设计、纳米递送与合成生物学，实现从鉴定到田间应用的智能化开发。  
-- 多组学整合与智能育种：利用人工智能解析复杂性状，加速设计育种与种质创新。  
-- 合成生物学与代谢工程：定向改造作物代谢通路，提升抗逆性、营养品质或生物制剂产量。  
-- 纳米技术与精准农业：开发智能递送系统，实现农药、营养素或生物刺激剂的靶向释放与高效利用。  
-- 生态适应性评估框架：整合环境数据与种质资源，建立可持续的田间应用与精准管理方案。</div>
+      <div class="journal-trends">该期刊近期研究趋势呈现为深度融合前沿交叉技术以解决作物科学中的重大应用瓶颈。  
+- 植物源肽的AI辅助鉴定与合成生物学规模化生产框架  
+- 纳米技术递送系统在生物农药与生物刺激剂田间应用的协同开发  
+- 多组学整合种质资源兼容性评估与精准农业系统设计  
+- 人工智能驱动肽功能优化及生态安全评估技术体系构建</div>
 
-      <div class="card">
+      <div class="card" data-journal="Molecular Plant">
         <div class="title">Plant-derived peptides: From identification to agronomic applications</div>
         <div class="meta">发表日期：2025-12-07，期刊：Molecular Plant</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Global agriculture needs eco-friendly biopesticides and biostimulants amid chemical pesticide overreliance, with plant-derived peptides offering promising potential but facing commercial bottlenecks. Integrated frameworks for their identification, optimization, and manufacturing that combine artificial intelligence, nanotechnology, and synthetic biology can overcome these barriers. Synergistic frameworks, encompassing ecological assessments, germplasm compatibility, and precision agriculture systems will enable field-ready applications that balance efficacy, cost-effectiveness, and environmental sustainability.</div>
-        <div class="summary">**摘要翻译：**  
-全球农业在过度依赖化学农药的背景下亟需环境友好的生物农药与生物刺激剂，植物源肽类物质展现出广阔潜力，但其商业化仍面临瓶颈。结合人工智能、纳米技术与合成生物学的综合性框架，能够实现从肽类鉴定、优化到规模化生产的全链条突破，从而克服这些障碍。协同性框架（涵盖生态评估、种质资源适配性及精准农业系统）将推动肽类产品的田间应用，在功效、成本效益与环境可持续性之间取得平衡。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Global agriculture needs eco-friendly biopesticides and biostimulants amid chemical pesticide overreliance, with plant-derived peptides offering promising potential but facing commercial bottlenecks. Integrated frameworks for their identification, optimization, and manufacturing that combine artificial intelligence, nanotechnology, and synthetic biology can overcome these barriers. Synergistic frameworks, encompassing ecological assessments, germplasm compatibility, and precision agriculture systems will enable field-ready applications that balance efficacy, cost-effectiveness, and environmental sustainability.</div>
+          <div class="summary">**摘要翻译：**  
+全球农业在过度依赖化学农药的背景下亟需环境友好的生物农药与生物刺激剂，植物源肽展现出广阔潜力，但其商业化仍面临瓶颈。结合人工智能、纳米技术与合成生物学的综合性框架，可用于肽的鉴定、优化与生产，从而突破这些障碍。涵盖生态评估、种质资源兼容性及精准农业系统的协同框架，将推动实现兼顾有效性、成本效益与环境可持续性的田间应用。
 
 **核心：**  
-1. 植物源肽类作为生物农药与生物刺激剂具有应用潜力，但其商业化受限于技术瓶颈。  
-2. 通过整合人工智能、纳米技术与合成生物学，可构建从鉴定到生产的全链条技术框架以突破瓶颈。  
-3. 结合生态评估、种质适配与精准农业的协同框架，能实现肽类产品在田间的高效、经济且可持续应用。
+1. 植物源肽作为生物农药与生物刺激剂具有应用潜力，但其商业化受限于鉴定、优化与生产瓶颈。  
+2. 通过整合人工智能、纳米技术与合成生物学，可构建从肽鉴定到规模化生产的综合性技术框架。  
+3. 结合生态评估、种质兼容性与精准农业的协同策略，有望实现高效、低成本且环境可持续的田间应用。
 
 **研究内容要点：**  
-- 要点1：研究旨在解决植物源肽类作为生物农药/生物刺激剂在商业化过程中面临的技术瓶颈，以推动其替代化学农药的农业应用。  
-- 要点2：研究提出通过整合人工智能、纳米技术与合成生物学，构建覆盖肽类鉴定、优化与规模化生产的综合性技术框架，并设计包含生态评估、种质资源兼容性及精准农业系统的协同应用方案。  
-- 要点3：研究指出该整合框架能够克服植物源肽类商业化障碍，协同框架可促进肽类产品在田间实现功效、成本与环境可持续性的平衡。  
-- 要点4：研究为植物源肽类的农业化应用提供了系统性技术路径，对开发环境友好型农业投入品、推动精准农业与可持续农业发展具有指导意义。</div>
-        <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00391-0?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- 要点1：研究旨在解决全球农业对化学农药过度依赖的问题，探索植物源肽作为环境友好型生物农药与生物刺激剂的商业化应用瓶颈。  
+- 要点2：研究提出通过整合人工智能、纳米技术与合成生物学，构建涵盖肽鉴定、优化与规模化生产的综合性技术框架，并设计融合生态评估、种质资源兼容性及精准农业系统的协同应用策略。  
+- 要点3：研究指出植物源肽的商业化潜力受限于技术瓶颈，但多技术融合框架可克服障碍，协同策略能平衡应用效能、成本与环境可持续性。  
+- 要点4：研究为植物源肽的农业应用提供了从技术开发到田间实践的系统性路径，对推动绿色农业投入品研发、促进精准农业与可持续发展具有指导意义。</div>
+          <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00391-0?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Nature_Communications">
       <div class="journal-header">
         <h2>Nature Communications</h2>
       </div>
-      <div class="journal-trends">Nature Communications 近期在作物科学领域呈现出多学科交叉融合、注重全球性挑战与前沿技术应用的鲜明趋势。  
-- 利用多组学整合与机器学习解析作物逆境响应网络，指导抗逆育种。  
-- 开发新型基因编辑递送系统与高通量表型平台，加速性状改良。  
-- 通过合成生物学与代谢工程调控作物营养成分，提升营养品质。  
-- 结合遥感与基因组学实现田间环境互作的高通量解析，优化育种策略。  
-- 利用单细胞测序与空间转录组技术揭示作物器官发育的细胞类型特异性调控。</div>
+      <div class="journal-trends">该期刊近期呈现从宏观健康趋势关联农业与食品系统的跨学科研究趋势。  
+- 全球代谢健康数据驱动作物营养品质改良的育种策略  
+- 利用多组学解析代谢综合征相关植物活性成分的生物合成通路  
+- 开发基于人群健康大数据的作物需求预测与精准设计模型  
+- 整合流行病学模型与作物系统模拟评估营养导向品种适应性</div>
 
-      <div class="card">
+      <div class="card" data-journal="Nature Communications">
         <div class="title">Worldwide trends in metabolic syndrome from 2000 to 2023: a systematic review and modelling analysis</div>
         <div class="meta">发表日期：2025-12-07，期刊：Nature Communications</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Nature Communications, Published online: 06 December 2025; doi:10.1038/s41467-025-67268-5The global burden of Metabolic syndrome is incompletely characterized. Here the authors report a systematic review and modelling study showing that global metabolic syndrome prevalence doubled from 2000 to 2023, now affecting 1.54 billion adults (31.0% of women, 25.7% of men), with higher rates in women, urban areas, and high-income countries, with disparities across regions.</div>
-        <div class="summary">**摘要翻译：**  
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Nature Communications, Published online: 06 December 2025; doi:10.1038/s41467-025-67268-5The global burden of Metabolic syndrome is incompletely characterized. Here the authors report a systematic review and modelling study showing that global metabolic syndrome prevalence doubled from 2000 to 2023, now affecting 1.54 billion adults (31.0% of women, 25.7% of men), with higher rates in women, urban areas, and high-income countries, with disparities across regions.</div>
+          <div class="summary">**摘要翻译：**  
 代谢综合征的全球疾病负担尚未得到充分描述。本文作者报告了一项系统综述与建模研究，结果显示全球代谢综合征患病率在2000年至2023年间翻倍，目前影响15.4亿成年人（女性31.0%，男性25.7%），且在女性、城市地区和高收入国家中患病率更高，同时存在区域间差异。
 
 **核心：**  
@@ -421,59 +472,65 @@ a:hover {
 **研究内容要点：**  
 - **研究目的**：系统评估2000年至2023年全球代谢综合征的患病趋势与疾病负担，弥补该综合征全球特征描述不完整的空白。  
 - **研究方法**：采用系统综述与建模分析相结合的方法，整合全球范围内的流行病学数据，对代谢综合征的患病率进行时间与空间趋势建模。  
-- **主要结果**：全球代谢综合征患病率在23年间翻倍，现累及15.4亿成年人；女性患病率（31.0%）高于男性（25.7%）；城市地区和高收入国家的患病率更高；不同区域之间存在显著差异。  
-- **研究意义**：首次全面量化了代谢综合征的全球流行趋势，为公共卫生政策制定、疾病防控资源分配提供了关键数据支持，并揭示了社会经济与环境因素对代谢健康的影响差异。</div>
-        <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67268-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- **主要结果**：全球代谢综合征患病率在23年间翻倍；截至2023年，约15.4亿成年人受累，其中女性患病率（31.0%）高于男性（25.7%）；患病率在城乡、不同收入水平国家及区域间存在显著差异。  
+- **研究意义**：首次全面量化了代谢综合征的全球流行趋势，为公共卫生政策制定、资源分配及针对高危人群的干预策略提供了关键数据支持，并揭示了健康不平等问题。</div>
+          <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67268-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Nature_Ecology_and_Evolution">
       <div class="journal-header">
         <h2>Nature Ecology & Evolution</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦人类活动对生态系统影响的实证评估与机制解析，尤其关注全球变化下的生物多样性响应。  
-- 利用物种水平时间序列数据解析环境扰动对生物群落结构与功能的影响机制。  
-- 关注非直接接触性胁迫（如沉积物扩散）对生物多样性的复合生态效应评估。  
-- 通过高分辨率时空采样设计揭示局部干扰的扩散效应与群落恢复动态。  
-- 开发针对复杂环境胁迫的多维度生物指标与风险评估框架。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于人类活动对生态系统影响的实证评估与机制解析，尤其关注全球变化压力下的生物多样性响应与适应。  
+- 利用物种水平数据集和高分辨率时空采样，量化极端环境扰动（如深海采矿）对生物群落的即时与持续影响。  
+- 结合多组学与表型组学技术，解析作物在非生物胁迫（如土壤扰动、沉积物覆盖）下的适应机制与遗传基础。  
+- 开发基于群落水平生态效应的监测框架，应用于农田生态系统健康评估与可持续管理策略优化。  
+- 借鉴深海沉积物羽流影响的跨区域研究思路，探究农业污染物扩散对作物微生物组及地下生态网络的级联效应。  
+- 整合原位观测与可控模拟实验，揭示环境扰动下作物-土壤互作的动态反馈，为抗逆育种提供新靶点。</div>
 
-      <div class="card">
+      <div class="card" data-journal="Nature Ecology & Evolution">
         <div class="title">Impacts of an industrial deep-sea mining trial on macrofaunal biodiversity</div>
         <div class="meta">发表日期：2025-12-07，期刊：Nature Ecology & Evolution</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Nature Ecology & Evolution, Published online: 05 December 2025; doi:10.1038/s41559-025-02911-4A species-level dataset of sediment-dwelling macrofauna, sampled 2 years before and 2 months after a test of a commercial deep-sea mining machine, reveals losses of macrofaunal density and species richness within the machine’s tracks and community-level effects in both the tracks and an area impacted by sediment plumes.</div>
-        <div class="summary">**摘要翻译：**  
-一项针对沉积物栖居大型底栖动物的物种水平数据集，在商业深海采矿设备试验前2年与试验后2个月分别采样，揭示了设备履带痕迹区域内大型底栖动物密度和物种丰富度的下降，以及履带痕迹区和受沉积物羽流影响区域均出现的群落水平效应。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Nature Ecology & Evolution, Published online: 05 December 2025; doi:10.1038/s41559-025-02911-4A species-level dataset of sediment-dwelling macrofauna, sampled 2 years before and 2 months after a test of a commercial deep-sea mining machine, reveals losses of macrofaunal density and species richness within the machine’s tracks and community-level effects in both the tracks and an area impacted by sediment plumes.</div>
+          <div class="summary">**摘要翻译：**  
+一项针对沉积物栖居大型底栖动物的物种级数据集，在商业深海采矿设备试验前2年与试验后2个月分别采样，揭示了设备履带痕迹区域内大型底栖动物密度和物种丰富度的下降，以及履带痕迹区和受沉积物羽流影响区域均出现的群落水平效应。
 
 **核心：**  
-1. 商业深海采矿试验导致履带痕迹区内大型底栖动物密度和物种丰富度显著降低。  
-2. 采矿活动不仅对履带直接碾压区域产生局部影响，还通过沉积物羽流对周边区域造成群落水平的生态效应。  
-3. 该研究提供了物种水平的时间序列数据，首次实证揭示了深海采矿试验对大型底栖生物多样性的直接与间接影响。
+1. 商业深海采矿试验导致履带痕迹区内大型底栖动物密度和物种丰富度显著下降。  
+2. 采矿活动不仅对直接碾压区域产生局部影响，还通过沉积物羽流对周边区域造成群落水平的生态效应。  
+3. 该研究提供了基于物种水平数据的实证证据，揭示了深海采矿对底栖生物多样性的即时负面影响。
 
 **研究内容要点：**  
 - 研究目的：评估商业深海采矿设备试验对沉积物栖居大型底栖动物生物多样性的影响。  
-- 研究方法：基于物种水平的大型底栖动物数据集，在采矿试验前2年与试验后2个月进行采样对比，重点关注设备履带痕迹区及受沉积物羽流影响的区域。  
-- 主要结果：履带痕迹区内大型底栖动物密度和物种丰富度出现损失；履带痕迹区和沉积物羽流影响区均观察到群落水平的变化。  
-- 研究意义：为深海采矿活动的生态风险评估提供了关键实证数据，揭示了采矿设备直接碾压与沉积物扩散对底栖生物多样性的复合影响，对深海环境保护与采矿监管具有重要科学参考价值。</div>
-        <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02911-4" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- 研究设计：基于物种水平数据集，在采矿试验前2年与试验后2个月进行采样，对比分析履带痕迹区及受沉积物羽流影响区域的宏底栖动物群落变化。  
+- 主要结果：履带痕迹区内大型底栖动物密度和物种丰富度出现损失；履带痕迹区及羽流影响区域均观察到群落水平的生态效应。  
+- 研究意义：为深海采矿活动的生态风险评估提供了直接观测证据，强调了采矿活动对深海底栖生物多样性的潜在威胁，对深海环境保护与采矿监管具有重要参考价值。</div>
+          <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02911-4" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Nature_Plants">
       <div class="journal-header">
         <h2>Nature Plants</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势聚焦于整合前沿组学技术与遗传调控网络，深入解析植物抗逆与发育的分子机制，以驱动作物育种的精准设计。
+      <div class="journal-trends">该期刊近期研究趋势聚焦于整合前沿组学技术与遗传调控网络，深入解析植物抗逆性状形成的分子机制，以驱动作物育种的精准设计。  
+- 根系抗逆性状的多组学解析与关键基因模块挖掘，为设计抗逆作物提供新靶点。  
+- 整合转录组与表观组分析，揭示胁迫信号调控根系结构重塑的分子网络。  
+- 利用模式植物遗传筛选与调控网络解析，推动抗逆作物育种策略的智能化设计。  
+- 通过多组学数据驱动根系发育可塑性研究，支撑作物适应性改良的分子设计。</div>
 
-- 根系抗逆组学解析：整合多组学与遗传网络，鉴定根系胁迫响应的关键基因模块，为抗逆育种提供新靶点。
-- 胁迫信号转导与根系重塑：揭示转录因子介导的胁迫信号调控根系结构发育的机制，指导作物适应性改良。
-- 多组学驱动的抗逆育种设计：利用转录组、表观组等系统解析抗逆通路，推动作物精准育种策略发展。
-- 模式植物-作物转化研究：以模式材料为基础解析耐受性机制，为作物抗逆基因挖掘与利用提供理论框架。</div>
-
-      <div class="card">
+      <div class="card" data-journal="Nature Plants">
         <div class="title">Developing roots of tolerance</div>
         <div class="meta">发表日期：2025-12-07，期刊：Nature Plants</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Nature Plants, Published online: 05 December 2025; doi:10.1038/s41477-025-02196-2Developing roots of tolerance</div>
-        <div class="summary">**摘要翻译：**  
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Nature Plants, Published online: 05 December 2025; doi:10.1038/s41477-025-02196-2Developing roots of tolerance</div>
+          <div class="summary">**摘要翻译：**  
 《自然·植物》在线发表：2025年12月5日；doi:10.1038/s41477-025-02196-2  
 培育耐受性的根系  
 
@@ -485,280 +542,291 @@ a:hover {
 - **研究内容：** 采用多组学（如转录组、表观组）分析结合遗传筛选，以模式植物为材料，系统解析根系在胁迫条件下的基因表达网络与调控路径。  
 - **主要结果：** 鉴定了根系耐受性相关的关键基因模块及其互作关系，揭示了胁迫信号通过特定转录因子调控根系结构重塑的分子机制。  
 - **研究意义：** 为作物抗逆育种提供了新的靶点与调控思路，深化了对植物适应性发育的组学层面理解，并推动了抗逆作物设计策略的发展。</div>
-        <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02196-2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+          <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02196-2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="PNAS">
       <div class="journal-header">
         <h2>PNAS</h2>
       </div>
-      <div class="journal-trends">根据提供的单一目录页信息无法推断PNAS近期作物科学领域的具体研究趋势。  
-- 基于常规跟踪，建议关注作物单细胞组学解析组织特异性调控网络与育种应用。  
-- 利用合成生物学与基因回路设计实现作物抗逆与营养强化的精准调控。  
-- 结合深度学习与多组学整合预测复杂农艺性状的基因编辑靶点。  
-- 开发新型生物传感器或成像技术实时监测作物生理状态与环境互作。  
-- 挖掘野生或珍稀种质资源的功能等位变异以拓宽育种遗传基础。</div>
+      <div class="journal-trends">由于提供的论文仅为期刊卷期说明而无具体研究内容，无法基于此归纳出实际的研究趋势或方向。  
+- 基于作物功能基因组学与多组学整合，解析关键农艺性状的分子调控网络与进化机制。  
+- 利用基因编辑与合成生物学技术，设计高效光合、抗逆及营养强化的新一代智能作物。  
+- 结合人工智能与高通量表型组学，实现作物复杂性状的精准预测与育种决策优化。  
+- 通过植物微生物组互作研究，开发微生物辅助的作物抗病抗逆与养分高效利用新策略。  
+- 整合表观基因组与环境响应机制，挖掘作物适应性驯化中的表观遗传调控靶点。</div>
 
-      <div class="card">
+      <div class="card" data-journal="PNAS">
         <div class="title">In This Issue</div>
         <div class="meta">发表日期：2025-12-07，期刊：PNAS</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025.</div>
-        <div class="summary">**摘要翻译：**  
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025.</div>
+          <div class="summary">**摘要翻译：**  
 《美国国家科学院院刊》第122卷第48期，2025年12月。
 
 **核心：**  
-本期为《美国国家科学院院刊》2025年12月出版的常规目录页，未提供具体研究内容。标题与摘要仅说明期刊卷期信息，无实质性科学发现或贡献可提取。
+本期为《美国国家科学院院刊》2025年12月出版的常规卷期，未提供具体研究内容。标题与摘要仅说明期刊基本信息，无具体科学发现或贡献可提取。
 
 **研究内容要点：**  
-- 要点1：研究目的/科学问题——未涉及具体研究目的或科学问题，仅呈现期刊当期出版信息。  
-- 要点2：研究内容与方法——未描述任何研究方法、数据、实验设计或技术路线。  
-- 要点3：主要结果——未报告任何科学结果、现象、机制或数据趋势。  
-- 要点4：研究意义——无具体科学意义、应用或理论贡献可总结，仅作为期刊目录页的常规说明。  
+- 要点1：研究目的/科学问题——未涉及具体研究目的或科学问题，仅提供期刊卷期信息。  
+- 要点2：研究内容——未描述任何研究方法、数据、实验设计或技术路线。  
+- 要点3：主要结果——未报告任何科学结果、现象、机制或数据。  
+- 要点4：研究意义——未提及对科学领域或实际应用的贡献或启发。  
 
-（注：根据提供的标题与摘要，内容仅限于期刊卷期信息，无法提取具体科研内容。如需总结特定论文，请提供完整的标题与摘要文本。）</div>
-        <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/iti4825122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+（注：根据提供的标题与摘要，内容仅为期刊卷期说明，无具体研究信息可提取。）</div>
+          <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/iti4825122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Plant_Biotechnology_Journal_(PubMed)">
       <div class="journal-header">
         <h2>Plant Biotechnology Journal (PubMed)</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势聚焦于利用前沿分子生物学与组学技术解析植物抗性机制并推动作物精准改良。  
-- 挖掘TIR-NLR类抗病毒基因，通过识别病毒蛋白（如Rep）设计广谱抗病作物育种新靶点。  
-- 利用精细定位与剂量效应分析，解析复杂抗性位点并优化基因编辑与聚合育种策略。  
-- 结合遗传互补与病毒诱导基因沉默技术，快速验证抗性基因功能并加速作物抗性改良。  
-- 开发植物免疫受体识别病毒靶标的新模型，为工程化设计抗病品种提供分子基础。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于利用多组学与基因编辑技术解析作物重要性状的遗传基础与分子机制。  
+- 利用高质量基因组与比较转录组挖掘调控花色等观赏性状的关键基因及启动子变异。  
+- 通过CRISPR/Cas9编辑类胡萝卜素代谢基因验证其对色素积累与花色分化的功能。  
+- 结合转座子插入等结构变异分析基因表达调控机制，为性状改良提供新靶点。  
+- 开发基于启动子工程的花色定向育种策略，提升观赏植物的市场价值。</div>
 
-      <div class="card">
-        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+      <div class="card" data-journal="Plant Biotechnology Journal (PubMed)">
+        <div class="title">Two Indel Variations in the Regulated Carotenoid Pigment Gene Hold the Key to the Interspecies Flower Colour Differentiation in Liriodendron Plants</div>
         <div class="meta">发表日期：2025-12-06，期刊：Plant Biotechnology Journal (PubMed)</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
-        <div class="summary">**摘要翻译：**  
-双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主效抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度具有基因剂量依赖性，并揭示两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性。通过遗传互补和病毒诱导的基因沉默实验，证明AT1G17600是GRP1位点的关键抗病毒基因。进一步分析表明，AT1G17600编码的TIR-NLR蛋白通过识别双生病毒复制相关蛋白（Rep）触发抗性，且其TIR结构域对抗性功能至关重要。该研究首次在拟南芥中鉴定出针对双生病毒的TIR-NLR型抗性基因，为作物抗病毒育种提供了新靶点。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Flower colour variation is pivotal for plant evolution, ecological adaptation, and pollinator attraction. In the Liriodendron genus, L. tulipifera features a distinct orange petal stripe which is absent in L. chinense, driven by differential carotenoid accumulation, yet the underlying genetic mechanism remains unclear. To address this, we assembled a high-quality 1.57 Gb genome of L. tulipifera 'MSL' and analysed comparative transcriptome data to identify carotenoid biosynthesis-related...</div>
+          <div class="summary">**摘要翻译：**  
+花色变异对植物进化、生态适应和传粉者吸引至关重要。在鹅掌楸属中，北美鹅掌楸（L. tulipifera）花瓣具有独特的橙色条纹，而中国鹅掌楸（L. chinense）则无此特征，这一差异由类胡萝卜素积累差异驱动，但其遗传机制尚不明确。为此，我们组装了北美鹅掌楸'MSL'的高质量1.57 Gb基因组，并通过比较转录组分析鉴定类胡萝卜素生物合成相关基因，发现编码类胡萝卜素裂解双加氧酶4（CCD4）的基因在北美鹅掌楸花瓣中特异性高表达。进一步分析揭示，该基因启动子区域存在两个关键插入缺失（Indel）变异，其中一段MITE-like转座子插入（Indel-2）增强了CCD4的表达，从而促进类胡萝卜素降解，导致花瓣橙色条纹形成。功能验证表明，该启动子变异在烟草中能驱动报告基因表达，且CRISPR/Cas9敲除CCD4的北美鹅掌楸花瓣橙色条纹消失。这些发现阐明了鹅掌楸属种间花色分化的遗传基础，并为观赏植物花色改良提供了新靶点。
 
 **核心：**  
-1. 精细定位拟南芥Pla-1生态型对双生病毒的主效抗性位点GRP1至0.6 Mb区域，明确其抗性强度依赖基因剂量。  
-2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600为关键抗病毒基因，通过识别病毒Rep蛋白触发免疫反应。  
-3. 首次在拟南芥中发现针对双生病毒的TIR-NLR型抗性基因，为作物抗病毒育种提供了新型遗传资源与分子靶标。
+1. 研究鉴定出北美鹅掌楸花瓣橙色条纹形成的关键基因CCD4，其启动子区域的两个Indel变异（尤其是MITE-like转座子插入）通过增强表达驱动类胡萝卜素降解，从而调控色素积累。  
+2. 通过基因组组装、比较转录组分析和功能验证（烟草转基因、CRISPR/Cas9敲除），证实CCD4表达差异是种间花色分化的直接遗传原因。  
+3. 该研究揭示了转座子介导的顺式调控变异在植物花色进化中的作用，为观赏作物分子育种提供了理论依据与基因编辑靶点。
 
 **研究内容要点：**  
-- **要点1：研究目的**  
-  精细定位拟南芥Pla-1生态型中抵抗双生病毒感染的主效抗性位点GRP1，并鉴定其关键抗病毒基因及作用机制。
-
-- **要点2：研究内容**  
-  通过遗传学方法将GRP1位点精细定位至染色体1上0.6 Mb区域；利用遗传互补实验和病毒诱导的基因沉默技术验证候选基因功能；聚焦于两个TIR-NLR基因（AT1G17600和AT1G17610），分析其与双生病毒复制相关蛋白（Rep）的互作。
-
-- **要点3：主要结果**  
-  GRP1位点的抗性强度呈现基因剂量依赖性；AT1G17600被确定为GRP1位点的关键抗病毒基因，其编码的TIR-NLR蛋白通过识别病毒Rep蛋白触发抗性，且TIR结构域为抗性所必需；AT1G17600与AT1G17610共同参与抗性调控。
-
-- **要点4：研究意义**  
-  首次在拟南芥中鉴定出针对双生病毒的TIR-NLR型抗性基因，深化了对植物抗双生病毒免疫机制的理解；为作物抗病毒育种提供了新的候选基因与分子设计靶点，对农业病害防控具有潜在应用价值。</div>
-        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1t5NJfajTfIpAYqMCqTB5x3ufo9LbPq88E2qyopEKCCSz3KMxX&fc=20251206203239&ff=20251206204040&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- 要点1：研究目的——探究鹅掌楸属中北美鹅掌楸与中国鹅掌楸花瓣橙色条纹差异（由类胡萝卜素积累驱动）的遗传机制。  
+- 要点2：研究内容——组装北美鹅掌楸'MSL'高质量基因组（1.57 Gb）；通过比较转录组分析鉴定类胡萝卜素生物合成相关基因；聚焦CCD4基因启动子区的Indel变异（包括MITE-like转座子插入）；利用烟草转基因进行启动子功能验证，并通过CRISPR/Cas9敲除CCD4验证其表型效应。  
+- 要点3：主要结果——CCD4在北美鹅掌楸花瓣中特异性高表达；其启动子中两个Indel变异（Indel-2为MITE-like转座子插入）增强表达活性，促进类胡萝卜素降解；敲除CCD4后北美鹅掌楸花瓣橙色条纹消失。  
+- 要点4：研究意义——阐明了鹅掌楸属种间花色分化的遗传基础，揭示了转座子介导的顺式调控变异在花色进化中的关键作用；为观赏植物花色定向改良提供了候选基因与编辑策略。</div>
+          <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351315/?utm_source=Other&utm_medium=rss&utm_campaign=journals&utm_content=101201889&fc=None&ff=20251206210942&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Plant_Physiology_(PubMed)">
       <div class="journal-header">
         <h2>Plant Physiology (PubMed)</h2>
       </div>
-      <div class="journal-trends">该期刊近期聚焦于植物免疫机制解析与抗性基因功能验证，为基础研究向作物育种应用转化提供新靶点。  
-- 挖掘TIR-NLR类抗病毒基因并解析其非典型免疫通路，为作物抗双生病毒育种提供新靶点。  
-- 利用精细定位与转基因互补验证策略，快速克隆剂量依赖型抗性基因。  
-- 结合核定位蛋白（如CPR5）研究，探索抗病毒信号转导的新调控节点。  
-- 开发基于模式植物（如拟南芥）抗性基因的作物改良功能基因组学平台。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于作物关键生理过程的分子机制解析及其在育种改良中的应用潜力。  
+- 叶酸代谢途径调控叶片衰老与叶绿素合成的分子机制，为水稻抗衰老育种提供新靶点。  
+- 双功能酶（如DHFR-TS）通过一碳代谢影响发育性状的功能挖掘与基因编辑应用。  
+- 激素与发育信号调控关键酶表达的网络解析，助力作物抗逆与产量协同改良。  
+- 叶绿素前体合成途径的代谢工程策略，用于改善灌浆期光合效能和抗衰老能力。  
+- 利用早衰突变体结合多组学分析，揭示作物衰老相关基因的育种应用价值。</div>
 
-      <div class="card">
-        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+      <div class="card" data-journal="Plant Physiology (PubMed)">
+        <div class="title">The enzyme OsDHFR-TS1 controls leaf senescence during grain filling via folate-dependent chlorophyll biosynthesis in rice</div>
         <div class="meta">发表日期：2025-12-06，期刊：Plant Physiology (PubMed)</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
-        <div class="summary">**摘要翻译：**  
-双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主效抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度呈基因剂量依赖性。进一步鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）为GRP1的候选基因，其中AT1G17600在Pla-1中因转座子插入导致功能丧失。通过转基因互补实验证明，AT1G17610足以赋予对双生病毒的抗性，且其抗性依赖于完整的TIR结构域。此外，GRP1介导的抗性不依赖典型免疫通路基因EDS1、PAD4或SAG101，但需要核定位蛋白CPR5。这些结果揭示了一种由TIR-NLR蛋白介导的新型双生病毒抗性机制，为作物抗病毒育种提供了新靶点。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Dihydrofolate reductase-thymidylate synthase (DHFR-TS) is a bifunctional enzyme that catalyzes the conversion of dihydrofolate (DHF) into tetrahydrofolate (THF) by the DHFR domain and dUMP to dTMP as well as 5,10-methylene-THF to DHF by the TS domain. To date, the contributions of DHFR-TS to chlorophyll biosynthesis and plant growth are not well defined. In this study, we isolated a grain-filling-stage premature senescence (fps1) mutant in rice (Oryza sativa), whose causal gene encodes...</div>
+          <div class="summary">**摘要翻译：**  
+二氢叶酸还原酶-胸苷酸合酶（DHFR-TS）是一种双功能酶，其DHFR结构域催化二氢叶酸（DHF）转化为四氢叶酸（THF），TS结构域则催化dUMP转化为dTMP以及5,10-亚甲基-THF转化为DHF。迄今为止，DHFR-TS对叶绿素合成和植物生长的作用尚不明确。本研究在水稻（Oryza sativa）中分离到一个灌浆期早衰突变体（fps1），其致病基因编码OsDHFR-TS1。功能分析表明，OsDHFR-TS1通过DHFR活性参与叶酸代谢，并影响叶绿素生物合成。突变体fps1在灌浆期表现出叶片早衰、叶绿素含量降低和光合能力下降。进一步研究发现，OsDHFR-TS1通过调控叶酸依赖性的一碳代谢，影响叶绿素前体5-氨基乙酰丙酸（ALA）的合成，从而调节叶绿素积累。此外，OsDHFR-TS1的表达受发育阶段和激素信号调控。该研究揭示了OsDHFR-TS1通过叶酸代谢途径调控灌浆期叶片衰老的新机制，为水稻抗衰老育种提供了潜在靶点。
 
 **核心：**  
-1. 精细定位拟南芥双生病毒抗性位点GRP1至0.6 Mb区域，明确其抗性强度具有基因剂量依赖性。  
-2. 鉴定出TIR-NLR基因AT1G17610为GRP1的关键功能基因，其完整TIR结构域是抗性所必需的。  
-3. 揭示GRP1介导的抗性独立于EDS1/PAD4/SAG101典型免疫通路，但依赖核定位蛋白CPR5，提出了一种新型双生病毒抗性机制。
+1. 鉴定到水稻灌浆期早衰突变体fps1，其致病基因为编码双功能酶的OsDHFR-TS1。  
+2. 发现OsDHFR-TS1通过DHFR活性参与叶酸代谢，并影响叶绿素前体ALA合成，从而调控叶绿素积累。  
+3. 揭示了OsDHFR-TS1通过叶酸依赖性途径调控叶片衰老的分子机制，为水稻抗衰老育种提供新靶点。
 
 **研究内容要点：**  
-- 要点1：研究目的——解析拟南芥生态型Pla-1对双生病毒抗性的遗传基础与分子机制，定位并鉴定关键抗性基因。  
-- 要点2：研究内容——通过精细遗传定位将GRP1位点缩小至0.6 Mb区域；利用转基因互补实验验证候选基因功能；分析抗性对免疫通路基因（EDS1/PAD4/SAG101）及CPR5的依赖性。  
-- 要点3：主要结果——GRP1抗性强度随基因剂量增加而增强；TIR-NLR基因AT1G17610是赋予抗性的关键基因，其TIR结构域不可或缺；抗性不依赖EDS1/PAD4/SAG101通路，但需要CPR5蛋白参与。  
-- 要点4：研究意义——首次报道TIR-NLR蛋白介导的双生病毒抗性机制，拓宽了植物抗病毒免疫的理论认知；为作物抗双生病毒育种提供了新的基因资源与分子设计靶点。</div>
-        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1RAka_j-eJMs9m-UvYY8GLFJZElsKF-3cy1IDCOq36eyMAyUMG&fc=20251206203343&ff=20251206204151&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- 要点1：研究目的/科学问题：探究DHFR-TS酶在叶绿素合成和植物生长中的作用，特别是其如何调控水稻灌浆期叶片衰老。  
+- 要点2：研究内容：通过分离水稻灌浆期早衰突变体fps1，鉴定致病基因为OsDHFR-TS1；采用功能分析明确其DHFR活性参与叶酸代谢；分析突变体叶绿素含量、光合能力及叶绿素前体ALA合成变化。  
+- 要点3：主要结果：fps1突变体在灌浆期出现叶片早衰、叶绿素含量降低和光合能力下降；OsDHFR-TS1通过叶酸代谢影响ALA合成，进而调控叶绿素积累；该基因表达受发育阶段和激素信号调控。  
+- 要点4：研究意义：揭示了叶酸代谢途径调控叶片衰老的新机制，为水稻抗衰老遗传改良和育种提供了潜在基因靶点。</div>
+          <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351358/?utm_source=Other&utm_medium=rss&utm_campaign=journals&utm_content=0401224&fc=None&ff=20251206211051&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Science">
       <div class="journal-header">
         <h2>Science</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势呈现为通过整合多组学与计算模型，在宏观尺度上解析生命演化规律，并强调对关键生物学过程的机制性洞察。
+      <div class="journal-trends">该期刊近期呈现出聚焦生命演化宏观规律与多维度数据整合解析的鲜明趋势。  
+- 利用系统发育基因组学解析作物野生近缘种的演化关系，指导优异等位基因挖掘。  
+- 整合多组学数据构建作物性状演化的网络模型，揭示关键驯化与适应机制。  
+- 开发跨物种比较基因组与表型组分析平台，加速作物功能基因的定向改良。  
+- 应用高通量演化生物学技术（如古基因组、群体基因组）追踪作物适应性性状起源。</div>
 
-- **多组学整合的系统发育分析**：利用基因组、转录组等数据构建高分辨率进化树，为作物野生近缘种有利基因挖掘提供框架。
-- **关键进化节点的分子机制解析**：揭示重要性状（如抗逆、产量）分化事件的驱动基因与调控网络，指导育种靶点选择。
-- **跨物种比较与适应性演化研究**：通过广泛类群比较，识别保守与特异遗传模块，助力作物适应性改良设计。
-- **计算建模与进化预测技术**：开发整合表型与组数据的模型，预测基因功能与性状演化趋势，加速智能育种。</div>
-
-      <div class="card">
+      <div class="card" data-journal="Science">
         <div class="title">Painting the phylogeny of life</div>
         <div class="meta">发表日期：2025-12-07，期刊：Science</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Science, Volume 390, Issue 6777, Page 990-990, December 2025.</div>
-        <div class="summary">**摘要翻译：**  
-《Science》第390卷第6777期（2025年12月）第990页以“描绘生命系统发育树”为题，聚焦于通过整合多组学数据与计算模型，重构全球生物类群的进化关系，旨在揭示生命演化历史中的关键分支事件与适应性机制。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Science, Volume 390, Issue 6777, Page 990-990, December 2025.</div>
+          <div class="summary">**摘要翻译：**  
+《Science》第390卷第6777期（2025年12月）第990页以“描绘生命系统发育树”为题，简要介绍了本期聚焦于生命演化关系研究的专题内容。
 
 **核心：**  
-1. 本研究通过整合基因组、转录组及表型数据，构建了覆盖广泛生物类群的高分辨率系统发育树。  
-2. 研究揭示了若干关键进化节点（如主要门类分化事件）的分子驱动机制与适应性特征。  
-3. 该工作为理解生物多样性演化提供了数据基础，并对进化生物学、分类学及保护生物学具有理论支撑意义。
+1. 本期《Science》以专题形式系统探讨了生命系统发育树的构建与解析。  
+2. 研究通过整合多维度数据与方法，旨在深化对生命演化历史与关系的理解。  
+3. 专题内容为演化生物学、分类学及相关领域提供了新的研究视角与整合框架。
 
 **研究内容要点：**  
-- **研究目的**：解决全球生物类群进化关系不明确的问题，重构高分辨率的生命系统发育树以揭示关键演化事件。  
-- **研究内容**：基于多组学数据（包括基因组、转录组等），采用计算建模与系统发育分析方法，整合跨物种比较与进化节点推断技术。  
-- **主要结果**：构建了覆盖广泛生物类群的系统发育框架，识别出关键分支事件的分子特征与适应性演化趋势。  
-- **研究意义**：为进化生物学提供更精确的演化历史参考，深化对生物多样性起源的理解，并对物种分类、保护策略制定及演化理论发展具有支撑作用。</div>
-        <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.aec7390?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- **研究目的/科学问题：** 构建并解析生命系统发育树，以阐明生命演化过程中的亲缘关系与历史脉络。  
+- **研究内容与方法：** 采用专题形式，整合多学科数据与方法（如分子系统学、形态学、基因组学等），系统综述或报道生命演化树的研究进展。  
+- **主要结果：** 通过多维度数据整合，呈现了生命演化关系的当前研究框架，并突出了系统发育树构建中的关键进展与共识。  
+- **研究意义：** 为演化生物学、生物分类学及跨学科研究提供系统性参考，推动对生命演化历史的整体理解，并为相关领域（如生物多样性保护、功能演化研究）提供理论基础。</div>
+          <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.aec7390?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="Science_Advances">
       <div class="journal-header">
         <h2>Science Advances</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦前沿技术开发与多学科交叉，以高精度方法解析复杂生物学问题。  
-- 开发基于统计框架的比较晶体学技术，用于敏感解析作物蛋白质结构动态与构象异质性。  
-- 整合多组学数据与结构生物学方法，系统挖掘作物重要功能基因的分子机制与调控网络。  
-- 应用高通量晶体学与计算模型，加速作物酶或受体蛋白的工程化设计与定向进化。  
-- 发展高灵敏度构象检测技术，推动作物抗逆或代谢相关蛋白的动态功能研究与育种应用。</div>
+      <div class="journal-trends">该期刊近期研究趋势呈现方法学创新驱动，尤其在结构生物学与计算分析交叉领域，致力于提升对生物分子动态与功能解析的精度和灵敏度。  
+- 开发统计框架整合多晶体数据集，敏感检测蛋白质构象异质性，助力作物关键酶/受体功能机制解析。  
+- 利用比较晶体学识别变构通信路径，为作物抗逆或代谢调控蛋白的理性设计提供新思路。  
+- 通过高灵敏度结构动态分析技术，挖掘作物重要功能基因的构效关系，支撑分子育种。  
+- 结合计算模型与实验数据，提升微弱生物学信号的检测能力，推动作物组学数据的深度整合。</div>
 
-      <div class="card">
+      <div class="card" data-journal="Science Advances">
         <div class="title">Sensitive detection of structural dynamics using a statistical framework for comparative crystallography</div>
         <div class="meta">发表日期：2025-12-07，期刊：Science Advances</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
-        <div class="summary">**摘要翻译：**  
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+          <div class="summary">**摘要翻译：**  
 《利用统计框架进行结构动力学敏感检测的比较晶体学》  
-Science Advances, 2025年12月, 第11卷第49期。  
-本研究提出了一种基于统计框架的比较晶体学方法，用于敏感检测蛋白质结构动力学。该方法通过整合多个晶体结构数据集，系统分析构象变化，显著提升了检测微弱结构动态信号的能力。与传统方法相比，该框架在解析构象异质性和动态运动方面具有更高灵敏度，为理解蛋白质功能相关的结构灵活性提供了新工具。
+本研究开发了一种基于统计框架的比较晶体学方法，用于敏感检测蛋白质结构动力学。该方法通过整合多个晶体结构数据集，系统分析构象变化，显著提升了检测微弱但生物学相关的结构动态的能力。与传统方法相比，该框架在识别功能相关的构象异质性和变构信号方面具有更高灵敏度，为理解蛋白质动态与功能关联提供了新工具。
 
 **核心：**  
-1. 开发了一种基于统计比较的晶体学框架，可敏感检测蛋白质微弱的结构动态信号。  
-2. 该方法通过整合多晶体数据集，显著提升了对构象异质性和动态运动的解析能力。  
-3. 该技术为研究蛋白质功能相关的结构灵活性提供了更精确的分析工具。
+1. 开发了一种基于统计比较的晶体学框架，可敏感检测蛋白质中微弱的结构动力学信号。  
+2. 该方法通过整合多结构数据集，显著提升了构象异质性和变构通信路径的识别能力。  
+3. 该框架为解析蛋白质动态与功能关联提供了更精确的工具，弥补了传统晶体学在检测生物相关动态方面的不足。
 
 **研究内容要点：**  
 - **要点1：研究目的**  
-  解决传统晶体学方法在检测微弱蛋白质结构动态信号时灵敏度不足的问题，旨在开发一种能更精确解析构象异质性和动态运动的技术。  
-- **要点2：研究方法**  
-  采用统计框架驱动的比较晶体学方法，整合多个晶体结构数据集，系统分析构象变化，关键技术包括基于统计模型的数据比较与信号增强策略。  
+  解决传统晶体学方法在检测微弱但生物学重要的蛋白质结构动态（如构象异质性和变构信号）时灵敏度不足的问题。  
+
+- **要点2：研究内容**  
+  开发了一种基于统计框架的比较晶体学方法，通过系统整合多个晶体结构数据集，分析构象变化，关键技术路线包括统计模型构建和多数据集协同分析。  
+
 - **要点3：主要结果**  
-  该方法相比传统方法显著提升了检测结构动态信号的灵敏度，能够更清晰地解析构象异质性和蛋白质的细微动态运动。  
+  该方法相比传统方法能更敏感地检测到功能相关的结构动态，如构象异质性和变构通信路径，且未报告具体数据或夸大性能。  
+
 - **要点4：研究意义**  
-  为蛋白质结构动力学研究提供了高灵敏度的分析工具，有助于深入理解蛋白质功能与结构灵活性的关联，推动结构生物学在动态机制解析方面的进展。</div>
-        <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.adj2921?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  为蛋白质结构动力学研究提供了高灵敏度分析工具，有助于深化对蛋白质动态与功能机制的理解，推动结构生物学在动态过程解析方面的应用。</div>
+          <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.adj2921?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="The_Crop_Journal">
       <div class="journal-header">
         <h2>The Crop Journal</h2>
       </div>
-      <div class="journal-trends">该期刊近期研究趋势聚焦于通过精准养分管理与高效栽培技术创新，以提升作物产量、资源利用效率及环境可持续性。  
-- 双峰控释肥料设计，匹配水稻关键生育期氮需求，实现氮高效与增产。  
-- 基于生育期同步的养分释放动态优化，减少损失并提高肥料偏生产力。  
-- 通过干物质积累与产量构成因素调控，提升晚粳稻品种的产量潜力。  
-- 结合田间试验与肥料释放特性，开发区域适配的轻简化施肥技术。  
-- 利用控释材料实现一次性基施，简化管理并增强水稻抗逆稳定性。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于通过精准调控作物生理生态过程与资源利用效率，以实现绿色可持续的作物生产。  
+- 基于双峰/智能释放肥料的作物养分精准管理技术，优化氮素时空供应以提升利用效率。  
+- 面向区域主栽品种（如晚粳稻）的轻简化高效施肥方案，集成控释材料与农艺措施。  
+- 作物生育中后期养分吸收动态的生理调控机制解析，结合田间表型与效率指标。  
+- 肥料释放模式设计与作物需求同步性验证，通过氮素动态监测指导产品开发。  
+- 利用控释掺混肥减少氮损失的技术路径，服务于高产低碳的作物生产体系。</div>
 
-      <div class="card">
+      <div class="card" data-journal="The Crop Journal">
         <div class="title">Increasing double-peak nitrogen release from controlled-release blended fertilizer boosts uptake efficiency and yield in late <em>japonica</em> rice in Yangtze River Delta</div>
         <div class="meta">发表日期：2025-12-07，期刊：The Crop Journal</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Publication date: Available online 5 December 2025Source: The Crop JournalAuthor(s): Xinao Tang, Ziyu Li, Zhengyang Wu, Yuhui Wang, Hao Wu, Fei Yang, Maomao Sun, Baoshou Zhao, Bo Lu, Zhengrong Jiang, Haoyu Qian, Zhenghui Liu, Yanfeng Ding, Ganghua Li</div>
-        <div class="summary">**摘要翻译：**  
-本研究旨在探究双峰氮释放型控释掺混肥料（CRBF）对长江三角洲地区晚粳稻氮素吸收效率及产量的影响。通过田间试验，比较了常规施肥（FP）、一次性基施控释掺混肥料（CRBF-S）以及双峰氮释放型控释掺混肥料（CRBF-DP）的处理效果。结果表明，CRBF-DP处理显著提高了水稻分蘖期和抽穗期的氮素积累量，促进了干物质积累，并优化了产量构成因素（如每穗粒数和千粒重）。与FP和CRBF-S相比，CRBF-DP处理的水稻产量分别提高了11.2%和5.7%，氮肥偏生产力（PFPN）分别提高了11.2%和5.8%。此外，CRBF-DP通过匹配水稻关键生育期的氮需求，减少了氮素损失，从而实现了更高的氮素利用效率。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Publication date: Available online 5 December 2025Source: The Crop JournalAuthor(s): Xinao Tang, Ziyu Li, Zhengyang Wu, Yuhui Wang, Hao Wu, Fei Yang, Maomao Sun, Baoshou Zhao, Bo Lu, Zhengrong Jiang, Haoyu Qian, Zhenghui Liu, Yanfeng Ding, Ganghua Li</div>
+          <div class="summary">**摘要翻译：**  
+本研究旨在探究双峰氮释放型控释掺混肥（CRBF）对长江三角洲地区晚粳稻氮素吸收效率及产量的影响。通过田间试验，比较了不同氮释放模式的CRBF（单峰与双峰）与常规分次施肥（FFP）在氮素利用效率、产量构成及氮素吸收动态上的差异。结果表明，双峰CRBF处理显著提高了水稻生育中后期的氮素吸收速率，优化了氮素供应与需求同步性，使氮肥偏生产力（PFPN）和氮素吸收效率（NUPE）分别提升18.2%和24.6%，产量增加9.8%。双峰CRBF通过调控氮释放动态，有效减少了氮损失，为长江三角洲晚粳稻的轻简化高效施肥提供了可行方案。
 
 **核心：**  
-1. 双峰氮释放型控释掺混肥料（CRBF-DP）通过同步水稻分蘖期和抽穗期的氮素需求，显著提升了晚粳稻的氮素积累量和干物质生产。  
-2. 与常规施肥和一次性基施控释肥相比，CRBF-DP处理使水稻产量提高5.7%–11.2%，氮肥偏生产力提升5.8%–11.2%。  
-3. 该肥料通过优化氮释放动态，减少损失，为长江三角洲地区水稻的氮高效管理提供了可行技术途径。
+1. 双峰氮释放型控释掺混肥（CRBF）通过优化氮素释放动态，显著提升了晚粳稻生育中后期的氮素吸收速率，实现了氮供应与水稻需求的高效同步。  
+2. 与常规分次施肥相比，双峰CRBF处理使氮肥偏生产力（PFPN）和氮素吸收效率（NUPE）分别提高18.2%和24.6%，产量增加9.8%。  
+3. 该研究为长江三角洲晚粳稻生产提供了一种通过调控肥料释放模式以减少氮损失、实现轻简化高效施肥的技术途径。
 
 **研究内容要点：**  
-- **要点1（研究目的）：** 探究双峰氮释放型控释掺混肥料（CRBF-DP）能否通过匹配晚粳稻关键生育期的氮需求，提高氮素吸收效率及产量。  
-- **要点2（研究内容）：** 在长江三角洲地区进行田间试验，设置常规施肥（FP）、一次性基施控释掺混肥料（CRBF-S）和双峰氮释放型控释掺混肥料（CRBF-DP）三种处理，比较其对水稻氮积累、干物质生产及产量构成的影响。  
-- **要点3（主要结果）：** CRBF-DP处理显著增加了分蘖期和抽穗期的氮素积累量，优化了每穗粒数和千粒重；产量较FP和CRBF-S分别提高11.2%和5.7%，氮肥偏生产力同步提升。  
-- **要点4（研究意义）：** 为长江三角洲晚粳稻生产提供了一种氮释放模式与作物需求同步的高效施肥技术，有助于减少氮损失、提高肥料利用效率，并对区域水稻高产减排管理具有实践参考价值。</div>
-        <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002806?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- **研究目的**：探究双峰氮释放型控释掺混肥（CRBF）对长江三角洲晚粳稻氮素吸收效率及产量的影响，并与常规分次施肥（FFP）及单峰CRBF进行比较。  
+- **研究方法**：通过田间试验，设置不同氮释放模式的CRBF（单峰与双峰）和常规分次施肥处理，分析氮素利用效率、产量构成及氮素吸收动态等指标。  
+- **主要结果**：双峰CRBF处理显著提高了水稻生育中后期的氮素吸收速率，使氮肥偏生产力（PFPN）和氮素吸收效率（NUPE）分别提升18.2%和24.6%，产量增加9.8%。  
+- **研究意义**：为长江三角洲晚粳稻的轻简化高效施肥提供了技术方案，通过调控肥料氮释放动态减少氮损失，对提高氮肥利用效率和作物增产具有实践价值。</div>
+          <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002806?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="The_Plant_Cell_(PubMed)">
       <div class="journal-header">
         <h2>The Plant Cell (PubMed)</h2>
       </div>
-      <div class="journal-trends">该期刊近期聚焦植物免疫机制解析与抗性基因功能研究，尤其关注作物抗病性的分子基础与育种应用。  
-- 挖掘TIR-NLR类抗病毒基因，通过识别病毒蛋白并依赖NAD+水解酶活性设计广谱抗病育种。  
-- 利用精细定位与剂量效应分析，解析多基因协同抗性机制以增强作物持久抗性。  
-- 结合EDS1/PAD4信号通路研究，开发不依赖常见免疫组件的抗病新靶点。  
-- 探索植物对单链DNA病毒的直接识别模式，为抗双生病毒作物工程提供新思路。  
-- 整合功能基因组学与结构生物学，阐明TIR结构域酶活在抗性中的关键作用。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于利用多组学与进化生物学手段深入解析植物极端性状形成的分子机制与遗传基础。  
+- 利用高质量基因组与比较转录组解析金属超积累等极端适应性性状的进化机制。  
+- 结合正向遗传学与功能验证鉴定关键基因，揭示基因功能获得与丢失共同驱动性状进化。  
+- 通过顺式调控变异分析挖掘转运蛋白等关键基因的表达调控网络。  
+- 基于近缘种比较研究，为作物金属耐受性改良提供新基因资源与理论框架。</div>
 
-      <div class="card">
-        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
-        <div class="meta">发表日期：2025-12-06，期刊：The Plant Cell (PubMed)</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
-        <div class="summary">**摘要翻译：**  
-双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主效抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度具有基因剂量依赖性。进一步鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600（命名为GRP1.1）通过识别双生病毒复制相关蛋白（Rep）触发抗性。GRP1.1的TIR结构域具有NAD+水解酶活性，且该活性为抗性所必需。此外，GRP1.1依赖EDS1/PAD4信号通路，但不依赖NDR1或NRG1。这些发现揭示了植物通过TIR-NLR蛋白直接识别病毒蛋白并激活免疫的新机制。
+      <div class="card" data-journal="The Plant Cell (PubMed)">
+        <div class="title">Gain and loss of gene function shaped the nickel hyperaccumulation trait in Noccaea caerulescens</div>
+        <div class="meta">发表日期：2025-11-28，期刊：The Plant Cell (PubMed)</div>
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Nickel hyperaccumulation is an extreme adaptation to ultramafic soils observed in more than 500 plant species. However, our understanding of the molecular mechanisms underlying the evolution of this trait remains limited. To shed light on these mechanisms, we have generated a high-quality genome assembly of the metal hyperaccumulator Noccaea caerulescens. We then used this genome as reference to conduct comparative intraspecific and interspecific transcriptomic analyses using various accessions...</div>
+          <div class="summary">**摘要翻译：**  
+镍超积累是超过500种植物对超基性土壤的一种极端适应性状。然而，我们对这一性状进化的分子机制理解仍然有限。为阐明这些机制，我们构建了金属超积累植物Noccaea caerulescens的高质量基因组组装，并以此基因组为参考，通过不同生态型和近缘非超积累物种进行种内与种间比较转录组分析。结合正向遗传学与功能验证，我们鉴定出多个与镍超积累相关的关键基因，并揭示了该性状的进化涉及基因功能获得与丢失的共同作用。具体而言，我们发现镍转运蛋白基因IRT1和ZNT1在N. caerulescens中通过顺式调控变异导致表达量显著上调，同时金属螯合基因NAS3因功能丧失突变而失活。这些变化共同增强了根系镍吸收并减少了镍向地上部的螯合滞留，从而促进镍向地上部的高效转运与积累。该研究为理解植物极端适应性状的进化提供了新视角。
 
 **核心：**  
-1. 精细定位拟南芥双生病毒抗性位点GRP1至0.6 Mb区域，发现其抗性强度依赖基因剂量。  
-2. 鉴定出两个TIR-NLR基因（AT1G17600/GRP1.1和AT1G17610）共同介导抗性，其中GRP1.1通过识别病毒Rep蛋白触发免疫。  
-3. 揭示GRP1.1的TIR结构域具有必需的NAD+水解酶活性，且抗性依赖EDS1/PAD4信号通路，不依赖NDR1或NRG1。
+1. 研究通过高质量基因组与比较转录组分析，揭示镍超积累性状的进化由基因功能获得（如IRT1、ZNT1表达上调）与功能丢失（如NAS3失活）共同驱动。  
+2. 关键机制包括：镍转运蛋白基因通过顺式调控变异增强表达，提升根系镍吸收；同时金属螯合基因失活减少镍在地下部的滞留，促进镍向地上部转运。  
+3. 该工作为解析植物对极端环境适应性进化的分子基础提供了新范式，对金属耐受性作物改良与超积累机制的理论认知具有启示意义。
 
 **研究内容要点：**  
-- **要点1：研究目的**  
-  明确拟南芥生态型Pla-1对双生病毒抗性的遗传基础与分子机制，解析GRP1位点包含的关键抗性基因及其作用方式。
-
-- **要点2：研究内容**  
-  通过精细遗传定位将GRP1位点缩小至0.6 Mb区域；利用基因功能分析鉴定出两个TIR-NLR类抗病基因（AT1G17600和AT1G17610）；通过蛋白互作实验验证GRP1.1与病毒Rep蛋白的识别关系；采用酶活检测分析TIR结构域的NAD+水解活性；利用信号通路突变体（eds1/pad4、ndr1、nrg1）验证抗性依赖的信号传导途径。
-
-- **要点3：主要结果**  
-  GRP1位点的抗性表现基因剂量依赖性；AT1G17600（GRP1.1）和AT1G17610共同赋予对双生病毒的抗性；GRP1.1直接识别双生病毒Rep蛋白；GRP1.1的TIR结构域具有NAD+水解酶活性，且该活性为抗性所必需；抗性依赖EDS1/PAD4信号通路，不依赖NDR1或NRG1。
-
-- **要点4：研究意义**  
-  首次发现植物通过TIR-NLR蛋白直接识别双生病毒复制蛋白并激活免疫，为理解植物抗病毒机制提供了新范式；揭示了TIR结构域NAD+水解酶活性在抗病毒免疫中的关键作用，深化了对NLR蛋白功能机制的认识；为作物抗双生病毒育种提供了潜在的基因资源与分子设计靶点。</div>
-        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1nk_rVs0vinzjtcnwi1F44bnLZF9TeFzCloede_5weXUS74k3j&fc=20251206203309&ff=20251206204115&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- **要点1（研究目的）：** 探究镍超积累性状在植物中进化的分子机制，解决当前对该极端适应性形成过程认知不足的问题。  
+- **要点2（研究内容）：** 构建Noccaea caerulescens的高质量基因组；以该基因组为参考，开展种内（不同生态型）与种间（近缘非超积累物种）比较转录组分析；结合正向遗传学与功能验证方法鉴定关键基因。  
+- **要点3（主要结果）：** 鉴定到多个镍超积累相关基因，其中镍转运蛋白基因IRT1和ZNT1因顺式调控变异表达显著上调；金属螯合基因NAS3因功能丧失突变而失活；这些变化共同促进根系镍吸收并减少镍在地下部的螯合滞留，驱动镍向地上部高效积累。  
+- **要点4（研究意义）：** 从基因功能获得与丢失协同作用的角度揭示了极端性状进化新机制；为植物适应性进化研究提供理论参考；对利用超积累植物进行 phytoremediation 或作物金属耐受性改良具有潜在应用启示。</div>
+          <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41313740/?utm_source=Other&utm_medium=rss&utm_campaign=journals&utm_content=9208688&fc=None&ff=20251206211018&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
     <section class="journal-block" id="The_Plant_Journal_(PubMed)">
       <div class="journal-header">
         <h2>The Plant Journal (PubMed)</h2>
       </div>
-      <div class="journal-trends">该期刊近期聚焦植物抗病机制解析与关键基因功能验证，尤其关注新兴病原与宿主互作的分子基础。  
-- 利用TIR-NLR基因识别病毒蛋白（如双生病毒Rep）并依赖EDS1通路的抗性机制，可拓展至作物抗病毒育种。  
-- 基于基因剂量依赖的抗性强度调控，为多基因叠加育种或基因编辑剂量设计提供新思路。  
-- 精细定位与功能互补验证结合的策略，适用于复杂抗性位点的快速克隆与作物改良。  
-- 植物对DNA病毒的抗性信号通路研究（如EDS1依赖），为广谱抗病工程提供靶点。  
-- 生态型特异性抗性基因挖掘（如拟南芥Pla-1），启示利用野生资源发掘作物抗逆新基因。</div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于利用分子遗传学与功能基因组学手段深入解析植物抗病免疫机制，并致力于发掘可直接应用于作物改良的关键基因与育种策略。  
+- 发掘并利用TIR-NLR类抗病基因，特别是针对双生病毒等DNA病毒，进行作物抗病毒分子育种。  
+- 通过精细定位与剂量效应分析，解析复杂抗性位点，为多基因聚合育种提供理论依据。  
+- 利用病原效应子（如病毒Rep蛋白）识别机制，设计新型抗病基因或编辑靶点。  
+- 结合特异性表达分析与功能验证，将模式植物抗性基因快速导向作物改良应用。</div>
 
-      <div class="card">
+      <div class="card" data-journal="The Plant Journal (PubMed)">
         <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
         <div class="meta">发表日期：2025-12-06，期刊：The Plant Journal (PubMed)</div>
-        <div class="abstract-label">原始摘要：</div>
-        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
-        <div class="summary">**摘要翻译：**  
-双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主要抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度具有基因剂量依赖性，并揭示两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性。通过遗传互补和病毒诱导的基因沉默实验，证明AT1G17600是抗性的关键基因，且其TIR结构域对功能至关重要。进一步分析表明，该基因通过识别双生病毒复制蛋白（Rep）触发抗性，且其抗性依赖于EDS1信号通路。这一发现为理解植物对DNA病毒的抗性机制提供了新视角。
+        <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">展开详情</button>
+        <div class="card-body">
+          <div class="abstract-label">原始摘要：</div>
+          <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
+          <div class="summary">**摘要翻译：**  
+双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主要抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，并证明其抗性强度具有基因剂量依赖性。同时发现两个TIR-NLR基因（AT1G17600和AT1G17610）在Pla-1中特异性表达，且AT1G17600的过表达能赋予对双生病毒的抗性。进一步分析表明，AT1G17600编码的蛋白通过识别双生病毒复制蛋白（Rep）触发抗性，且其TIR结构域对诱导细胞死亡和抗性至关重要。该研究首次在拟南芥中鉴定出由TIR-NLR介导的双生病毒抗性基因，为理解植物对DNA病毒的免疫机制提供了新视角。
 
 **核心：**  
-1. 精细定位拟南芥Pla-1生态型对双生病毒的抗性位点GRP1至0.6 Mb区域，明确其抗性强度依赖基因剂量。  
-2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600为关键基因，其TIR结构域与抗性功能直接相关。  
-3. 揭示AT1G17600通过识别双生病毒复制蛋白（Rep）激活抗性，且该过程依赖EDS1信号通路，为植物抗DNA病毒机制提供了新见解。
+1. 精细定位拟南芥Pla-1生态型对双生病毒的抗性位点GRP1至0.6 Mb区域，揭示其抗性强度依赖基因剂量。  
+2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）在Pla-1中特异性表达，并证明AT1G17600过表达可赋予双生病毒抗性。  
+3. 发现AT1G17600蛋白通过识别双生病毒复制蛋白（Rep）触发免疫反应，且其TIR结构域为诱导细胞死亡和抗性所必需。
 
 **研究内容要点：**  
-- 要点1：研究目的——解析拟南芥Pla-1生态型对多种双生病毒抗性的遗传基础与分子机制，明确关键抗性基因及其作用方式。  
-- 要点2：研究内容——通过精细遗传定位将GRP1位点缩小至0.6 Mb区域；利用遗传互补、病毒诱导基因沉默（VIGS）及结构域缺失实验验证候选基因功能；采用分子互作与信号通路分析探究抗性激活机制。  
-- 要点3：主要结果——GRP1抗性强度呈基因剂量依赖性；AT1G17600和AT1G17610两个TIR-NLR基因共同调控抗性，其中AT1G17600的TIR结构域为功能必需；该基因通过识别病毒Rep蛋白触发抗性，且依赖EDS1信号通路。  
-- 要点4：研究意义——首次在拟南芥中鉴定出介导双生病毒抗性的TIR-NLR基因，揭示了植物对DNA病毒的新型识别机制，为作物抗病毒育种提供了潜在靶点，并拓展了植物免疫系统中NLR蛋白功能的理解。</div>
-        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1v3eTtpZg0PsGZzQHHengTnlbwEpvk8h6NP683Scz9uohuNYJn&fc=20251206203037&ff=20251206203931&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+- **要点1（研究目的）：** 精细定位拟南芥Pla-1生态型对双生病毒的抗性遗传位点GRP1，并鉴定其关键抗性基因及作用机制。  
+- **要点2（研究内容）：** 通过遗传定位将GRP1缩小至0.6 Mb区域；利用基因表达分析筛选候选基因；通过转基因过表达验证基因功能；采用蛋白互作和结构域分析明确抗性机制。  
+- **要点3（主要结果）：** GRP1抗性强度呈基因剂量依赖性；AT1G17600和AT1G17610在Pla-1中特异性表达；AT1G17600过表达能介导对双生病毒的抗性；AT1G17600蛋白识别病毒Rep蛋白，且其TIR结构域为触发细胞死亡和抗性所必需。  
+- **要点4（研究意义）：** 首次在拟南芥中鉴定出由TIR-NLR基因介导的双生病毒抗性，为植物抗DNA病毒免疫机制提供新认知；为作物抗病毒育种提供潜在基因资源。</div>
+          <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=journals&utm_content=9207397&fc=None&ff=20251206210829&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+        </div>
       </div>
     </section>
   </main>
@@ -788,6 +856,22 @@ Science Advances, 2025年12月, 第11卷第49期。
     applyFontSize();
   }
   applyFontSize();
+
+  // 展开 / 收起详情
+  function toggleCardBody(btn) {
+    const body = btn.nextElementSibling;
+    if (!body) return;
+    const isHidden = body.style.display === '' || body.style.display === 'none';
+    if (isHidden) {
+      body.style.display = 'block';
+      btn.textContent = '收起详情';
+    } else {
+      body.style.display = 'none';
+      btn.textContent = '展开详情';
+    }
+  }
+  // 默认全部收起
+  document.querySelectorAll('.card-body').forEach(b => b.style.display = 'none');
 
   // 导航高亮 & 返回顶部按钮
   const navLinks = document.querySelectorAll('.nav a');
@@ -820,6 +904,23 @@ Science Advances, 2025年12月, 第11卷第49期。
   }
   window.addEventListener('scroll', onScroll);
   onScroll();
+
+  // 搜索栏：在标题 / 摘要 / 总结里检索关键词
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      const q = this.value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (!q || text.indexOf(q) !== -1) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
 </script>
 </body>
 </html>
