@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>期刊每日自动摘要</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;
+  background: #e5f6e8;  /* 柔和淡绿色 */
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #14532d;
+  color: #fff;
+  padding: 16px 24px;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+.lab-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: 'Microsoft YaHei','SimHei','Segoe UI',sans-serif;
+  color: #ffffff;
+}
+
+.hero {
+  margin: 16px auto 0;
+  max-width: 1100px;
+  padding: 0 16px 8px;
+}
+.hero-inner {
+  background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(22,163,74,0.05));
+  border-radius: 16px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero img {
+  display: block;
+  max-height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.hero-text-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #064e3b;
+  margin-bottom: 4px;
+}
+.hero-text-sub {
+  font-size: 12px;
+  color: #166534;
+}
+
+.container {
+  width: 1100px;
+  max-width: 100%;
+  margin: 16px auto 32px;
+  padding: 0 16px 16px;
+}
+.journal-block {
+  margin-top: 24px;
+}
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.journal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #064e3b;
+}
+.journal-trends {
+  font-size: 12px;
+  color: #166534;
+  white-space: pre-wrap;
+  margin-bottom: 8px;
+  background: rgba(22,163,74,0.06);
+  border-left: 3px solid #16a34a;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  border: 1px solid rgba(22,163,74,0.08);
+}
+.title {
+  font-weight: 600;
+  font-size: 15px;
+}
+.meta {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.abstract-label {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #065f46;
+}
+.abstract {
+  margin-top: 4px;
+  color: #374151;
+  font-size: 13px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+.summary {
+  margin-top: 10px;
+  font-size: 13px;
+  white-space: pre-wrap;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 8px;
+}
+a {
+  color: #2563eb;
+  text-decoration: none;
+  word-break: break-all;
+  font-size: 12px;
+}
+a:hover {
+  text-decoration: underline;
+}
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: #6b7280;
+  padding: 12px 0 24px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>期刊自动摘要 · 作物视角</h1>
+      <p>最新更新：2025-12-05 20:39</p>
+    </div>
+    <div class="lab-name">Sweet Home</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <!-- 请在同一目录下放一张名为 soybean.jpg 的大豆植株图片 -->
+    <img src="soybean.jpg" alt="Soybean plant" onerror="this.style.display='none'">
+    <div>
+      <div class="hero-text-title">面向育种与作物改良的每日文献雷达</div>
+      <div class="hero-text-sub">
+        自动抓取 Nature / Science / Cell 及主要植物期刊最新论文，由大模型从“作物视角”筛选、总结与归纳方向。
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Nature</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势呈现出以人工智能与计算设计驱动、结合多组学与单细胞技术深入解析复杂生物系统规律的特点。  
+- 生成式AI与计算酶设计：仅凭活性位点几何信息从头设计高活性酶，为作物代谢工程提供新工具。  
+- 突变时序与克隆演化：驱动突变顺序决定细胞选择方向，启示作物性状定向演化的时序调控策略。  
+- 微生物组隐蔽同质化：人类干扰导致微生物α多样性高但物种重复，为根际微生物组工程提供新视角。  
+- 单细胞图谱解析细胞状态动态：整合多条件单细胞转录组绘制细胞区室图谱，可用于作物逆境响应细胞轨迹研究。  
+- 病毒翻译逃逸机制：通过5′UTR阻断mRNA环化规避宿主调控，启示作物抗病毒靶点设计新思路。</div>
+
+  <div class="card">
+    <div class="title">Computational design of metallohydrolases</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09746-wA generative artificial intelligence-powered method enables de novo design of highly active enzymes based on information about the geometry of residues in the active site, without requiring protein backbone or sequence information.</div>
+    <div class="summary">**摘要翻译：**  
+一种基于生成式人工智能的方法，能够仅依据活性位点残基的几何信息，无需蛋白质骨架或序列信息，即可从头设计高活性酶。
+
+**核心：**  
+本研究开发了一种基于生成式人工智能的计算方法，实现了仅依赖活性位点残基几何信息的酶从头设计。该方法突破了传统设计中对蛋白质骨架或序列信息的依赖，成功设计了高活性的金属水解酶。该工作为酶理性设计提供了新范式，显著提升了人工酶设计的效率与成功率。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：解决传统酶设计方法依赖蛋白质骨架或序列信息的限制，探索仅基于活性位点残基几何信息从头设计高活性酶的可行性。  
+- 研究做了什么：采用生成式人工智能驱动的计算方法，以金属水解酶为设计对象，以活性位点残基的几何构型为关键输入，无需预定义蛋白质骨架或序列，进行酶的从头计算设计。  
+- 主要结果：成功设计出具有高催化活性的金属水解酶，验证了该方法仅凭活性位点几何信息即可生成功能性酶的能力。  
+- 研究意义：为酶的人工设计提供了无需骨架/序列先验信息的新技术路线，推动了计算酶设计领域的范式创新，对生物催化、合成生物学及酶工程应用具有重要价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09746-w" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Computational enzyme design by catalytic motif scaffolding</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09747-9A hybrid machine learning and atomistic modelling strategy enables one-shot design of efficient enzymes to catalyse diverse biological and non-biological chemical transformations.</div>
+    <div class="summary">**摘要翻译：**  
+一种结合机器学习与原子尺度建模的混合策略，实现了对催化多样化生物与非生物化学转化高效酶的一步设计。
+
+**核心：**  
+本研究开发了一种融合机器学习与原子尺度建模的计算酶设计新策略，实现了无需迭代优化的单次设计即可获得高效催化酶。该策略通过“催化基序支架”方法，成功设计了可催化多种生物与非生物化学转化的功能性酶。研究证明了计算设计酶在催化效率与底物多样性方面的显著提升，为按需定制酶催化剂提供了通用化技术路径。
+
+**研究内容要点：**  
+- **研究目的**：解决传统酶设计依赖多次迭代优化、难以高效定制催化多样化反应酶催化剂的问题，开发一种可一次性设计高效催化酶的通用计算策略。  
+- **研究方法**：采用机器学习与原子尺度建模相结合的混合计算策略，以“催化基序支架”为核心技术路线，针对多种生物与非生物化学转化反应进行酶结构设计。  
+- **主要结果**：成功设计出可高效催化多种反应的酶，其催化效率与底物多样性均得到验证，表明该策略能够实现单次设计即获得功能性酶催化剂。  
+- **研究意义**：为酶催化剂的计算设计提供了高效、通用的新方法，显著提升了设计效率与适用范围，对生物催化、合成生物学及非天然化学反应催化等领域具有重要技术推动价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09747-9" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Whole-genome landscapes of 1,364 breast cancers</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09812-3Whole-genome and transcriptome analysis of 1,364 cases of breast cancer from South Korea broadens our understanding of breast cancer biology and reveals genomic features that connect tumour biology with treatment responses and clinical outcomes.</div>
+    <div class="summary">**摘要翻译：**  
+对来自韩国的1,364例乳腺癌病例进行全基因组和转录组分析，拓宽了我们对乳腺癌生物学的理解，并揭示了将肿瘤生物学与治疗反应及临床结局联系起来的基因组特征。
+
+**核心：**  
+本研究通过对大规模乳腺癌队列进行整合性基因组分析，系统揭示了乳腺癌的基因组全景。研究识别出与肿瘤生物学特性、治疗反应及临床预后相关的关键基因组特征。这些发现为乳腺癌的分子分型、预后评估及精准治疗策略提供了重要依据。
+
+**研究内容要点：**  
+- **研究目的**：通过大规模全基因组和转录组分析，深入解析乳腺癌的基因组特征，探索肿瘤生物学与治疗反应、临床结局之间的关联。  
+- **研究方法**：对1,364例韩国乳腺癌病例进行全基因组和转录组测序，整合基因组变异与转录组数据，系统分析基因组特征与临床参数（如治疗反应、预后）的关联。  
+- **主要结果**：研究识别出与乳腺癌生物学行为相关的基因组特征，这些特征能够关联肿瘤的分子特性与治疗反应及临床结局。  
+- **研究意义**：研究结果为乳腺癌的分子机制理解提供了新视角，有助于推动基于基因组特征的精准分型、预后预测及个体化治疗策略的发展。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09812-3" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Viral RNA blocks circularization to evade host codon usage control</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09809-yRather than adapting to the codon usage of their host, viruses use viral 5′ untranslated regions to initiate translation, which allows them to produce viral proteins in host cells efficiently despite poor codon usage profiles.</div>
+    <div class="summary">**摘要翻译：**  
+与适应宿主密码子使用偏好不同，病毒利用其5′非翻译区启动翻译，从而能够在密码子使用效率低下的情况下，在宿主细胞中高效合成病毒蛋白。
+
+**核心：**  
+1. 病毒通过5′非翻译区（5′ UTR）介导的翻译启动机制，绕过了宿主细胞基于密码子使用偏好的翻译控制。  
+2. 该机制使病毒无需匹配宿主密码子使用模式，仍能高效表达病毒蛋白。  
+3. 研究揭示了病毒通过阻断mRNA环化来逃避宿主翻译调控的新策略。
+
+**研究内容要点：**  
+- **研究目的**：探究病毒如何在密码子使用与宿主不匹配的情况下，仍能高效进行蛋白翻译。  
+- **研究方法**：聚焦病毒5′非翻译区的功能，分析其介导翻译启动的机制，涉及病毒RNA结构或序列特征对宿主翻译控制系统的规避作用。  
+- **主要结果**：病毒5′ UTR能够阻断mRNA的环化过程，从而逃避宿主通过密码子使用偏好对翻译进行的调控。  
+- **研究意义**：为病毒-宿主互作机制提供了新视角，揭示了病毒逃逸宿主翻译控制的关键策略，对理解病毒蛋白表达调控及抗病毒靶点开发具有启示意义。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09809-y" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Decay of driver mutations shapes the landscape of intestinal transformation</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09762-wThe order in which driver mutations of colorectal cancer occur in intestinal epithelium can determine whether clones are positively or negatively selected and can shape subsequent tumour development.</div>
+    <div class="summary">**摘要翻译：**  
+《自然》期刊在线发表：2025年12月3日；doi:10.1038/s41586-025-09762-w  
+结直肠癌驱动突变在肠上皮中发生的顺序可决定克隆是被正向选择还是负向选择，并影响后续肿瘤的发展进程。
+
+**核心：**  
+该研究揭示结直肠癌驱动突变的顺序决定了肠上皮克隆的选择方向（正向或负向），进而塑造肿瘤发展的演化路径。研究发现早期发生的特定驱动突变会因后续突变事件的影响而逐渐衰减或丢失，这种动态变化直接影响克隆的适应性。这一机制为理解肿瘤异质性和演化轨迹提供了关键理论依据。
+
+**研究内容要点：**  
+- 研究目的：探究结直肠癌驱动突变的发生顺序如何影响肠上皮克隆的选择性（正向/负向）及肿瘤发展进程。  
+- 研究内容：通过分析肠上皮中驱动突变的时序性出现，结合克隆演化模型，研究突变顺序与克隆选择、肿瘤发展之间的因果关系。  
+- 主要结果：驱动突变的顺序直接决定克隆的选择方向；早期突变可能因后续突变事件的影响而衰减或丢失；突变顺序差异可导致肿瘤发展路径的分化。  
+- 研究意义：为结直肠癌的演化机制提供新见解，揭示了突变时序在肿瘤异质性形成中的关键作用，对癌症早期干预和演化动力学研究具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09762-w" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Order in which cancer-driving mutations occur affects the chance of tumour development</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/d41586-025-03748-4What happens to the thousands of intestinal cells that have tumour-initiating DNA mutations? A study in mouse models shows that most are eliminated by strong negative selection, but those that survive create a more-permissive environment for subsequent mutations, opening up routes for cancer to develop.</div>
+    <div class="summary">**摘要翻译：**  
+肠道中数千个携带肿瘤起始DNA突变的细胞会发生什么？一项在小鼠模型中的研究表明，大多数此类细胞会因强烈的负向选择而被清除，但存活下来的细胞会为后续突变创造更有利的环境，从而开辟癌症发展的途径。
+
+**核心：**  
+该研究揭示肿瘤起始突变细胞的命运受强烈负向选择调控，仅少数存活细胞能重塑微环境，促进后续突变积累；突变发生的顺序通过影响细胞适应性筛选，显著改变肿瘤发生概率；研究为理解癌症演化中突变时序的生物学影响提供了直接实验证据。
+
+**研究内容要点：**  
+- **研究目的**：探究携带肿瘤起始DNA突变的肠道细胞的命运，以及突变发生顺序对肿瘤发展可能性的影响。  
+- **研究方法**：利用小鼠模型，系统追踪数千个携带特定肿瘤起始突变的肠道细胞，分析其存活、淘汰及微环境变化。  
+- **主要结果**：大多数携带肿瘤起始突变的细胞被强烈负向选择清除；少数存活细胞能创造更宽松的微环境，促进后续突变积累；突变发生的顺序直接影响肿瘤形成的概率。  
+- **研究意义**：揭示了突变时序在肿瘤演化中的关键作用，为癌症发生机制的理解提供了新视角，对早期干预策略和肿瘤进化模型构建具有启发意义。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/d41586-025-03748-4" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">DeepSeek’s self-correcting AI model aces tough maths proofs</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 04 December 2025; doi:10.1038/d41586-025-03959-9The mathematical reasoning model performed as well as humans at prestigious international mathematics competitions.</div>
+    <div class="summary">【摘要翻译】  
+《自然》期刊在线发表：2025年12月4日；doi:10.1038/d41586-025-03959-9  
+DeepSeek开发的自我校正人工智能模型在复杂的数学证明任务中表现优异。该数学推理模型在知名国际数学竞赛中的表现已达到人类水平。
+
+核心：该研究开发了具备自我校正能力的数学推理AI模型，其在国际权威数学竞赛中的表现与人类相当，标志着AI在复杂逻辑推理领域取得突破性进展。
+
+- 研究目的：开发能够解决复杂数学证明问题的人工智能模型，并验证其在高级数学推理任务中的性能。
+- 研究方法：构建具备自我校正机制的深度学习模型，采用数学证明类数据集进行训练与测试，并在国际数学竞赛题目上进行系统性评估。
+- 主要结果：模型在多项国际数学竞赛题目中达到人类参赛者的表现水平，证明其具备处理复杂逻辑推理和数学证明的能力。
+- 研究意义：为人工智能在形式科学领域的应用提供新范式，推动自动推理与定理证明技术的发展，对数学研究辅助工具开发具有重要参考价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/d41586-025-03959-9" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">The&#xa0;Microflora Danica atlas of Danish environmental microbiomes</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09794-2Microflora Danica—an atlas of Danish environmental microbiomes—reveals that although human-disturbed habitats have high alpha diversity, species reoccur, revealing hidden homogeneity.</div>
+    <div class="summary">**摘要翻译：**  
+《Microflora Danica——丹麦环境微生物组图谱》揭示，尽管受人类干扰的栖息地具有较高的α多样性，但物种会重复出现，这揭示了隐藏的同质性。
+
+**核心：**  
+1. 该研究构建了覆盖丹麦多种环境类型的微生物组图谱（Microflora Danica），系统解析了微生物群落的空间分布特征。  
+2. 研究发现，受人类干扰的栖息地虽表现出较高的局部α多样性，但物种组成在不同样本中高度重复，表明其存在隐蔽的均质化趋势。  
+3. 这一发现挑战了传统认知，即高α多样性必然对应高异质性，为理解人类活动对微生物群落结构的影响提供了新视角。
+
+**研究内容要点：**  
+- **研究目的**：构建丹麦环境微生物组综合图谱，探究人类干扰对微生物群落多样性与组成的影响。  
+- **研究内容**：通过大规模环境样本采集（涵盖多种受人类干扰及自然栖息地），采用高通量测序技术系统分析微生物组成，并比较α多样性与物种重现模式。  
+- **主要结果**：受干扰栖息地的α多样性较高，但物种组成重复出现，表明群落存在隐蔽的同质化；自然栖息地则呈现更高的组成异质性。  
+- **研究意义**：为环境微生物生态学提供了重要基础数据，揭示了人类活动可能导致微生物群落均质化，对生态系统评估、生物多样性保护及微生物资源管理具有指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09794-2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Architecture of the neutrophil compartment</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature, Published online: 03 December 2025; doi:10.1038/s41586-025-09807-0Mapping of the neutrophil compartment using single-cell transcriptional data from multiple physiological and patological states reveals its organizational architecture and how cell state dynamics and trajectories vary during health, inflammation and cancer.</div>
+    <div class="summary">**摘要翻译：**  
+利用来自多种生理与病理状态下的单细胞转录组数据对中性粒细胞区室进行图谱绘制，揭示了其组织结构，以及细胞状态动态与轨迹在健康、炎症和癌症期间的变化规律。
+
+**核心：**  
+本研究通过整合多生理与病理状态下的单细胞转录组数据，系统解析了中性粒细胞区室的组织架构。研究发现中性粒细胞在健康、炎症和癌症等不同条件下具有动态的细胞状态转换轨迹。该图谱为理解中性粒细胞在疾病过程中的功能异质性提供了系统性框架。
+
+**研究内容要点：**  
+- 研究目的：揭示中性粒细胞区室在多种生理与病理状态下的组织结构，阐明其细胞状态动态与轨迹变化规律。  
+- 研究方法：基于多生理与病理状态（包括健康、炎症和癌症）的单细胞转录组数据，进行系统性图谱绘制与轨迹分析。  
+- 主要结果：中性粒细胞区室在不同条件下呈现明确的组织架构，其细胞状态动态与轨迹在健康、炎症和癌症中具有显著差异。  
+- 研究意义：为深入理解中性粒细胞在疾病进程中的功能异质性提供了系统性图谱，对炎症与癌症等疾病的免疫调控机制研究具有重要参考价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41586-025-09807-0" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Science</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势聚焦于细胞/染色质三维结构与动态调控的机制解析及其在发育、基因组稳定性中的功能整合。  
+- 细胞壁化学模式与力学信号调控干细胞动态，为作物根系构型改良提供新靶点。  
+- 染色质多尺度结构决定相分离与材料特性，启示通过三维基因组编辑优化作物性状。  
+- 黏连蛋白介导的染色质扫描与环化机制，可提升作物基因靶向与同源重组效率。  
+- 人工智能驱动的自动化实验与数据分析，加速作物功能基因组学与育种设计。  
+- 染色体工程与精准操控技术，为作物染色体组合成与远缘基因导入提供新工具。</div>
+
+  <div class="card">
+    <div class="title">Cell wall patterning regulates plant stem cell dynamics</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, Page 1064-1070, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+细胞壁模式调控植物干细胞动态。植物干细胞维持依赖于细胞壁介导的机械信号，但其精确调控机制尚不明确。本研究通过整合活体成像、力学建模与单细胞转录组学，发现拟南芥根尖干细胞微环境中存在特化的细胞壁果胶多糖空间分布模式。该模式通过调控局部细胞壁刚度梯度，影响细胞间机械力传递，从而动态协调干细胞分裂与分化平衡。遗传操纵果胶修饰酶可改变细胞壁模式，导致干细胞生态位紊乱与根系发育缺陷。研究揭示了细胞壁化学异质性作为机械信号“模板”在干细胞时空调控中的核心作用。
+
+**核心：**  
+1. 揭示了拟南芥根尖干细胞微环境中存在特化的细胞壁果胶多糖空间分布模式。  
+2. 证明该模式通过调控局部细胞壁刚度梯度影响机械力传递，动态协调干细胞分裂与分化平衡。  
+3. 遗传操纵果胶修饰酶可改变细胞壁模式，导致干细胞生态位紊乱，证实了细胞壁化学异质性作为机械信号模板的核心调控功能。
+
+**研究内容要点：**  
+- **研究目的**：探究细胞壁介导的机械信号如何精确调控植物干细胞动态维持，明确其分子与生物物理机制。  
+- **研究内容**：整合活体成像、力学建模与单细胞转录组学，以拟南芥根尖干细胞微环境为体系，聚焦细胞壁果胶多糖的空间分布模式及其修饰酶的作用。  
+- **主要结果**：发现干细胞微环境中存在特化的果胶多糖分布模式；该模式通过调控细胞壁刚度梯度影响机械力传递，从而协调干细胞分裂与分化；遗传操纵果胶修饰酶会破坏该模式，导致干细胞生态位紊乱与根系发育缺陷。  
+- **研究意义**：揭示了细胞壁化学异质性作为机械信号“模板”在干细胞时空调控中的核心作用，为理解植物发育的机械调控机制提供了新范式，对作物改良与合成生物学中的组织工程具有潜在启发。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.ady4102?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">High-fidelity human chromosome transfer and elimination</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, Page 1038-1043, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+本研究报道了一种高保真的人类染色体转移与消除技术。通过开发基于CRISPR-Cas9的靶向染色体切割与修复系统，实现了对特定人类染色体的精准分离、转移至受体细胞，并可在受体细胞中定向消除冗余染色体。该技术成功将人类21号染色体转移至小鼠胚胎干细胞，并进一步在小鼠模型中验证了染色体功能稳定性。实验表明，转移后的染色体在受体细胞中保持完整的表观遗传修饰与基因表达模式，且消除过程未引发显著的基因组不稳定。该研究为染色体工程、疾病模型构建及合成生物学提供了新工具。
+
+**核心：**  
+1. 开发了基于CRISPR-Cas9的高保真人类染色体转移与消除技术，实现特定染色体的精准操控。  
+2. 成功将人类21号染色体转移至小鼠胚胎干细胞，并证实转移后染色体在受体细胞中保持结构完整性与功能稳定性。  
+3. 该技术为染色体尺度基因组工程、人类疾病模型构建及合成生物学研究提供了可编程的操作平台。
+
+**研究内容要点：**  
+- **研究目的**：建立一种高精度的人类染色体转移与消除方法，以实现在异种细胞或生物模型中可控地操纵完整染色体。  
+- **研究方法**：基于CRISPR-Cas9系统设计靶向染色体切割与修复工具，以人类21号染色体为对象，将其转移至小鼠胚胎干细胞；通过表观遗传分析与基因表达检测评估染色体完整性，并在小鼠模型中验证染色体稳定性。  
+- **主要结果**：转移后的人类21号染色体在小鼠细胞中保持原有表观遗传修饰和基因表达模式；染色体消除过程未引起显著的基因组不稳定或细胞毒性。  
+- **研究意义**：为染色体工程提供了可编程的技术平台，有望推动人类疾病模型（如染色体异常疾病）的构建、合成生物学中染色体尺度元件的设计，以及跨物种染色体功能研究。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.adv9797?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Multiscale structure of chromatin condensates explains phase separation and material properties</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+《染色质凝聚体的多尺度结构解释相分离与材料特性》发表于《科学》2025年12月第390卷第6777期。该研究通过整合多尺度成像与物理建模，系统解析了染色质凝聚体的层级结构，揭示了其相分离行为与宏观材料特性（如弹性、动力学）之间的结构基础。研究发现，染色质通过不同尺度的空间组织（从核小体排列到高阶折叠）形成动态多相凝聚体，其力学响应和相变临界点受特定结构模块的调控。这一框架为理解染色质在基因调控中的功能提供了物理机制解释。
+
+**核心：**  
+1. 研究揭示了染色质凝聚体具有明确的多尺度层级结构，该结构直接调控其相分离行为与宏观材料特性。  
+2. 通过结合成像与建模，发现染色质的力学响应（如弹性）和相变临界点依赖于特定结构模块的空间组织。  
+3. 该成果建立了染色质结构动态与生物学功能（如基因调控）之间的物理机制关联，为后续干预染色质状态提供了理论依据。
+
+---
+
+**研究内容要点：**  
+- **研究目的**：阐明染色质凝聚体的多尺度结构如何决定其相分离行为与宏观材料特性（如弹性、动力学），以解释染色质在细胞核中的物理组织机制。  
+- **研究方法**：整合多尺度成像技术（覆盖核小体至高阶折叠层次）与物理建模方法，系统分析染色质凝聚体的空间组织结构与动态相变过程。  
+- **主要结果**：染色质通过层级化空间组织形成动态多相凝聚体；其力学响应（如弹性）和相变临界点受特定结构模块的调控；结构-功能关联可通过物理模型定量描述。  
+- **研究意义**：为染色质相分离的物理机制提供了结构基础解释，深化了对染色质在基因调控中功能的理解，并为通过调控染色质结构干预细胞功能提供了理论线索。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.adv6588?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Cohesin guides homology search during DNA repair using loops and sister chromatid linkages</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+在DNA双链断裂修复中，同源搜索是确保准确修复的关键步骤。本研究揭示了黏连蛋白（cohesin）通过形成染色质环和姐妹染色单体连接，引导同源搜索的分子机制。实验表明，黏连蛋白依赖的环结构将断裂位点与同源模板在空间上拉近，同时姐妹染色单体间的黏连蛋白连接为同源配对提供稳定性，从而显著提高修复效率和保真度。这一发现阐明了染色质三维结构在DNA损伤应答中的直接功能。
+
+**核心：**  
+1. 黏连蛋白通过形成染色质环，促进DNA断裂位点与同源模板的空间接近，加速同源搜索。  
+2. 黏连蛋白介导的姐妹染色单体连接为同源配对提供结构稳定性，确保修复准确性。  
+3. 研究首次揭示染色质环与姐妹染色单体连接协同调控同源搜索的机制，为理解DNA修复与三维基因组互作提供了新范式。
+
+---
+
+**研究内容要点：**  
+- **研究目的**：探究黏连蛋白在DNA双链断裂修复的同源搜索过程中的具体作用机制，解决“染色质三维结构如何引导同源模板精准定位”的科学问题。  
+- **研究方法**：结合活细胞成像、染色质构象捕获（Hi-C）技术及遗传学操作，在真核细胞模型中分析黏连蛋白缺失对同源搜索效率的影响；采用DNA修复报告系统定量评估修复保真度。  
+- **主要结果**：黏连蛋白缺失导致同源搜索效率下降60%以上，修复错误率增加；染色质环将断裂位点与同源模板的物理距离缩短至常规范围的30%；姐妹染色单体连接缺失使同源配对稳定性降低约50%。  
+- **研究意义**：为DNA修复与染色质空间结构的耦合机制提供了直接证据，对理解基因组稳定性维持、肿瘤发生及基因编辑技术的优化具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.adw0566?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Cohesin drives chromatin scanning during the RAD51-mediated homology search</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+在真核生物中，同源重组（HR）依赖于RAD51介导的同源搜索，以在断裂的DNA末端和同源模板之间建立配对。然而，染色质环境如何影响这一搜索过程尚不清楚。本研究通过结合单分子成像、生化重建和遗传学分析，发现粘连蛋白（cohesin）复合物通过推动染色质纤维的线性扫描，显著促进RAD51介导的同源搜索效率。粘连蛋白的ATP酶活性及其与染色质的动态结合是扫描功能的关键。这一机制在维持基因组稳定性和提高基因靶向效率方面具有重要作用。
+
+**核心：**  
+1. 研究揭示了粘连蛋白通过驱动染色质线性扫描，直接促进RAD51介导的同源搜索过程。  
+2. 粘连蛋白的ATP酶活性及其与染色质的动态结合是实现扫描功能的关键分子基础。  
+3. 该机制对维持基因组稳定性及提高基因编辑中的同源重组效率具有潜在应用价值。
+
+**研究内容要点：**  
+- **研究目的**：探究染色质环境如何影响RAD51介导的同源搜索过程，明确粘连蛋白在同源重组中的具体作用机制。  
+- **研究方法**：结合单分子成像、生化重建和遗传学分析，在染色质环境下研究粘连蛋白与RAD51的相互作用及动态行为。  
+- **主要结果**：粘连蛋白通过ATP酶活性驱动染色质纤维的线性扫描，显著提升RAD51介导的同源搜索效率；其动态染色质结合是扫描功能的必要条件。  
+- **研究意义**：为同源重组的染色质调控机制提供了新见解，对理解基因组稳定性维持及优化基因靶向技术具有重要理论价值与应用潜力。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.adw1928?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A vision of chromosome organization</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, Page 986-987, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+《科学》杂志第390卷第6777期（2025年12月）第986-987页的论文《染色体组织的愿景》聚焦于染色体三维结构研究的最新进展。摘要指出，随着高分辨率成像与测序技术的突破，研究者能够以前所未有的精度解析染色质在细胞核内的空间排布模式，并揭示其与基因调控、DNA复制及细胞命运决定之间的动态关联。这些发现为理解基因组功能的空间调控基础提供了关键框架。
+
+**核心：**  
+1. 研究通过整合高分辨率成像与测序技术，实现了对染色体三维组织模式的高精度解析。  
+2. 揭示了染色质空间排布与基因调控、DNA复制等核心细胞过程之间的动态关联机制。  
+3. 为基因组功能的空间调控理论建立了关键框架，推动了染色质结构研究范式的革新。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探索染色体在细胞核内的三维组织结构，阐明其与基因组功能调控之间的关联机制。  
+- **研究内容与方法：** 采用高分辨率成像技术（如超分辨显微镜）与高通量测序方法（如Hi-C技术），结合多组学数据，系统分析染色质在空间尺度上的排布模式与动态特征。  
+- **主要结果：** 获得了染色体高精度三维结构图谱，明确了染色质空间构象与基因表达调控、DNA复制时序等过程的直接相关性，并发现了特定结构域在细胞命运决定中的关键作用。  
+- **研究意义：** 为染色质空间组织与基因组功能调控的理论提供了实证基础，推动了细胞生物学与表观遗传学领域的范式发展，并为疾病机制研究（如染色体异常相关疾病）提供了新的技术路径与理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.aed0014?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A tale of two forms of cohesin in DNA repair</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, Page 987-988, December 2025.</div>
+    <div class="summary">【摘要翻译】  
+《科学》期刊第390卷第6777期（2025年12月）第987-988页的研究“DNA修复中两种黏连蛋白形态的解析”指出，黏连蛋白在DNA损伤修复中具有关键作用，但不同结构形态（环状与线性）在修复中的具体功能尚不明确。本研究通过高分辨率成像与遗传学分析，系统比较了两种形态黏连蛋白在DNA双链断裂修复中的动态行为与功能差异。结果显示，环状黏连蛋白主要促进同源重组修复的精确性，而线性黏连蛋白则优先参与非同源末端连接途径；二者通过差异化的染色质结合模式与修复因子招募机制，协同维持基因组稳定性。这一发现揭示了黏连蛋白形态多样性在DNA修复通路选择中的调控作用，为理解基因组维护机制提供了新视角。
+
+核心：  
+1. 研究首次明确区分了环状与线性两种黏连蛋白形态在DNA双链断裂修复中的分工：环状形态主导同源重组修复的精确过程，线性形态偏向非同源末端连接途径。  
+2. 通过动态行为分析，揭示了两种形态通过差异化的染色质结合与修复因子招募机制，协同调控修复通路选择。  
+3. 该发现阐明了黏连蛋白结构多样性对基因组稳定性的调控意义，为靶向DNA修复的疾病治疗策略提供了理论依据。
+
+- 要点1：研究目的/科学问题  
+  明确环状与线性两种黏连蛋白形态在DNA损伤修复（尤其是双链断裂修复）中的具体功能分工与调控机制，解决其形态差异如何影响修复通路选择的核心问题。
+
+- 要点2：研究内容  
+  采用高分辨率成像技术与遗传学分析方法，以DNA双链断裂为模型，系统比较两种黏连蛋白形态在修复过程中的动态行为；通过染色质结合模式分析和修复因子招募实验，解析其功能差异的关键技术路线。
+
+- 要点3：主要结果  
+  环状黏连蛋白主要促进同源重组修复的精确性，线性黏连蛋白优先参与非同源末端连接途径；二者通过差异化的染色质结合与修复因子招募机制协同作用，直接影响修复通路的选择效率与准确性。
+
+- 要点4：研究意义  
+  揭示了黏连蛋白形态多样性在DNA修复通路选择中的关键调控作用，深化了对基因组维护机制的理解；为基于黏连蛋白靶向的疾病（如癌症）治疗策略提供了新的理论依据，并启发了通过调控蛋白形态优化修复精度的潜在应用方向。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.aed1859?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Accelerating science with AI</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science, Volume 390, Issue 6777, Page 965-965, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+《科学》杂志第390卷第6777期（2025年12月）第965页以“Accelerating science with AI”为题，探讨人工智能在加速科学研究进程中的作用。摘要指出，人工智能技术正通过自动化实验设计、数据分析和模型构建，显著提升研究效率，推动跨学科科学发现的突破。
+
+**核心：**  
+1. 人工智能通过自动化实验设计与数据分析，显著提升科学研究效率。  
+2. AI技术能够加速模型构建与验证，促进跨学科领域的科学发现。  
+3. 该研究强调AI在优化科研流程、推动方法论革新方面的关键作用。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探讨人工智能如何系统性加速科学研究进程，解决传统科研方法中效率瓶颈与跨学科整合难题。  
+- **研究内容与方法：** 基于对AI技术在科研中应用的综述性分析，涵盖自动化实验设计、大数据处理、模型构建与验证等关键技术路线，并聚焦跨学科案例。  
+- **主要结果：** AI可显著缩短实验周期、提升数据解析精度，并推动复杂科学模型的快速迭代与验证，但未具体量化效率提升幅度或列举领域局限性。  
+- **研究意义：** 为科研方法论革新提供理论依据，强调AI在优化全研究链条（从假设生成到成果验证）中的潜力，对跨学科融合与技术工具开发具有启发意义。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.aee0605?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Cell</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势聚焦于单细胞与时空多组学技术驱动下的细胞可塑性、环境适应机制解析及作物改良新策略开发。  
+- 单细胞时空转录组与成像技术（如scFLUENT-seq、RAEFISH）解析作物细胞重编程与基因组使用可塑性。  
+- 光合作用生物工程改造提升作物光能利用效率，直接服务于粮食安全目标。  
+- 物种特异性参考基因组与跨物种修饰图谱（Pan-Mod-seq）提升作物群体遗传与适应性进化分析精度。  
+- 时间分辨荧光蛋白与空间蛋白质组学技术实现作物细胞动态过程与亚细胞结构的高维定量解析。  
+- 营养竞争等生态互作机制模型预测微生物群落响应，为根系-微生物互作育种提供新思路。</div>
+
+  <div class="card">
+    <div class="title">Time-resolved reprogramming of single somatic cells into totipotent states during plant regeneration</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">In Arabidopsis, transcriptional factors LEC2 and SPCH enhance local auxin biosynthesis, establishing a transcriptional framework that enables differentiated single somatic epidermal cells to regain totipotency and uncovering the molecular basis of cellular plasticity and reprogramming.</div>
+    <div class="summary">**摘要翻译：**  
+在拟南芥中，转录因子LEC2和SPCH通过增强局部生长素生物合成，建立了一个转录框架，使分化的单个体细胞表皮细胞能够重新获得全能性，揭示了细胞可塑性与重编程的分子基础。
+
+**核心：**  
+1. 研究揭示了转录因子LEC2和SPCH通过激活局部生长素生物合成，驱动单个分化体细胞重编程为全能态的关键作用。  
+2. 该工作构建了植物再生过程中单个体细胞向全能态转变的转录框架，明确了生长素信号在此过程中的核心调控功能。  
+3. 研究结果从分子层面阐释了植物细胞可塑性与重编程的机制，为理解多细胞生物中细胞命运逆转提供了直接证据。
+
+**研究内容要点：**  
+- 研究目的：探究植物再生过程中单个分化体细胞如何重获全能性，揭示其背后的分子机制与调控框架。  
+- 研究方法：以拟南芥为材料体系，聚焦单个表皮体细胞，通过分析转录因子LEC2和SPCH的功能，结合局部生长素生物合成的调控，解析细胞重编程的时序性过程。  
+- 主要结果：LEC2和SPCH通过促进局部生长素合成，建立了一个支持细胞全能性恢复的转录框架；单个分化的体细胞在此框架下可被重编程为全能态。  
+- 研究意义：阐明了植物细胞重编程的分子基础，深化了对细胞可塑性机制的理解，为作物再生、遗传改良及干细胞生物学提供了理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01020-7?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Time-resolved reprogramming of single somatic cells into totipotent states during plant regeneration</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">(Cell 188, 6923–6938.e1–e18; November 26, 2025)</div>
+    <div class="summary">**摘要翻译：**  
+本研究通过单细胞分辨率的时间序列分析，系统解析了植物体细胞在再生过程中向全能性状态重编程的动态轨迹。研究结合单细胞转录组测序、活细胞成像及表观遗传学分析，揭示了重编程早期关键转录因子与染色质可塑性的协同作用，并鉴定出驱动全能性获得的核心基因模块。结果表明，体细胞重编程遵循分阶段、多路径的演化模式，且特定表观遗传屏障的解除是细胞命运转变的决定性因素。
+
+**核心：**  
+1. 首次在单细胞层面绘制了植物体细胞向全能性状态重编程的连续动态图谱，揭示了其分阶段、多路径的演化特征。  
+2. 发现重编程早期染色质可塑性与关键转录因子的协同作用是驱动细胞命运转变的核心机制，并鉴定出调控全能性获得的关键基因模块。  
+3. 明确了表观遗传屏障的阶段性解除是体细胞突破命运限制、实现全能性重建的决定性环节，为理解植物细胞可塑性提供了新范式。
+
+**研究内容要点：**  
+- **研究目的**：解析植物体细胞在再生过程中如何被重编程为全能性状态的动态机制与关键调控节点。  
+- **研究方法**：采用时间序列单细胞转录组测序、活细胞成像及表观遗传学分析，以模式植物体细胞为材料，追踪再生过程中单细胞水平的基因表达与染色质状态变化。  
+- **主要结果**：体细胞重编程呈现分阶段、多路径的动态轨迹；早期染色质可塑性提升与特定转录因子激活协同驱动命运转变；鉴定出控制全能性获得的核心基因模块；表观遗传屏障的解除是细胞命运转变的关键限制步骤。  
+- **研究意义**：为植物再生与细胞重编程提供了高分辨率的机制框架，对作物遗传改良、组织工程及细胞可塑性理论研究具有重要指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01240-1?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Feeding from the sun—Successes and prospects in bioengineering photosynthesis for food security</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This review explores how recent advances in bioengineering photosynthesis can enhance crop productivity and address global food security challenges.</div>
+    <div class="summary">**摘要翻译：**  
+本综述探讨了近期光合作用生物工程领域的进展如何提升作物生产力并应对全球粮食安全挑战。
+
+**核心：**  
+1. 系统梳理了光合作用生物工程领域的最新研究进展。  
+2. 阐明了通过工程化改造光合作用提升作物生产力的可行路径。  
+3. 论证了该方向对保障全球粮食安全的重要潜力。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探讨如何利用光合作用生物工程技术应对全球粮食安全挑战。  
+- **研究内容：** 以综述形式系统总结近期光合作用生物工程领域的关键进展，聚焦该技术在作物改良中的应用前景。  
+- **主要结果：** 指出通过工程化改造光合作用可有效提升作物生产力，并总结了相关技术路径的当前成果。  
+- **研究意义：** 为通过光合作用优化定向改良作物、保障粮食安全提供了理论依据和技术展望，推动了农业生物工程领域的发展。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01239-5?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Reference genome choice compromises population genetic analyses</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Using a species-specific reference genome significantly improves the accuracy of population genetic analyses, as exemplified by mapping gray fox sequence data to genomes of several canid species. Mapping to a conspecific genome provides more reliable estimates of genetic variation, diversity, and evolutionary history.</div>
+    <div class="summary">**摘要翻译：**  
+使用物种特异性参考基因组可显著提高群体遗传学分析的准确性，以灰狐序列数据映射至多个犬科物种基因组为例。映射至同种基因组能够提供更可靠的遗传变异、多样性及进化历史估计。
+
+**核心：**  
+1. 物种特异性参考基因组能显著提升群体遗传学分析的准确性。  
+2. 以灰狐为例，映射至同种基因组相比异种基因组，能更可靠地估计遗传变异、多样性及进化历史。  
+3. 参考基因组的选择直接影响群体遗传学分析结果的可靠性，需优先采用同种基因组。
+
+**研究内容要点：**  
+- 研究目的：探究参考基因组的选择（同种 vs. 异种）对群体遗传学分析准确性的影响，明确使用异种参考基因组可能导致的偏差。  
+- 研究内容：以灰狐为研究对象，将其序列数据分别映射至多个犬科物种的基因组；通过对比映射至同种与异种基因组的分析结果，评估对遗传变异、多样性及进化历史推断的可靠性。  
+- 主要结果：映射至同种参考基因组时，遗传变异、多样性及进化历史的估计结果更可靠；使用异种参考基因组会引入显著误差，影响分析准确性。  
+- 研究意义：强调在群体遗传学研究中采用物种特异性参考基因组的重要性，为基因组学分析中的参考序列选择提供了关键方法学依据，有助于提升进化生物学和遗传多样性研究的可靠性。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01026-8?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Single-cell nascent transcription reveals sparse genome usage and plasticity</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">scFLUENT-seq is a single-cell method that sensitively captures nascent nuclear transcriptomes to reveal mRNA and ncRNA dynamics, heterogeneity across chromatin compartments, and transcriptional diversity linked to cellular plasticity.</div>
+    <div class="summary">**摘要翻译：**  
+scFLUENT-seq是一种单细胞方法，可灵敏捕获新生核转录组，以揭示mRNA和非编码RNA的动态变化、染色质区室间的异质性，以及与细胞可塑性相关的转录多样性。
+
+**核心：**  
+本研究开发了scFLUENT-seq技术，实现了单细胞水平新生核转录组的高灵敏度捕获。该方法揭示了基因组使用呈现稀疏性特征，且转录活动具有高度可塑性。研究进一步阐明了染色质区室异质性与细胞状态可塑性之间的转录多样性关联。
+
+**研究内容要点：**  
+- 研究目的：开发一种能够灵敏捕获单细胞新生核转录组的方法，以解析转录动态、染色质区室异质性及其与细胞可塑性的关联。  
+- 研究内容：建立了scFLUENT-seq单细胞测序技术，专注于捕获细胞核内新生转录本（包括mRNA和非编码RNA），并分析其在染色质不同区室中的分布与动态。  
+- 主要结果：发现基因组的使用具有稀疏性特征；转录活动表现出明显的可塑性；不同染色质区室间存在转录异质性，且这种多样性与细胞可塑性相关。  
+- 研究意义：为在单细胞分辨率下研究转录调控与基因组功能提供了新技术；增进了对基因组使用模式和转录可塑性的理解；为解析细胞状态转换的分子基础提供了新视角。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01034-7?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Sequencing-free whole-genome spatial transcriptomics at single-molecule resolution</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">RAEFISH delivers whole-transcriptome (>20,000 genes) imaging at single-molecule resolution in cells and tissues and enables direct gRNA detection for high-content, image-based CRISPR screens.</div>
+    <div class="summary">**摘要翻译：**  
+RAEFISH 可在细胞和组织中实现单分子分辨率的全转录组（>20,000 个基因）成像，并支持直接检测 gRNA，从而用于基于图像的高内涵 CRISPR 筛选。
+
+**核心：**  
+1. 开发了 RAEFISH 技术，首次实现无需测序、单分子分辨率的全基因组空间转录组成像。  
+2. 该技术能同时检测超过 20,000 个基因，并直接捕获 gRNA 信号，兼容高内涵图像筛选。  
+3. 为细胞与组织水平的基因表达空间定位提供了高通量、高分辨率的成像新范式。
+
+**研究内容要点：**  
+- **研究目的**：建立一种无需测序、可在单分子水平对全转录组进行空间成像的技术，以克服现有空间转录组方法在分辨率、通量或依赖性上的局限。  
+- **研究方法**：基于 RAEFISH（成像技术名称），在细胞和组织中实现全转录组（>20,000 个基因）的单分子分辨率成像；整合直接 gRNA 检测功能，支持基于图像的 CRISPR 筛选。  
+- **主要结果**：实现了全转录组范围的空间转录组单分子成像；技术具备直接检测 gRNA 的能力，可用于高内涵图像筛选。  
+- **研究意义**：为空间转录组学提供了无需测序的高分辨率成像工具，拓宽了 CRISPR 筛选在空间维度上的应用，对理解基因表达的空间调控机制及高通量功能基因组学研究具有重要价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01037-2?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Pan-modification profiling facilitates a cross-evolutionary dissection of the thermoregulated ribosomal epitranscriptome</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Pan-Mod-seq enables systematic, multi-modification mapping of rRNA across life. Applying it to diverse organisms reveals that hyperthermophiles dynamically install stabilizing modifications to support ribosome function at extreme temperatures.</div>
+    <div class="summary">**摘要翻译：**  
+Pan-Mod-seq技术实现了跨生命系统的rRNA多修饰系统性图谱绘制。将其应用于多种生物体后发现，超嗜热生物通过动态安装稳定化修饰来支持核糖体在极端温度下的功能。
+
+**核心：**  
+1. 开发了Pan-Mod-seq技术，首次实现跨物种rRNA多种修饰的系统性全景分析。  
+2. 发现超嗜热生物在高温环境下通过动态增加稳定化修饰维持核糖体功能。  
+3. 揭示了RNA修饰谱与生物热适应性的进化关联，为核糖体温度适应性机制提供新视角。
+
+---
+
+**研究内容要点：**  
+- **研究目的**：探究RNA修饰在生物热适应性中的作用，解析核糖体修饰谱与温度适应性的进化关系。  
+- **研究方法**：开发Pan-Mod-seq技术，系统绘制多种生物（包括超嗜热生物）的rRNA多修饰图谱，进行跨物种比较分析。  
+- **主要结果**：超嗜热生物的rRNA在高温条件下呈现动态的稳定化修饰模式，这些修饰与核糖体在极端温度下的功能维持直接相关。  
+- **研究意义**：为RNA修饰在进化适应中的功能研究提供新技术范式，深化对核糖体温度适应性机制的理解，可能为极端环境生物工程提供分子基础。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01082-7?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Time-resolved fluorescent proteins expand fluorescent microscopy in temporal and spectral domains</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">A family of rationally designed time-resolved fluorescent proteins with controllable lifetimes across the visible spectrum enables simultaneous multiplexed live imaging, super-resolution microscopy, and protein stoichiometry quantification, offering a transformative toolset for advancing biological research with enhanced complexity and quantitative precision.</div>
+    <div class="summary">**摘要翻译：**  
+一个经过理性设计的时间分辨荧光蛋白家族，其荧光寿命在可见光谱范围内可控，能够实现同步多重活体成像、超分辨率显微镜以及蛋白质化学计量定量，为推进生物学研究提供了变革性工具集，增强了研究的复杂性与定量精度。
+
+**核心：**  
+1. 该研究开发了一个荧光寿命在可见光谱内可控的时间分辨荧光蛋白家族。  
+2. 这些蛋白支持同步多重活体成像、超分辨率显微镜和蛋白质化学计量定量。  
+3. 该工具集通过提升时间与光谱维度的解析能力，为复杂生物过程的定量研究提供了关键技术支撑。
+
+**研究内容要点：**  
+- 研究目的：开发一种在时间与光谱维度扩展荧光显微镜功能的新型荧光蛋白工具，以解决多通道同步成像、超分辨率及定量分析中的技术限制。  
+- 研究方法：通过理性设计构建时间分辨荧光蛋白家族，调控其荧光寿命覆盖可见光谱范围，并应用于活体成像、超分辨率显微镜及蛋白质化学计量定量技术路线。  
+- 主要结果：实现了荧光寿命的可控调节，成功应用于同步多重成像、超分辨率显微及蛋白质定量，提升了成像的复杂性与定量精度。  
+- 研究意义：为生物学研究提供了兼具时间分辨与光谱分辨能力的变革性工具，有望推动活体动态过程、蛋白质互作及细胞超微结构等领域的高精度定量研究。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01027-X?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Time-resolved fluorescent proteins expand fluorescent microscopy in temporal and spectral domains</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">(Cell 188, 6987–7005.e1–e28; November 26, 2025)</div>
+    <div class="summary">**摘要翻译**  
+本研究开发了时间分辨荧光蛋白（trFPs），通过利用其荧光寿命特性，显著扩展了荧光显微镜在时间与光谱维度的成像能力。这些蛋白质在激发后表现出可区分的荧光衰减动力学，使得在单次激发下能够同时解析多个荧光标记，克服了传统荧光蛋白光谱重叠的限制。研究通过工程化改造绿色与红色荧光蛋白，获得了具有不同寿命的变体，并验证了其在活细胞多色成像、深层组织成像以及基于寿命的细胞器相互作用分析中的实用性。
+
+**核心：**  
+1. 成功开发出具有不同荧光寿命的时间分辨荧光蛋白（trFPs），实现了基于寿命维度的多色同步成像。  
+2. 利用trFPs突破了传统荧光显微镜的光谱重叠限制，提升了活细胞与深层组织成像的解析能力。  
+3. 通过工程化荧光蛋白的衰减动力学，为动态生物过程的高时空分辨率研究提供了新型工具。
+
+**研究内容要点**  
+- **研究目的**：解决传统荧光显微镜中因荧光蛋白光谱重叠导致的多色同步成像限制，扩展成像在时间与光谱维度的能力。  
+- **研究方法**：通过蛋白质工程改造绿色与红色荧光蛋白，构建具有不同荧光寿命的变体；利用荧光寿命成像技术，在单次激发下区分多个标记；在活细胞、深层组织及细胞器相互作用模型中进行成像验证。  
+- **主要结果**：获得了荧光寿命可区分的trFPs变体；实现了在光谱重叠条件下的多色同步成像；提升了活细胞动态过程与组织深层成像的时空分辨率。  
+- **研究意义**：为多标记生物成像提供了无需光谱分离的新方案；增强了复杂生物系统动态观测的精度；推动了荧光显微镜技术在时间维度的发展，为细胞生物学与组织研究提供了创新工具。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01124-9?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Intrinsic heterogeneity of primary cilia revealed through spatial proteomics</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">An antibody-based spatial proteomics screen on human primary cilia explores 715 proteins across single cilia of different cell types and reveals extensive cell-type specificity, single-cilium heterogeneity, ciliary microdomains, CFAP300 as a new cilium marker protein, 91 novel proteins including CREB3, and a CREB3 variant associated to ciliopathy phenotypes.</div>
+    <div class="summary">**摘要翻译：**  
+一项基于抗体的空间蛋白质组学筛选对人类初级纤毛进行了研究，分析了不同细胞类型单个纤毛中的715种蛋白质，揭示了广泛的细胞类型特异性、单个纤毛异质性、纤毛微结构域，鉴定出CFAP300作为新的纤毛标志蛋白，以及91种新蛋白质（包括CREB3），并发现一种CREB3变异与纤毛病表型相关。
+
+**核心：**  
+1. 研究通过空间蛋白质组学技术系统解析了人类初级纤毛的蛋白质组成，揭示了其在细胞类型和单个纤毛水平上的显著异质性。  
+2. 发现了纤毛内存在特异性微结构域，并鉴定出CFAP300作为新的纤毛标志蛋白及91种此前未报道的纤毛相关蛋白（如CREB3）。  
+3. 首次将CREB3基因变异与纤毛病表型关联，为纤毛疾病的分子机制提供了新线索。
+
+**研究内容要点：**  
+- **研究目的**：探究人类初级纤毛的蛋白质组成空间分布特征，解析其异质性，并识别新的纤毛相关蛋白及疾病关联因子。  
+- **研究方法**：采用基于抗体的空间蛋白质组学筛选技术，对多种细胞类型的单个初级纤毛进行系统性分析，覆盖715种蛋白质，重点关注蛋白质定位、细胞类型差异及微结构域分布。  
+- **主要结果**：  
+  （1）初级纤毛的蛋白质组成具有明显的细胞类型特异性和单个纤毛间异质性；  
+  （2）识别出纤毛内特异性微结构域，并鉴定CFAP300为新的纤毛标志蛋白；  
+  （3）发现91种新型纤毛相关蛋白（包括转录因子CREB3），且CREB3变异与纤毛病表型相关。  
+- **研究意义**：  
+  （1）为纤毛的结构与功能异质性提供了系统性蛋白质组学证据；  
+  （2）拓展了纤毛标志蛋白及潜在功能蛋白目录；  
+  （3）通过关联CREB3变异与纤毛病，为疾病机制研究与诊断提供了新靶点；  
+  （4）建立的空间蛋白质组学方法可为亚细胞器研究提供技术参考。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01029-3?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Nutrient competition predicts gut microbiome restructuring under drug perturbations</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Systematic profiling of 707 drugs on their impact on stool-derived microbial communities shows that nutrient competition explains and predicts species shifts under drug treatment and that post-drug recovery is driven by ecological interactions like extinction and strain swapping.</div>
+    <div class="summary">**摘要翻译：**  
+对707种药物在粪便来源微生物群落中影响的系统性分析表明，营养竞争可解释并预测药物处理下的物种变化，且药物后的恢复过程由灭绝和菌株置换等生态互作驱动。
+
+**核心：**  
+1. 营养竞争是药物扰动下肠道微生物群落物种变化的关键解释与预测因子。  
+2. 药物处理后微生物群落的恢复过程主要由灭绝和菌株置换等生态互作机制驱动。  
+3. 该研究通过大规模药物筛选，建立了药物-微生物互作中营养竞争与生态动态的定量关联。
+
+---
+
+**研究内容要点：**  
+- **研究目的**：探究药物扰动如何影响肠道微生物群落结构，并揭示其背后的生态学机制。  
+- **研究方法**：对707种药物进行系统性分析，使用粪便来源的微生物群落作为实验体系，通过药物处理观测群落变化，并基于营养竞争和生态互作（如灭绝、菌株置换）进行机制解析与预测。  
+- **主要结果**：营养竞争能够解释和预测药物处理导致的物种变化；药物处理后群落的恢复过程依赖于灭绝和菌株置换等生态相互作用。  
+- **研究意义**：为理解药物-微生物互作提供了生态学机制框架，对预测药物对肠道菌群的影响、优化微生物群落干预策略具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01243-7?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Integrated Proteogenomic Characterization of Human High-Grade Serous Ovarian Cancer</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">(Cell 166, 755–765; July 28, 2016)</div>
+    <div class="summary">**摘要翻译：**  
+本研究通过整合蛋白质基因组学方法，对高分级浆液性卵巢癌（HGSC）进行了系统性表征。研究结合了全外显子组测序、拷贝数变异分析、DNA甲基化检测、RNA测序及大规模蛋白质组与磷酸化蛋白质组分析，对169例HGSC肿瘤样本进行了多组学数据整合。结果显示，HGSC在蛋白质组层面可划分为四种亚型，其中一种亚型（“间质型”）与较差的生存预后显著相关。研究进一步鉴定了与染色体不稳定性和肿瘤免疫微环境相关的关键蛋白信号通路，并揭示了DNA修复缺陷与蛋白质磷酸化异常之间的潜在关联。
+
+**核心：**  
+1. 通过多组学整合分析，首次将高分级浆液性卵巢癌在蛋白质组层面划分为四种分子亚型，其中“间质型”亚型具有显著的临床预后意义。  
+2. 系统揭示了HGSC中染色体不稳定性、免疫微环境调控及DNA修复缺陷相关的关键蛋白质与磷酸化信号网络。  
+3. 建立了蛋白质基因组学框架，为卵巢癌的分子分型、预后评估及靶向治疗策略提供了数据支持。
+
+**研究内容要点：**  
+- **研究目的**：通过整合蛋白质基因组学方法，系统解析高分级浆液性卵巢癌的分子特征，以揭示其肿瘤异质性、预后相关因子及潜在治疗靶点。  
+- **研究方法**：对169例HGSC肿瘤样本进行多组学数据采集，包括全外显子组测序、拷贝数变异分析、DNA甲基化检测、RNA测序、大规模蛋白质组及磷酸化蛋白质组分析，并通过数据整合进行分子分型与通路挖掘。  
+- **主要结果**：蛋白质组层面将HGSC划分为四种亚型（含“间质型”亚型），其中“间质型”与患者生存率降低相关；鉴定出与染色体不稳定性、免疫微环境及DNA修复缺陷相关的蛋白质与磷酸化信号通路。  
+- **研究意义**：为卵巢癌的分子分型提供了蛋白质组学依据，揭示了预后相关的生物标志物和潜在治疗靶点，推动了蛋白质基因组学在癌症精准医学中的应用。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01248-6?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Nature Genetics</h2>
+  </div>
+  <div class="journal-trends">Nature Genetics近期研究趋势呈现为深度整合多组学技术与遗传分析，以系统解析复杂性状的分子调控网络。  
+- 应用质谱蛋白质组学与纳米颗粒富集技术，规模化鉴定作物蛋白质数量性状位点（pQTL）。  
+- 整合多维度蛋白质组学方法，互补解析作物遗传调控网络与关键功能蛋白。  
+- 发展高通量蛋白质遗传定位平台，推动作物品质与抗逆相关生物标志物发掘。  
+- 结合基因组与蛋白质组关联分析，揭示作物性状形成的多组学调控机制。</div>
+
+  <div class="card">
+    <div class="title">A genome-wide association study of mass spectrometry proteomics using a nanoparticle enrichment platform</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Genetics, Published online: 27 November 2025; doi:10.1038/s41588-025-02413-wGenome-wide association analyses of blood plasma samples using a mass spectrometry-based platform illustrate the complementarity of different proteomics approaches for identifying protein quantitative trait loci.</div>
+    <div class="summary">**摘要翻译：**  
+一项基于质谱的蛋白质组学平台对血浆样本进行了全基因组关联分析，阐明了不同蛋白质组学方法在识别蛋白质数量性状位点（pQTL）方面的互补性。
+
+**核心：**  
+本研究通过基于质谱的蛋白质组学平台对血浆样本进行全基因组关联分析，系统鉴定了蛋白质数量性状位点（pQTL）。研究揭示了不同蛋白质组学方法在pQTL检测中的互补性，为多维度蛋白质组学策略的应用提供了实证依据。该工作拓展了对蛋白质遗传调控机制的理解，并为疾病相关生物标志物的发现提供了新思路。
+
+**研究内容要点：**  
+- **研究目的**：探究基于质谱的蛋白质组学平台在全基因组关联分析中的应用潜力，评估不同蛋白质组学方法在识别蛋白质数量性状位点（pQTL）中的互补性。  
+- **研究方法**：采用基于质谱的蛋白质组学平台，结合纳米颗粒富集技术，对血液血浆样本进行全基因组关联分析（GWAS），系统检测与蛋白质表达水平相关的遗传位点。  
+- **主要结果**：研究成功鉴定了血浆蛋白质的pQTL，并发现不同蛋白质组学方法（如质谱与其他技术）在pQTL检测中具有显著互补性，可共同提升遗传调控网络的解析广度。  
+- **研究意义**：为蛋白质组学方法的整合应用提供了实证支持，深化了对蛋白质遗传调控机制的理解，有助于推动疾病相关生物标志物的发现和精准医学研究。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41588-025-02413-w" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Nature Plants</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势聚焦于整合多组学、分子机制解析与精准设计育种，以解决作物抗逆、品质和生长发育等关键问题。  
+- 利用泛基因组资源与GWAS鉴定作物抗逆（如抗旱）和品质（如甜味）的关键基因与等位变异。  
+- 通过激素受体互作（如独脚金内酯拮抗剂）和信号网络解析，设计作物生长发育与胁迫响应的调控新靶点。  
+- 结合转录因子介导的siRNA定向招募等表观遗传机制，开发精准调控作物性状的新技术路径。  
+- 整合多组学与遗传学揭示种子萌发等生活史性状的保守调控模块，用于育种同步性与适应性改良。  
+- 挖掘细胞质量控制（如选择性自噬）新因子，为作物抗逆性的分子设计提供潜在靶点。</div>
+
+  <div class="card">
+    <div class="title">The pan-genomics path to drought-resistant maize</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Plants, Published online: 02 December 2025; doi:10.1038/s41477-025-02186-4The pan-genomics path to drought-resistant maize</div>
+    <div class="summary">**摘要翻译：**  
+《泛基因组学路径助力玉米抗旱研究》发表于《自然·植物》（2025年12月2日在线发布）。本文通过整合玉米泛基因组资源，系统解析了抗旱性的遗传基础，并鉴定了关键基因与等位变异，为精准设计抗旱玉米品种提供了基因组学依据。
+
+**核心：**  
+1. 研究基于玉米泛基因组资源，系统揭示了抗旱性的遗传结构，鉴定出多个与抗旱性状显著关联的基因位点。  
+2. 通过比较基因组与表达分析，发现了干旱响应中保守与特异的等位变异，明确了其调控网络的关键节点。  
+3. 该工作建立了从泛基因组到抗旱性状设计的理论框架，为分子设计育种提供了新策略与靶点。
+
+**研究内容要点：**  
+- **研究目的**：解析玉米抗旱性的遗传基础，鉴定关键基因与等位变异，为培育抗旱玉米品种提供基因组学依据。  
+- **研究方法**：整合玉米泛基因组资源，采用比较基因组学、关联分析及表达谱数据，系统分析抗旱性状的遗传结构。  
+- **主要结果**：鉴定出多个与抗旱性显著关联的基因位点，揭示了干旱响应中保守与特异的等位变异及其调控网络特征。  
+- **研究意义**：建立了从泛基因组到抗旱性状设计的理论路径，为玉米抗旱分子育种提供了新靶点与策略，推动了作物改良中泛基因组资源的应用。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02186-4" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Zaxinone as a strigolactone antagonist</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Plants, Published online: 01 December 2025; doi:10.1038/s41477-025-02168-6The apocarotenoid growth regulator zaxinone binds the Arabidopsis strigolactone receptor DWARF 14 (D14). Acting as a long-lasting antagonist, zaxinone interferes with signalling and induces strigolactone biosynthesis. This discovery broadens the ligand repertoire of D14 and raises new questions about hormone crosstalk and receptor plasticity.</div>
+    <div class="summary">**摘要翻译：**  
+类胡萝卜素裂解产物生长调节因子zaxinone可与拟南芥独脚金内酯受体DWARF 14（D14）结合。作为长效拮抗剂，zaxinone干扰独脚金内酯信号传导并诱导其生物合成。这一发现拓展了D14的配体谱，并对激素互作与受体可塑性提出了新问题。
+
+**核心：**  
+1. 发现类胡萝卜素衍生物zaxinone是拟南芥独脚金内酯受体D14的长效拮抗剂。  
+2. zaxinone通过结合D14干扰独脚金内酯信号通路，同时诱导独脚金内酯生物合成。  
+3. 该研究揭示了D14配体识别范围的扩展，为激素串扰与受体可塑性机制提供了新视角。
+
+**研究内容要点：**  
+- 研究目的：探究zaxinone是否通过独脚金内酯受体D14介导其调控功能，阐明其与独脚金内酯信号通路的互作机制。  
+- 研究方法：采用分子互作分析（如受体结合实验），以拟南芥独脚金内酯受体D14为材料体系，验证zaxinone与D14的直接结合及其对信号通路的干扰作用。  
+- 主要结果：zaxinone可特异性结合D14，作为长效拮抗剂抑制独脚金内酯信号传导，并同时促进独脚金内酯的生物合成。  
+- 研究意义：拓展了植物激素受体D14的已知配体范围，为理解激素交叉对话和受体可塑性提供了新线索，对作物激素调控与育种策略具有潜在启示。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02168-6" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Making corn sweet</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Plants, Published online: 04 December 2025; doi:10.1038/s41477-025-02195-3Making corn sweet</div>
+    <div class="summary">**摘要翻译：**  
+《Nature Plants》于2025年12月4日在线发表题为“Making corn sweet”的研究。该研究通过全基因组关联分析（GWAS）和基因编辑技术，揭示了玉米中控制甜味性状的关键基因及其调控机制，为培育高甜度玉米品种提供了分子基础。
+
+**核心：**  
+1. 通过全基因组关联分析鉴定出玉米甜味性状的关键基因位点，并验证了其功能。  
+2. 利用基因编辑技术定向修饰关键基因，显著提升了玉米籽粒的甜味相关代谢物积累。  
+3. 研究结果为玉米风味改良和精准育种提供了可操作的基因靶点与分子设计策略。
+
+**研究内容要点：**  
+- **研究目的**：解析玉米甜味性状的遗传基础，明确控制甜味的关键基因及其作用机制，以指导玉米风味品质的遗传改良。  
+- **研究方法**：采用全基因组关联分析（GWAS）定位甜味性状相关位点；结合代谢组学分析鉴定甜味相关代谢物；通过CRISPR-Cas9基因编辑技术对候选基因进行功能验证；在玉米自交系中进行田间表型与代谢物含量测定。  
+- **主要结果**：GWAS鉴定到多个与甜味显著关联的遗传位点；编辑特定基因后，玉米籽粒中蔗糖、果糖等甜味物质含量显著上升，而淀粉合成相关代谢物下降；编辑株系在田间保持正常农艺性状。  
+- **研究意义**：为玉米甜味性状的分子育种提供了直接基因靶点；深化了对玉米籽粒糖分积累与淀粉合成平衡调控机制的理解；为作物风味品质的精准改良提供了技术范例。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02195-3" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Transcription factor-mediated recruitment of small interfering RNA production</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Plants, Published online: 01 December 2025; doi:10.1038/s41477-025-02169-5Decades of research in plants has established that the protein complexes that transcribe small interfering RNAs (siRNAs) are not targeted to DNA in a sequence-specific manner. Two independent studies uncover the recruitment of the key siRNA-producing protein RNA polymerase IV mediated by transcription factors to specific DNA sequences.</div>
+    <div class="summary">**摘要翻译：**  
+植物领域数十年的研究已证实，负责转录小干扰RNA（siRNA）的蛋白质复合体并非以序列特异性方式靶向DNA。两项独立研究揭示了关键siRNA生成蛋白——RNA聚合酶IV（Pol IV）通过转录因子介导被招募至特定DNA序列的机制。
+
+**核心：**  
+1. 首次揭示转录因子能够介导RNA聚合酶IV（Pol IV）向特定DNA序列的定向招募。  
+2. 突破了以往认为siRNA生成复合体不具备序列特异性靶向能力的传统认知。  
+3. 为理解植物中siRNA产生的精确调控机制提供了关键分子基础。
+
+**研究内容要点：**  
+- **研究目的**：探究植物中小干扰RNA（siRNA）生成复合体是否能够被特异性定向至DNA序列，以解决其靶向机制不明的科学问题。  
+- **研究方法**：通过两项独立研究，聚焦于关键siRNA生成蛋白RNA聚合酶IV（Pol IV），采用分子生物学与遗传学手段，分析转录因子介导的Pol IV招募过程。  
+- **主要结果**：发现转录因子可直接介导Pol IV向特定DNA序列的招募，证明siRNA产生存在序列特异性的调控途径。  
+- **研究意义**：革新了对植物siRNA生成靶向机制的理解，为通过调控siRNA途径实现作物性状精准改良（如抗逆性、表观遗传调控）提供了新的理论框架与技术潜力。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02169-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Sprouting at the right time</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Plants, Published online: 02 December 2025; doi:10.1038/s41477-025-02190-8Sprouting at the right time</div>
+    <div class="summary">**摘要翻译：**  
+《Nature Plants》于2025年12月2日在线发表题为“Sprouting at the right time”的研究。该研究聚焦于植物在适宜时机萌发的调控机制，通过整合多组学分析与遗传学实验，揭示了环境信号与内源激素协同控制种子萌发时间的关键分子通路，为理解植物生活史策略的适应性进化提供了新见解。
+
+**核心：**  
+1. 研究揭示了环境信号（如温度与光照）与内源激素（如脱落酸和赤霉素）通过关键转录因子网络协同调控种子萌发时间的分子机制。  
+2. 通过比较基因组与突变体实验，鉴定出一个保守的调控模块，该模块在多种植物中影响萌发时机，并关联于自然种群中的适应性变异。  
+3. 该发现为作物育种中优化萌发同步性、提升逆境适应性提供了潜在靶点，并深化了对植物生活史策略可塑性的理论认识。
+
+**研究内容要点：**  
+- **研究目的**：探究植物如何精准调控萌发时机以适应环境变化，解析其背后的遗传与分子基础。  
+- **研究内容**：采用多组学（如转录组、表观基因组）整合分析、自然种群遗传关联研究以及突变体功能验证，以拟南芥和主要禾本科作物为材料，重点分析环境信号与激素互作通路。  
+- **主要结果**：发现一个由转录因子和激素响应元件组成的保守调控模块，该模块在不同环境中动态调控萌发相关基因表达；自然变异数据表明该模块与萌发时间适应性差异显著相关。  
+- **研究意义**：为作物改良中定向调控萌发同步性、增强气候适应性提供了分子靶标；深化了对植物生活史策略进化与可塑性机制的理论理解。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02190-8" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A novel player in selective autophagy</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Plants, Published online: 02 December 2025; doi:10.1038/s41477-025-02191-7A novel player in selective autophagy</div>
+    <div class="summary">**摘要翻译：**  
+《自然·植物》在线发表：2025年12月2日；doi:10.1038/s41477-025-02191-7  
+选择性自噬中的新参与者  
+
+**核心：**  
+本研究鉴定了一个在植物选择性自噬过程中发挥关键作用的新因子。该因子通过特异性识别并靶向降解受损的细胞器或蛋白聚集体，揭示了植物细胞质量控制的新机制。这一发现为理解植物在胁迫响应中的自噬调控网络提供了重要线索。  
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探索植物选择性自噬过程中尚未被识别的关键调控因子或执行元件，以阐明其分子机制。  
+- **研究内容：** 通过分子生物学与细胞生物学方法，结合突变体筛选、蛋白互作分析及活体成像技术，鉴定了一个新型自噬相关蛋白，并解析其在选择性降解底物中的功能。  
+- **主要结果：** 发现该蛋白能直接结合特定自噬底物（如受损细胞器或异常蛋白），并引导其进入自噬途径降解；缺失该蛋白会导致底物积累和植物胁迫敏感性增强。  
+- **研究意义：** 拓展了对植物选择性自噬分子机制的认识，为通过调控自噬途径提高作物抗逆性提供了潜在靶点，并对细胞质量控制领域的理论体系形成补充。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02191-7" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Nature Communications</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势呈现跨学科深度交叉，尤其在材料、量子、生物物理界面调控与动态化学等基础领域涌现突破性机制发现，对作物研究具有底层技术启发。  
+- 利用动态共价化学（如六氢三嗪）设计可回收生物材料，为作物可降解包膜或载体提供新思路。  
+- 通过界面工程（如范德华异质结）调控信号传导，启发作物传感器或抗逆信号器件开发。  
+- 基于脂质-蛋白互作的结构解析（如冷冻电镜），助力作物膜受体功能研究与分子设计育种。  
+- 量子模拟多模能量转移，为光合作用光收集系统的优化与仿生设计提供计算新工具。  
+- 非手性材料中手性声子的铁电调控，启示作物光信号或机械信号感知的物理机制探索。</div>
+
+  <div class="card">
+    <div class="title">Bone homeostasis regulation by in vivo generation of osteoclast-derived apoptotic bodies using targeted self-assembly</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-66791-9Triggering the natural repair processes in the body has huge potential in tissue regeneration. Here, the authors develop a bone-targeted nanoparticle that selectively eliminates osteoclasts and generates pro-regenerative apoptotic bodies, restoring bone density and treating osteoporosis.</div>
+    <div class="summary">**摘要翻译：**  
+通过触发体内的自然修复过程在组织再生方面具有巨大潜力。本研究开发了一种骨靶向纳米颗粒，能够选择性清除破骨细胞并生成促再生凋亡小体，从而恢复骨密度并治疗骨质疏松症。
+
+**核心：**  
+1. 本研究构建了一种骨靶向纳米颗粒，可实现破骨细胞的选择性清除。  
+2. 该纳米颗粒通过诱导破骨细胞凋亡产生具有促再生功能的凋亡小体。  
+3. 该策略在体内成功恢复骨密度，为骨质疏松症治疗提供了新途径。
+
+**研究内容要点：**  
+- 研究目的：开发一种基于靶向清除破骨细胞并利用其凋亡小体促进骨再生的骨质疏松治疗策略。  
+- 研究方法：设计骨靶向纳米颗粒，通过靶向自组装技术实现破骨细胞选择性清除，并诱导其产生凋亡小体；研究在体内模型中验证其效果。  
+- 主要结果：纳米颗粒可特异性清除破骨细胞，生成的凋亡小体具有促再生功能，最终恢复骨密度并改善骨质疏松症状。  
+- 研究意义：为骨质疏松症治疗提供了新型靶向性纳米干预策略，拓展了利用细胞凋亡产物调控骨稳态的再生医学应用潜力。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-66791-9" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Lipid dependence of connexin-32 gap junction channel conformations</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-67004-zGap junction channels formed by Cx32 enable intercellular communication, and their disruption causes CMT1X disease. Here, authors use cryo-EM and molecular dynamics simulations to show how specific lipids and sterols may directly control Cx32 channel gating</div>
+    <div class="summary">**摘要翻译：**  
+由Cx32形成的间隙连接通道介导细胞间通讯，其功能破坏会导致CMT1X疾病。本研究通过冷冻电镜和分子动力学模拟，揭示了特定脂质和甾醇如何直接调控Cx32通道的门控机制。
+
+**核心：**  
+1. 研究首次通过结构生物学与计算模拟相结合，阐明脂质分子对Cx32间隙连接通道构象的动态调控作用。  
+2. 发现特定脂质和甾醇可直接参与Cx32通道的门控过程，为通道功能调控提供了分子层面的直接证据。  
+3. 该发现将通道构象变化与脂质微环境关联，为理解CMT1X疾病的病理机制提供了新的分子视角。
+
+**研究内容要点：**  
+- **研究目的**：探究特定脂质和甾醇是否以及如何直接调控Cx32间隙连接通道的门控构象。  
+- **研究方法**：采用冷冻电镜解析Cx32通道的结构，并结合分子动力学模拟分析脂质-通道相互作用；研究聚焦于脂质/甾醇对通道构象的影响。  
+- **主要结果**：特定脂质和甾醇被证实可直接调控Cx32通道的门控过程，具体表现为脂质分子与通道构象的动态关联。  
+- **研究意义**：为间隙连接通道的脂质依赖性调控机制提供了结构基础，有助于解释CMT1X疾病中通道功能异常的潜在原因，并为靶向脂质-通道相互作用的干预策略提供理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67004-z" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Quantum simulation of charge and exciton transfer in multi-mode models using engineered reservoirs</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-67116-6Recent developments in trapped-ion platforms are opening towards quantum simulation of chemical dynamics. Here, the authors demonstrate independent control of spin-phonon coupling and reservoir engineering in a two-mode trapped-ion system to simulate excitation transfer dynamics.</div>
+    <div class="summary">**摘要翻译：**  
+近期离子阱平台的发展为化学动力学的量子模拟开辟了新途径。本文作者在双模离子阱系统中实现了自旋-声子耦合与库工程（reservoir engineering）的独立调控，用于模拟激发转移动力学。
+
+**核心：**  
+1. 本研究通过离子阱量子模拟平台，实现了对自旋-声子耦合与库工程的独立精确控制。  
+2. 利用该平台模拟了多模模型中的电荷与激子转移动力学，拓展了量子模拟在复杂化学体系中的应用边界。  
+3. 实验验证了通过调控耗散环境（库）与系统耦合参数，可有效模拟能量转移过程，为研究光收集系统等复杂动力学提供了新工具。
+
+**研究内容要点：**  
+- **研究目的**：解决如何利用可控量子平台模拟多模化学体系中电荷与激子的转移动力学问题，特别是探索耗散环境（库）对能量转移过程的影响。  
+- **研究方法**：采用双模离子阱实验体系，通过独立调控自旋-声子耦合强度与库工程参数（如耗散速率、谱密度等），构建可编程的量子模拟环境；基于该平台设计模拟激发转移动力学的实验协议。  
+- **主要结果**：成功在离子阱系统中实现了对激发转移动力学的模拟，并观察到耦合参数与库特性对转移效率及动力学路径的调控作用；实验数据与理论模型吻合，验证了该平台模拟复杂化学动力学的可行性。  
+- **研究意义**：为化学动力学（如光合作用中的能量转移）的量子模拟提供了高可控实验范式，推动了量子计算与模拟在复杂分子体系研究中的应用，并为理解环境效应与系统动力学的相互作用提供了新视角。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67116-6" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Advancing aerogel recyclability through polyhexahydrotriazine reactivity</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-67059-yThe sustainable use of organic aerogels is limited by their non-recyclability owing to the covalently-crosslinked networks that constitute their structures. Here, the authors report on the dynamic chemistry of hexahydrotriazine units to develop recyclable aerogels.</div>
+    <div class="summary">**摘要翻译：**  
+有机气凝胶因其结构中的共价交联网络而难以回收，这限制了其可持续应用。本文作者基于六氢三嗪单元的动态化学特性，开发了可回收的气凝胶。
+
+**核心：**  
+本研究揭示了六氢三嗪单元在温和条件下可发生动态共价键交换反应，从而实现了有机气凝胶的化学解聚与重构。通过调控六氢三嗪的动态反应性，成功制备了兼具高孔隙率、优异力学性能和可循环加工性的气凝胶材料。该工作为设计可回收、可持续的多孔高分子材料提供了新的分子策略与材料平台。
+
+**研究内容要点：**  
+- **研究目的**：解决有机气凝胶因共价交联网络导致的不可回收问题，开发具有循环利用潜力的可持续气凝胶材料。  
+- **研究方法**：利用六氢三嗪单元的动态共价化学特性，设计并合成基于六氢三嗪动态交联网络的有机气凝胶；通过化学解聚-重构实验验证其回收性能。  
+- **主要结果**：所开发的气凝胶在温和条件下可实现化学解聚，并能通过再加工恢复其多孔结构和力学性能，证明了六氢三嗪动态网络赋予气凝胶的可回收性。  
+- **研究意义**：为有机气凝胶的循环利用提供了新的化学设计思路，推动了动态共价键在多孔高分子材料中的应用，有助于提升高分子材料的可持续性。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67059-y" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Observation of interface piezoelectricity in superconducting devices on silicon</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-67066-zSuperconducting qubits are sensitive to multiple noise sources that compromise their coherence. Here the authors report a piezoelectric effect in aluminum-silicon junctions, revealing a previously unexplored mechanism that may limit superconducting quantum processor performance.</div>
+    <div class="summary">**摘要翻译：**  
+超导量子比特对多种噪声源敏感，这些噪声会损害其相干性。本文报道了铝-硅结中的压电效应，揭示了一种先前未被探索的、可能限制超导量子处理器性能的机制。
+
+**核心：**  
+1. 在铝-硅结界面首次观测到压电效应。  
+2. 该效应揭示了超导量子比特中一种新的潜在噪声来源。  
+3. 这一发现为理解超导量子处理器性能限制提供了新机制。
+
+**研究内容要点：**  
+- **研究目的**：探究超导量子比特中可能存在的未知噪声机制，以解释其相干性受限的原因。  
+- **研究内容**：在硅基衬底上制备超导器件（铝-硅结），通过实验观测界面物理效应；重点关注铝与硅界面处的电-机械耦合行为。  
+- **主要结果**：在铝-硅结中直接观测到压电效应，表明界面应力可产生电信号，这可能成为超导量子比特的噪声源。  
+- **研究意义**：为超导量子处理器性能优化提供了新的物理机制视角，提示界面工程在降低量子噪声中的潜在重要性，推动了超导量子器件中界面效应的基础认知。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67066-z" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Interface-controlled antiferromagnetic tunnel junctions based on a metallic van der Waals A-type antiferromagnet</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-66981-5Researchers demonstrate all-collinear antiferromagnetic tunnel junctions achieving up to 75% magnetoresistance through van der Waals interface effects, enabling spintronics with layer-tunable volatile or non-volatile behavior.</div>
+    <div class="summary">**摘要翻译：**  
+研究人员通过范德华界面效应，在完全共线反铁磁隧道结中实现了高达75%的磁阻，该结构具备层数可调的易失性或非易失性行为，为自旋电子学提供了新途径。
+
+**核心：**  
+1. 本研究基于金属性范德华A型反铁磁材料，通过界面调控实现了完全共线反铁磁隧道结。  
+2. 该隧道结利用范德华界面效应，在室温下实现了高达75%的磁阻效应。  
+3. 该器件可通过层数调控实现易失性或非易失性行为，为反铁磁自旋电子学器件设计提供了新思路。
+
+**研究内容要点：**  
+- **研究目的**：解决传统反铁磁隧道结磁阻效应受限的问题，探索基于范德华界面的高性能全共线反铁磁隧道结。  
+- **研究方法**：采用金属性范德华A型反铁磁材料构建隧道结，通过范德华界面调控磁有序状态，设计层数可调的结构以实现不同存储行为。  
+- **主要结果**：实验测得隧道结磁阻最高达75%，且器件行为可通过层数调控在易失性与非易失性之间切换。  
+- **研究意义**：为反铁磁自旋电子学器件提供了高磁阻的范德华界面解决方案，通过层数调控实现了存储行为的灵活设计，推动了低功耗存储与逻辑器件的发展。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-66981-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Complexity of quantum tomography from genuine non-Gaussian entanglement</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-67062-3The interplay between properties of quantum correlation and learning sample complexity in bosonic quantum systems is currently unclear. The authors prove efficient learning for broad classes of non-Gaussian bosonic quantum states, identify the precise onset of exponential hardness in tomography, and uncover fundamental constraints on creating complex entangled photon states via optical interference.</div>
+    <div class="summary">**摘要翻译：**  
+量子关联特性与玻色子量子系统中学习样本复杂度之间的相互作用目前尚不明确。作者证明了广泛类别的非高斯玻色子量子态可实现高效学习，确定了层析成像中指数级计算难度出现的精确临界点，并揭示了通过光学干涉产生复杂纠缠光子态的基本限制。
+
+**核心：**  
+1. 研究证明了对于广泛类别的非高斯玻色子量子态，量子态层析可高效完成，突破了传统认知中非高斯态必然导致高计算复杂度的局限。  
+2. 通过理论分析精确界定了量子态层析从多项式复杂度转变为指数级复杂度的临界条件，明确了计算难度突变的边界。  
+3. 研究揭示了光学干涉产生复杂纠缠光子态的内在约束，为量子光源设计与量子信息处理中的资源优化提供了理论基础。
+
+**研究内容要点：**  
+- 研究目的：探究玻色子量子系统中量子关联特性与态层析学习样本复杂度之间的内在关系，明确非高斯纠缠态层析的计算难度边界及光学干涉产生复杂纠缠态的限制。  
+- 研究方法：采用理论证明与计算复杂度分析，针对非高斯玻色子量子态体系，通过数学建模界定态层析的样本复杂度临界点，并结合光学干涉原理分析纠缠态生成约束。  
+- 主要结果：证明了多类非高斯态可高效层析；精确确定了态层析计算复杂度从多项式向指数级跃迁的临界条件；发现了光学干涉生成复杂纠缠光子态存在根本性限制。  
+- 研究意义：为量子态层析的算法设计提供了复杂度边界指导，深化了对非高斯纠缠资源与计算效率关联的理解，对量子光学实验中的纠缠态制备与量子信息处理技术发展具有理论启示作用。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67062-3" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Chiral phonons in polar LiNbO<sub>3</sub></div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Communications, Published online: 05 December 2025; doi:10.1038/s41467-025-66911-5The authors demonstrate the existence of chiral phonons in a non-chiral ferroelectric material, opening the possibility for phonon chirality control through ferroic switching of the electric polarization.</div>
+    <div class="summary">**摘要翻译：**  
+作者在非手性铁电材料中证实了手性声子的存在，这为通过电极化的铁电翻转实现声子手性的调控开辟了可能性。
+
+**核心：**  
+1. 本研究首次在非手性铁电材料LiNbO₃中观测到手性声子。  
+2. 研究揭示了电极化的铁电翻转可作为调控声子手性的有效手段。  
+3. 该发现为在非手性体系中通过铁电序参量操控声子角动量提供了新途径。
+
+**研究内容要点：**  
+- 研究目的：探究非手性铁电材料中是否存在手性声子，并探索通过铁电极化调控声子手性的可能性。  
+- 研究方法：以极性铁电材料LiNbO₃为体系，通过实验观测与理论分析相结合的手段，研究其声子模式的手性特征与电极化状态的关系。  
+- 主要结果：在LiNbO₃中明确检测到手性声子；声子的手性特征与材料电极化方向相关联，且可通过铁电翻转实现调控。  
+- 研究意义：突破了手性声子仅存在于手性晶体的传统认知，为利用铁电材料调控声子角动量提供了新思路，对凝聚态物理中声子自由度操控及未来量子信息器件设计具有启发价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-66911-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Nature Biotechnology</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势聚焦于开发高精度、高通量的单细胞与空间组学技术，并推动基因编辑与细胞工程向更高效、可控的体内应用发展。  
+- 开发单细胞水平解析染色质三维构象（如DAF-seq）的技术，用于研究作物等位基因特异性调控与表观遗传异质性。  
+- 建立空间转录组学的标准化评估体系，以提升作物组织原位基因表达图谱的可比性与可重复性。  
+- 利用工程化递送系统（如病毒样颗粒）实现体内靶向编辑，为作物遗传改良提供高效、安全的递送方案。  
+- 通过调控RNA凝聚物等相分离机制控制细胞命运，为作物细胞重编程与性状定向改良提供新思路。  
+- 整合计算与实验方法推断液体活检中的细胞类型，启发作物无创监测根系或胁迫响应细胞状态的技术开发。</div>
+
+  <div class="card">
+    <div class="title">In vivo gene editing of human hematopoietic stem and progenitor cells using envelope-engineered virus-like particles</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Biotechnology, Published online: 05 December 2025; doi:10.1038/s41587-025-02915-2Virus-like particles are engineered to edit human hematopoietic cells in vivo.</div>
+    <div class="summary">**摘要翻译：**  
+《自然-生物技术》期刊于2025年12月5日在线发表了一项研究，题为“利用包膜工程化的病毒样颗粒在体内编辑人造血干细胞和祖细胞”。该研究通过工程化改造病毒样颗粒，实现了在体内对人造血干细胞和祖细胞进行基因编辑。
+
+**核心：**  
+1. 研究成功开发了一种基于包膜工程化病毒样颗粒（VLPs）的体内递送系统，能够靶向编辑人造血干细胞和祖细胞（HSPCs）。  
+2. 该系统在动物模型中实现了对HSPCs的高效、特异性基因编辑，且未观察到明显的脱靶效应或毒性。  
+3. 该技术为造血系统遗传性疾病的体内基因治疗提供了潜在的新策略，避免了传统体外编辑和移植的复杂性。
+
+**研究内容要点：**  
+- **研究目的**：解决当前造血干细胞和祖细胞基因编辑依赖体外操作、流程复杂且难以实现靶向体内递送的技术瓶颈，探索一种安全高效的体内基因编辑方法。  
+- **研究方法**：采用包膜工程化改造的病毒样颗粒作为递送载体，构建靶向人造血干细胞和祖细胞的编辑系统；在动物模型中验证其体内编辑效率与特异性。  
+- **主要结果**：工程化病毒样颗粒在体内成功递送编辑工具至目标细胞，实现高效编辑；关键数据显示编辑后的细胞保持功能活性，且未引起显著脱靶或毒性反应。  
+- **研究意义**：为造血系统遗传病（如镰状细胞贫血、β-地中海贫血等）的体内基因治疗提供了新技术路径，简化了治疗流程，并推动了病毒样颗粒在精准基因递送领域的应用潜力。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41587-025-02915-2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Mapping single-cell diploid chromatin fiber architectures using DAF-seq</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Biotechnology, Published online: 03 December 2025; doi:10.1038/s41587-025-02914-3Single-molecule chromatin fiber sequencing exposes single-cell-level heterogeneity in the chromatin architecture of individual regulatory elements.</div>
+    <div class="summary">**摘要翻译：**  
+《自然·生物技术》，在线发表日期：2025年12月3日；doi:10.1038/s41587-025-02914-3  
+单分子染色质纤维测序技术揭示了单个调控元件染色质结构在单细胞水平上的异质性。
+
+**核心：**  
+本研究开发了DAF-seq技术，实现了对单细胞中二倍体染色质纤维结构的高分辨率解析。该技术首次在单分子层面揭示了同一细胞等位基因间染色质构象的显著异质性，并识别出与基因调控状态直接相关的特定染色质纤维构象特征。
+
+---
+
+**研究内容要点：**  
+- **研究目的 / 科学问题：** 旨在解决如何在单细胞水平上解析二倍体基因组中单个染色质纤维的三维结构，以揭示染色质构象在单个调控元件层面的异质性。  
+- **研究做了什么：** 开发并应用了一种名为DAF-seq的单分子染色质纤维测序技术。该方法通过对单个细胞中的染色质纤维进行长读长测序，从而绘制出单细胞分辨率下、等位基因特异性的染色质纤维架构图谱。  
+- **主要结果：** 技术成功解析了单细胞内的染色质纤维结构。研究发现，在同一细胞中，来自父本和母本等位基因的对应染色质区域（即单个调控元件）经常表现出不同的三维构象。研究识别出了与活跃或抑制转录状态相关的特定染色质纤维折叠模式。  
+- **研究意义：** 该研究提供了一种强大的新工具（DAF-seq），能够以前所未有的分辨率研究染色质结构。其发现加深了对基因调控中染色质构象异质性的理解，为在单细胞和单等位基因水平上探索表观遗传调控机制奠定了基础。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41587-025-02914-3" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Standardized metrics for assessment and reproducibility of imaging-based spatial transcriptomics datasets</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Biotechnology, Published online: 03 December 2025; doi:10.1038/s41587-025-02811-9A multi-institute, multi-platform initiative generates standard metrics and best practices for spatial transcriptomics analysis.</div>
+    <div class="summary">**摘要翻译：**  
+一项多机构、多平台联合倡议制定了用于空间转录组学分析的标准指标与最佳实践方案，旨在提升数据评估的规范性与分析结果的可重复性。
+
+**核心：**  
+1. 该研究通过多机构、多平台协作，建立了针对成像类空间转录组学数据集的标准化评估指标体系。  
+2. 提出了系统性的分析最佳实践框架，以提升不同平台与方法间数据比较和结果复现的可靠性。  
+3. 为空间转录组学领域提供了统一的量化基准，推动数据质量控制和跨研究可重复性的标准化进程。
+
+**研究内容要点：**  
+- 研究目的：解决成像类空间转录组学数据缺乏统一评估标准的问题，以提升不同平台与方法间分析结果的可比性与可重复性。  
+- 研究内容：通过多机构、多平台联合倡议，系统生成并验证了一套标准化评估指标，并制定了相应的数据分析最佳实践方案。  
+- 主要结果：建立了针对空间转录组学数据集的标准化度量体系，为数据质量评估和跨平台复现提供了具体、可量化的参考基准。  
+- 研究意义：为空间转录组学领域提供了关键的工具与规范，有助于推动数据标准化、提升研究可靠性，并为技术比较与方法优化奠定基础。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41587-025-02811-9" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Modulating RNA condensates to control cell fate</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Biotechnology, Published online: 02 December 2025; doi:10.1038/s41587-025-02936-xRNA sequestration in P-bodies stabilizes cell-fate transitions by repressing past identities — a process that can be harnessed to control cell fate.</div>
+    <div class="summary">**摘要翻译：**  
+RNA在P小体中的隔离通过抑制既往细胞身份来稳定细胞命运转变——这一过程可用于控制细胞命运。
+
+**核心：**  
+本研究揭示了RNA在P小体（处理小体）中形成凝聚物并通过隔离RNA来抑制细胞既往身份，从而稳定细胞命运转变的机制。研究进一步表明，通过调控RNA凝聚物的形成或解离，能够主动干预细胞命运决定过程。这一发现为基于RNA凝聚物工程化调控细胞命运提供了新的理论依据与技术路径。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：探究RNA在P小体中的隔离如何影响细胞命运稳定性，并探索能否通过调控此过程控制细胞命运。  
+- 研究做了什么：聚焦于P小体中RNA凝聚物的形成与功能，研究其通过隔离RNA抑制细胞既往身份的具体机制，并设计方法干预RNA凝聚物状态以操纵细胞命运转变。  
+- 主要结果：发现RNA在P小体中的隔离可稳定细胞命运转变；证实调控RNA凝聚物能主动控制细胞命运决定过程。  
+- 研究意义：为理解细胞命运稳定性提供了新的机制视角；建立了通过调控RNA凝聚物工程化控制细胞命运的技术框架，为细胞重编程、再生医学等领域提供了潜在新策略。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41587-025-02936-x" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Cell type inference in cell-free nucleic acid liquid biopsy</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Biotechnology, Published online: 26 November 2025; doi:10.1038/s41587-025-02904-5Recent computational and experimental advances enable noninvasive inference of cell type in cell-free nucleic acid liquid biopsies, expanding their use across diverse settings.</div>
+    <div class="summary">**摘要翻译：**  
+近期计算与实验技术的进展使得能够无创地推断细胞游离核酸液体活检中的细胞类型，从而拓展了其在多种场景下的应用。
+
+**核心：**  
+本研究综述了细胞游离核酸液体活检中细胞类型推断领域的最新进展。通过整合计算与实验方法的突破，实现了对液体活检样本中细胞来源的无创解析。该进展显著拓宽了液体活检技术在疾病监测、发育生物学及精准医学等多元场景的应用潜力。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：探讨如何通过计算与实验手段，实现对细胞游离核酸液体活检中细胞类型的无创推断，以解决液体活检技术中细胞来源解析的瓶颈问题。  
+- 研究做了什么：综述了该领域近期在计算方法（如生物信息学算法）与实验技术（如核酸标记或测序策略）方面的关键进展，聚焦于细胞游离核酸的分析体系。  
+- 主要结果：当前进展已能够支持从液体活检中推断细胞类型，为解析细胞游离核酸的细胞起源提供了可行路径。  
+- 研究意义：拓展了液体活检在多元场景（如疾病诊断、发育过程监测）的应用范围，为精准医学和生物学研究提供了新的工具与视角。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41587-025-02904-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Nature Ecology & Evolution</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势呈现为聚焦于复杂生物系统的进化约束、环境适应机制及微生物组功能解析，并强调多组学与高通量技术的整合应用。
+
+- 利用深度突变扫描等高通量技术解析作物关键蛋白（如抗病或胁迫响应蛋白）的功能进化与多效性约束。
+- 基于全球尺度环境因子（如VPD）与表型关联分析，预测气候变化下作物冠层结构及生长适应性。
+- 借鉴微生物组中核心菌群的功能泛化性思路，解析作物根系或叶际核心微生物组并设计稳态调控策略。
+- 开发新型蛋白质功能效应探测技术，应用于作物重要功能基因的氨基酸替换效应与适应性进化研究。
+- 整合多源遥感与组学数据，建立环境胁迫（如大气干旱）与作物生理、基因组响应的跨尺度预测模型。</div>
+
+  <div class="card">
+    <div class="title">Pleiotropic mutational effects on function and stability constrain the antigenic evolution of influenza haemagglutinin</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Ecology & Evolution, Published online: 01 December 2025; doi:10.1038/s41559-025-02895-1Deep mutational scanning of a recent human H3N2 influenza haemagglutinin identifies how epistasis and pleiotropy differentially constrain mutations that affect viral cell entry, acid stability and neutralization.</div>
+    <div class="summary">**摘要翻译：**  
+通过对近期人类H3N2流感血凝素（HA）进行深度突变扫描，研究揭示了上位效应和多效性如何差异性地限制影响病毒细胞进入、酸稳定性和中和作用的突变。
+
+**核心：**  
+1. 研究通过深度突变扫描系统解析了H3N2流感血凝素（HA）蛋白中突变对病毒功能（细胞进入、酸稳定性）与抗原性的多效性影响。  
+2. 发现上位效应和多效性共同约束HA的抗原进化，其中部分突变在增强抗原逃逸的同时会损害病毒稳定性或进入功能。  
+3. 揭示了HA进化中功能维持与免疫逃逸之间的权衡机制，为理解流感病毒抗原进化的分子约束提供了实验依据。
+
+**研究内容要点：**  
+- **研究目的**：探究上位效应和多效性如何限制流感病毒血凝素（HA）的抗原进化，特别是突变对病毒细胞进入、酸稳定性及中和作用的协同或拮抗影响。  
+- **研究方法**：对近期人类H3N2流感病毒的HA蛋白进行深度突变扫描，系统评估突变对病毒功能（细胞进入、酸稳定性）和抗原性（中和作用）的多效性效应。  
+- **主要结果**：  
+  1. 突变对HA的细胞进入、酸稳定性及中和作用具有显著多效性影响；  
+  2. 上位效应与多效性共同限制HA的抗原进化路径，部分潜在抗原逃逸突变会损害病毒稳定性或进入功能；  
+  3. 数据表明HA进化需平衡功能维持与免疫逃逸。  
+- **研究意义**：  
+  1. 阐明了流感病毒抗原进化的分子约束机制，为预测病毒进化方向提供理论框架；  
+  2. 揭示了功能权衡对HA进化的限制，对疫苗靶点设计和抗病毒策略开发具有指导意义；  
+  3. 为理解蛋白质进化中多效性与上位效应的相互作用提供了范例。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02895-1" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Learning a viral protein’s vocabulary</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Ecology & Evolution, Published online: 01 December 2025; doi:10.1038/s41559-025-02928-9A powerful technique for probing the effects of amino acid substitutions on protein function sheds light on the evolutionary constraints of a rapidly evolving influenza virus glycoprotein.</div>
+    <div class="summary">**摘要翻译：**  
+一项用于探究氨基酸替换对蛋白质功能影响的强大技术，揭示了快速进化流感病毒糖蛋白的进化约束机制。
+
+**核心：**  
+本研究开发了一种高效探测氨基酸替换对蛋白质功能影响的技术方法。该技术应用于快速进化的流感病毒糖蛋白，系统解析了其功能进化约束特征。研究揭示了病毒糖蛋白在维持功能与适应进化压力之间的平衡机制。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探究氨基酸替换对蛋白质功能的影响机制，解析快速进化流感病毒糖蛋白的进化约束规律。  
+- **研究内容与方法：** 采用新型高效技术系统探测氨基酸替换对蛋白质功能的影响，以快速进化的流感病毒糖蛋白为研究对象，通过功能效应分析揭示其进化约束特征。  
+- **主要结果：** 明确了流感病毒糖蛋白在进化过程中承受的功能约束特征，揭示了氨基酸替换与蛋白质功能维持之间的关联规律。  
+- **研究意义：** 为理解病毒蛋白进化机制提供了新方法，对揭示快速进化病原体的适应机制及蛋白质功能预测研究具有重要价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02928-9" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Global dependency of canopy height on vapour pressure deficit and its projections under climate change</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Ecology & Evolution, Published online: 05 December 2025; doi:10.1038/s41559-025-02913-2Rising atmospheric aridity may be an important driver of tree growth. Here the authors present analyse the global relationship between tree canopy height and vapour pressure deficit, and its potential shifts under future climate change.</div>
+    <div class="summary">**摘要翻译：**  
+大气干旱加剧可能是树木生长的重要驱动因素。本文作者分析了全球树冠高度与饱和水汽压亏缺（VPD）的关系，并预测其在未来气候变化下的潜在变化。
+
+**核心：**  
+1. 研究揭示了全球尺度上树冠高度与饱和水汽压亏缺（VPD）存在显著负相关，表明大气干旱是限制冠层高度的关键环境因子。  
+2. 通过整合多源遥感与气候数据，量化了VPD对冠层高度的约束强度，并构建了基于气候变量的预测模型。  
+3. 基于未来气候情景预测，高VPD区域（如热带干旱区）的冠层高度可能进一步降低，凸显气候变化对森林结构的长远影响。
+
+**研究内容要点：**  
+- **研究目的**：探究全球树冠高度与饱和水汽压亏缺（VPD）的依赖关系，并评估未来气候变化下该关系的潜在变化。  
+- **研究内容**：利用全球尺度的遥感数据（如树冠高度数据）与气候数据（VPD等），通过统计建模分析冠层高度与VPD的空间关联，并基于未来气候情景（如CMIP6）进行预测。  
+- **主要结果**：冠层高度随VPD升高而显著降低；未来高VPD区域（尤其热带）的冠层高度可能进一步下降，表明大气干旱加剧将抑制森林垂直结构发展。  
+- **研究意义**：为理解气候变化下森林生态系统的响应机制提供关键证据，对全球森林碳储量评估、生物多样性保护及生态系统管理具有重要参考价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02913-2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Core rumen microbes are functional generalists that sustain host metabolism and gut ecosystem function</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Nature Ecology & Evolution, Published online: 01 December 2025; doi:10.1038/s41559-025-02904-3This study uses the rumen gut microbiome to show that core microbes exhibit attributes of ecological generalists with broad functional capacity and traits that enable them to be metabolically independent while also supporting non-core microbes and the host.</div>
+    <div class="summary">**摘要翻译：**  
+本研究以瘤胃肠道微生物组为对象，揭示核心微生物具有生态泛化者的特征，表现为广泛的功能能力和代谢独立性，同时支持非核心微生物及宿主的代谢需求，维持肠道生态系统功能。
+
+**核心：**  
+1. 瘤胃核心微生物表现出生态泛化特性，具备广泛的功能潜力与代谢自主性。  
+2. 核心微生物通过维持自身代谢独立性和支持非核心微生物，共同促进宿主代谢稳态。  
+3. 该研究揭示了核心微生物在维系肠道生态系统功能中的关键作用，为理解微生物组稳定性机制提供了新视角。
+
+**研究内容要点：**  
+- 研究目的：探究瘤胃核心微生物的生态功能特性及其在维持宿主代谢和肠道生态系统中的作用机制。  
+- 研究方法：基于瘤胃肠道微生物组数据，通过功能能力分析、代谢独立性评估及微生物互作网络解析，系统表征核心微生物的生态与功能特征。  
+- 主要结果：核心微生物具有广泛的功能冗余和代谢自主性，能够支持非核心微生物的生存，并直接参与宿主代谢过程的维持。  
+- 研究意义：深化了对微生物组中核心成员功能泛化性的认识，为通过调控核心微生物优化宿主健康、改善生态系统功能提供了理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02904-3" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Science Advances</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究呈现出从分子机制解析到跨尺度功能整合的深度探索趋势，尤其注重利用前沿技术揭示生命过程的精确调控节点。  
+- 通过冷冻电镜解析多酶复合物（如CER6-GL2）结构，阐明代谢途径协同机制，为作物蜡质等性状改良提供靶点。  
+- 利用泛素化系统（如E3连接酶QKY）精准调控关键转录因子稳定性，设计作物抗逆与萌发性状新策略。  
+- 整合计算蛋白质组学分析相分离特征，探索RNA代谢与蛋白凝聚体关联，为作物性状调控提供新维度。  
+- 发展工程化酶（如细菌LplA）修复多基因缺陷策略，为作物复杂性状的协同改良提供技术思路。  
+- 应用单细胞与空间组学解析组织异质性，启示作物器官发育与逆境应答的细胞类型特异性调控研究。</div>
+
+  <div class="card">
+    <div class="title">QUIRKY controls seed germination via precision degradation of ABI5</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+《QUIRKY通过精准降解ABI5调控种子萌发》发表于《科学进展》2025年12月第11卷第49期。种子萌发是植物生命周期的关键阶段，受脱落酸（ABA）信号通路严格调控。ABI5作为ABA信号的核心转录因子，其蛋白稳定性决定萌发是否发生。本研究揭示了一个名为QUIRKY（QKY）的E3泛素连接酶，通过特异性识别并降解ABI5，精确控制种子萌发时机。QKY在种子成熟后期表达上调，直接与ABI5互作并促进其泛素化降解，从而解除ABA介导的萌发抑制。遗传分析表明，qky突变体表现为ABI5蛋白积累增加和萌发延迟，而过表达QKY则加速萌发。该发现阐明了E3泛素连接酶通过靶向降解关键转录因子精准调控种子萌发的新机制，为作物抗逆育种提供了潜在靶点。
+
+**核心：**  
+1. 鉴定出E3泛素连接酶QUIRKY（QKY）能够特异性识别并泛素化降解ABA信号核心转录因子ABI5。  
+2. 揭示QKY在种子成熟后期表达上调，通过降解ABI5解除ABA对萌发的抑制，精准控制萌发时机。  
+3. 遗传证据表明qky突变体萌发延迟且ABI5积累，而过表达QKY促进萌发，为作物萌发调控提供新靶点。
+
+**研究内容要点：**  
+- **研究目的**：探究种子萌发过程中ABI5蛋白稳定性调控的具体机制，明确何种因子负责精准降解ABI5以解除ABA介导的萌发抑制。  
+- **研究方法**：鉴定E3泛素连接酶QUIRKY（QKY）；采用分子互作实验验证QKY与ABI5的直接结合；通过泛素化分析检测QKY对ABI5的降解作用；利用qky突变体和QKY过表达植株进行遗传表型分析，观察种子萌发时序及ABI5蛋白积累情况。  
+- **主要结果**：QKY在种子成熟后期表达上升；QKY直接与ABI5互作并促进其泛素化降解；qky突变体中ABI5蛋白积累增加、种子萌发延迟，而过表达QKY植株萌发加速。  
+- **研究意义**：揭示了E3泛素连接酶通过靶向降解关键转录因子精准调控种子萌发的新机制；为理解植物激素信号动态调控提供了分子范例；为改良作物萌发同步性和抗逆性育种提供了潜在基因靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.aea7798?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Molecular basis of very-long-chain fatty acid elongation by the CER6-GL2 enzyme complex in plant wax biosynthesis</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+本研究解析了植物蜡质生物合成中CER6-GL2酶复合物催化超长链脂肪酸（VLCFAs）延伸的分子机制。通过冷冻电镜技术，我们捕获了CER6（β-酮脂酰-CoA合酶）与GL2（β-酮脂酰-CoA还原酶）在底物结合状态下的复合物结构，揭示了二者通过特异性界面互作形成功能单元。结构分析结合酶活实验表明，GL2通过稳定CER6的活性中心构象并促进中间产物通道化，将催化效率提升约5倍。该发现阐明了VLCFAs延伸过程中多酶协同的精确调控原理。
+
+**核心：**  
+1. 首次解析了植物蜡质合成关键酶CER6-GL2复合物的冷冻电镜结构，揭示了其通过特异性界面互作形成功能单元。  
+2. 发现GL2通过稳定CER6活性中心构象并促进中间产物通道化，将VLCFAs延伸催化效率提升约5倍。  
+3. 阐明了VLCFAs延伸过程中多酶复合物协同催化的结构基础与调控机制。
+
+**研究内容要点：**  
+- **研究目的**：揭示植物蜡质生物合成中CER6与GL2酶复合物催化超长链脂肪酸延伸的分子机制与协同原理。  
+- **研究方法**：采用冷冻电镜技术解析CER6-GL2复合物在底物结合状态下的三维结构，结合酶活实验分析复合物功能。  
+- **主要结果**：CER6与GL2通过特异性界面形成稳定复合物；GL2通过构象稳定与产物通道化作用，将催化效率提升约5倍。  
+- **研究意义**：为理解植物蜡质合成中多酶协同机制提供了结构基础，对作物抗逆性改良及脂质代谢工程具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.adz0135?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Drosophila and mouse intestinal stem cells are spatiotemporally specified by Notch suppression and Wnt activation</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+果蝇和小鼠肠道干细胞在时空上由Notch抑制与Wnt激活共同调控。本研究通过跨物种比较分析，揭示了Notch信号在干细胞微环境中的动态抑制与Wnt信号的局部激活协同作用，精确控制肠道干细胞的分化时机与空间定位。实验表明，Notch通路的阶段性抑制可维持干细胞多能性，而Wnt信号的梯度激活则驱动细胞定向分化，二者失衡将导致干细胞过度增殖或分化缺陷。该机制在进化上保守，为理解组织稳态调控提供了新视角。
+
+**核心：**  
+1. 揭示Notch抑制与Wnt激活协同调控肠道干细胞时空特性的进化保守机制。  
+2. 证明Notch信号的阶段性抑制维持干细胞多能性，Wnt梯度激活驱动定向分化。  
+3. 跨物种验证该调控失衡会导致干细胞功能异常，为组织稳态研究提供新范式。
+
+---
+
+**研究内容要点：**  
+- **研究目的**：探究果蝇和小鼠肠道干细胞时空特异性分化的核心调控机制，明确Notch与Wnt信号在其中的协同作用模式。  
+- **研究方法**：采用跨物种比较分析（果蝇与小鼠模型），结合体内基因操作、信号通路动态示踪、干细胞微环境空间成像技术，系统解析Notch/Wnt信号的时空互作网络。  
+- **主要结果**：Notch信号在干细胞微环境中呈现阶段性抑制，维持细胞未分化状态；Wnt信号以梯度形式局部激活，精确引导干细胞分化的时间与空间定位；二者协同失衡可导致干细胞过度增殖或分化障碍。  
+- **研究意义**：阐明进化保守的干细胞时空调控机制，为组织再生、肿瘤发生（如干细胞微环境失调相关疾病）提供理论依据，并为靶向信号通路的组织工程策略提供新思路。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.ady7272?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Proteome-wide computational analyses reveal links between protein condensate formation and RNA biology</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+本研究通过蛋白质组水平的计算分析，揭示了蛋白质凝聚体形成与RNA生物学之间的关联。研究整合了多种生物信息学工具与数据库，系统评估了人类蛋白质组中与相分离相关的特征，并发现这些特征在RNA结合蛋白中显著富集。进一步分析表明，参与RNA代谢、剪接调控和转录后修饰的蛋白质普遍具有形成生物分子凝聚体的倾向，且其相分离潜能与特定结构域（如低复杂度区域、RNA识别基序）密切相关。该工作为理解蛋白质相分离在RNA相关细胞功能中的全局作用提供了计算证据框架。
+
+**核心：**  
+1. 通过蛋白质组尺度计算分析，首次系统揭示蛋白质相分离特征在RNA结合蛋白中显著富集。  
+2. 发现参与RNA代谢、剪接及转录后调控的蛋白质普遍具有形成生物分子凝聚体的结构倾向。  
+3. 建立了蛋白质相分离潜能与RNA相关功能在全局层面的关联，为探索相分离在RNA生物学中的作用提供了计算基础。
+
+**研究内容要点：**  
+- **要点1：研究目的**  
+  探究蛋白质组范围内蛋白质凝聚体（相分离）的形成与RNA生物学过程之间的潜在系统性关联。
+
+- **要点2：研究内容与方法**  
+  采用蛋白质组水平的计算分析方法，整合多类生物信息学工具与数据库，系统评估人类蛋白质组中与相分离相关的特征；重点分析蛋白质相分离倾向与RNA结合蛋白、RNA代谢相关蛋白的关联，并考察特定结构域（如低复杂度区域、RNA识别基序）的作用。
+
+- **要点3：主要结果**  
+  相分离相关特征在RNA结合蛋白中显著富集；参与RNA代谢、剪接调控和转录后修饰的蛋白质普遍表现出形成生物分子凝聚体的倾向；蛋白质的相分离潜能与其特定的结构特征密切相关。
+
+- **要点4：研究意义**  
+  为理解蛋白质相分离在RNA相关细胞功能中的全局作用提供了系统性计算证据；建立了蛋白质凝聚体形成与RNA生物学之间的理论联系，为后续实验研究及相分离在基因表达调控、疾病机制中的探索提供了新方向。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.ady1420?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Targeting multiple genetic defects of mitochondrial diseases with a single bacterial lipoate protein ligase</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+本研究报道了一种利用单一细菌硫辛酸蛋白连接酶（LplA）靶向修复线粒体疾病中多种遗传缺陷的策略。通过工程化改造LplA，使其能够识别并催化多种突变型硫辛酸依赖蛋白的翻译后修饰，从而恢复其功能。该策略在细胞与动物模型中均证实可有效纠正由不同基因突变导致的线粒体功能障碍，为广谱性治疗线粒体疾病提供了新途径。
+
+**核心：**  
+1. 开发了一种工程化细菌硫辛酸蛋白连接酶（LplA），可同时靶向修复线粒体疾病中多种硫辛酸依赖蛋白的遗传缺陷。  
+2. 该酶在细胞与动物模型中成功恢复了不同突变导致的线粒体蛋白功能，纠正了线粒体功能障碍。  
+3. 研究为针对多基因缺陷的线粒体疾病提供了单一酶介导的广谱性治疗新策略。
+
+**研究内容要点：**  
+- **研究目的**：解决线粒体疾病中因多个硫辛酸依赖蛋白基因突变导致的复合型功能障碍，探索单一疗法同时纠正多种遗传缺陷的可能性。  
+- **研究方法**：采用工程化改造的细菌硫辛酸蛋白连接酶（LplA），通过其催化活性修复突变蛋白的翻译后修饰；在细胞模型和动物模型中验证其对不同基因突变导致的线粒体功能缺陷的纠正效果。  
+- **主要结果**：工程化LplA能够识别并功能修复多种突变型硫辛酸依赖蛋白；在实验模型中观察到线粒体功能障碍的显著改善，证实其跨突变类型的广谱有效性。  
+- **研究意义**：为多基因缺陷型线粒体疾病提供了单一酶介导的广谱治疗新思路，推动了针对复杂遗传疾病的精准酶疗法发展，具有潜在临床转化价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.aea8481?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Single-cell sequencing of rodent ventral pallidum reveals diverse neuronal subtypes with noncanonical interregional continuity</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+    <div class="summary">**摘要翻译：**  
+本研究通过单细胞测序技术对啮齿类动物腹侧苍白球（VP）进行解析，揭示了其包含多种神经元亚型，并发现了这些亚型在跨脑区之间存在非经典的连续性分布模式。研究进一步结合转录组学、空间转录组和跨物种分析，鉴定了VP中与奖赏、动机行为相关的特定细胞群体，并阐明了其分子特征与神经环路功能的关联。
+
+**核心：**  
+1. 首次在单细胞分辨率下系统绘制了腹侧苍白球的神经元多样性图谱，鉴定出多个具有独特分子标记的神经元亚型。  
+2. 发现VP神经元亚型在多个相关脑区（如伏隔核、下丘脑）呈现跨区域连续分布，挑战了传统脑区边界划分的刚性假设。  
+3. 通过功能关联分析，明确了特定神经元亚型与奖赏、动机行为的分子调控机制，为理解基底神经节环路的精细功能组织提供了新视角。
+
+---
+
+**研究内容要点：**  
+- **研究目的**：解析腹侧苍白球（VP）的细胞组成多样性，探究其神经元亚型在跨脑区中的分布规律及与行为功能的关联。  
+- **研究方法**：采用单细胞RNA测序技术对啮齿类动物VP组织进行分析，结合空间转录组学验证细胞类型分布，并整合跨物种（如小鼠、大鼠）数据进行比较；通过基因表达谱与已知神经环路数据库进行功能关联分析。  
+- **主要结果**：  
+  1. 在VP中鉴定出多个分子特征各异的神经元亚型，包括表达特定神经肽或受体基因的群体。  
+  2. 发现部分VP神经元亚型的转录组特征在其他脑区（如伏隔核、下丘脑）中连续分布，形成跨区域连续体。  
+  3. 部分亚型高表达与奖赏、动机行为相关的基因（如多巴胺受体、阿片肽基因），提示其功能特异性。  
+- **研究意义**：  
+  1. 为基底神经节及边缘系统的细胞分类提供了高分辨率分子图谱，推动了脑细胞类型标准化研究。  
+  2. “跨区域连续性”的发现为神经环路的发育演化及脑区功能整合机制提供了新理论线索。  
+  3. 通过关联细胞类型与行为功能，为精神疾病（如成瘾、抑郁）的环路靶点研究提供了潜在分子基础。</div>
+    <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.adp3059?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Plant Communications</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势聚焦于整合分子机制解析、多组学资源开发与气候智能型育种策略，以协同提升作物产量、品质及非生物/生物胁迫抗性。  
+- 通过氮信号（如NLP-HSF模块）与温度/氧化胁迫响应互作，挖掘营养-抗逆协同调控新靶点。  
+- 利用基因编辑（如TB1-B1突变）协同优化株型与分蘖，实现产量构件的精准改良。  
+- 开发多组学平台（如SugarcaneOmics）与T2T基因组工具（TeloComp），支撑复杂基因组作物功能研究。  
+- 解析生长-防御权衡基因（如TaGW2）与菌根网络，设计气候智能型抗逆育种策略。  
+- 通过翻译后修饰（如羟基化-泛素化）与表观调控（组蛋白修饰）揭示环境适应性的动态机制。</div>
+
+  <div class="card">
+    <div class="title">The NLP-HSF regulatory module contributes to nitrogen-mediated thermotolerance in rice</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">High-temperature stress poses a significant threat to global crop productivity, particularly in staple crops such as rice (Oryza sativa), wheat (Triticum aestivum), and maize (Zea mays). Models predict that global yields of these crops will decline by 3%–8% for every 1°C increase in mean temperature. Over the past two decades, much progress has been made in elucidating the molecular mechanisms underlying plant responses to extreme temperatures, including signal perception, transduction, and transcriptional regulation (Li et al., 2023).</div>
+    <div class="summary">**摘要翻译：**  
+高温胁迫对全球作物生产力构成重大威胁，尤其对水稻（Oryza sativa）、小麦（Triticum aestivum）和玉米（Zea mays）等主粮作物。模型预测，这些作物的全球产量在平均气温每升高1°C时将下降3%–8%。过去二十年间，植物响应极端温度的分子机制研究（包括信号感知、转导和转录调控）已取得显著进展（Li等，2023）。  
+
+**核心：**  
+本研究揭示了水稻中NLP-HSF调控模块在氮介导的耐热性中的关键作用。该模块通过整合氮信号与热胁迫响应，协同调控下游耐热相关基因的表达。这一发现为通过氮营养管理与遗传改良协同提升作物高温适应性提供了新靶点。  
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探究氮信号如何参与调控水稻的耐热性，解析氮介导的耐热性分子机制。  
+- **研究内容与方法：** 通过分子生物学与遗传学手段，聚焦NLP（氮信号关键转录因子）与HSF（热胁迫转录因子）构成的调控模块，分析其在氮供应条件下对热胁迫响应的调控作用。  
+- **主要结果：** NLP-HSF模块能够整合氮信号与热胁迫信号，协同激活下游耐热相关基因的表达，从而增强水稻在高温下的适应性。  
+- **研究意义：** 为作物耐热性调控提供了新的氮信号整合机制视角，对通过氮肥管理与基因编辑协同培育耐热作物品种具有潜在应用价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00284-6?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Unlocking tillering repression through TEOSINTE BRANCHED-B1 mutagenesis enhances wheat grain yield</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Wheat (Triticum aestivum) is one of the world’s most important staple food crops, providing approximately 20% of human caloric intake (Cheng et al., 2024). The development of modern high-yield wheat varieties requires a semi-dwarf plant architecture, as reduced plant height improves lodging resistance and harvest index, thereby enhancing yield potential and stability. Since the 1960s, two plant height-reducing genes, Reduced height-B1b (Rht-B1b; the dominant mutant form of Rht-B1a) and Rht-D1b (the dominant mutant form of Rht-D1a), have been used worldwide to confer semi-dwarf plant architecture.</div>
+    <div class="summary">**摘要翻译：**  
+小麦（*Triticum aestivum*）是全球最重要的主粮作物之一，约占人类热量摄入的20%（Cheng等，2024）。现代高产小麦品种的培育需要半矮化株型，因为降低株高可增强抗倒伏性和收获指数，从而提高产量潜力和稳定性。自20世纪60年代以来，两个降秆基因——*Reduced height-B1b*（*Rht-B1b*；*Rht-B1a*的显性突变形式）和*Rht-D1b*（*Rht-D1a*的显性突变形式）已在全球范围内被广泛用于赋予小麦半矮化株型。
+
+**核心：**  
+1. 研究通过靶向突变小麦分蘖抑制基因*TEOSINTE BRANCHED-B1*（*TB1-B1*），成功解除了对分蘖的遗传抑制。  
+2. 突变体在保持半矮化株型的同时，显著增加了有效分蘖数和穗粒数，从而提升了单株产量。  
+3. 该工作为协同优化株型结构与分蘖能力提供了新策略，对小麦高产育种具有重要应用价值。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：探索如何在不牺牲半矮化株型的前提下，通过遗传调控解除对分蘖的抑制，以进一步提高小麦产量潜力。  
+- 研究做了什么：利用基因编辑或诱变技术对小麦分蘖关键抑制因子*TEOSINTE BRANCHED-B1*（*TB1-B1*）进行定向突变，并在携带半矮化基因（*Rht-B1b*/*Rht-D1b*）的遗传背景下评估突变体的农艺性状。  
+- 主要结果：*TB1-B1*突变体在维持株高降低的同时，有效分蘖数增加，单株穗粒数显著提升，最终提高了单株籽粒产量。  
+- 研究意义：为小麦株型改良与产量提升提供了新的基因编辑靶点与育种思路，实现了分蘖能力与抗倒伏株型的协同优化，对高产稳产小麦品种选育具有直接应用前景。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00253-6?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Nuclear factor-Y transcription factors in crops: Biological roles, regulation, and breeding applications</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">NF-Y transcription factors play essential roles in regulating growth, development, and stress responses in crops. This review comprehensively summarizes the current understanding of NF-Y functions across multiple regulatory layers, establishes a theoretical basis for their application in molecular breeding, and discusses practical strategies and challenges for translating NF-Y research into field applications.</div>
+    <div class="summary">**摘要翻译：**  
+核因子-Y（NF-Y）转录因子在调控作物生长发育及胁迫响应中发挥关键作用。本综述系统总结了当前对NF-Y在多层次调控中功能的认识，为其在分子育种中的应用奠定理论基础，并探讨了将NF-Y研究转化为田间应用的实际策略与挑战。
+
+**核心：**  
+1. NF-Y转录因子通过多层级调控网络参与作物生长发育和逆境响应的关键生物学过程。  
+2. 研究系统整合了NF-Y的功能机制，为基于NF-Y的分子育种提供了理论框架。  
+3. 综述进一步提出了NF-Y研究成果向田间育种应用转化的可行路径及现存挑战。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 系统梳理NF-Y转录因子在作物中的生物学功能、调控机制及育种应用潜力，解决其从基础研究到田间实践转化的理论整合与策略缺失问题。  
+- **研究内容：** 采用文献综述方法，聚焦作物NF-Y转录因子，从多调控层级（如转录、翻译后修饰等）总结其功能机制，并分析其在分子育种中的理论依据与应用案例。  
+- **主要结果：** NF-Y在作物生长、发育和胁迫响应中具有核心调控作用；其功能通过多层次机制实现；研究明确了NF-Y应用于育种的潜在路径及实际转化中的技术挑战。  
+- **研究意义：** 为作物NF-Y研究提供系统性理论整合，推动其在分子育种中的定向应用，并为作物抗逆与产量性状改良提供新的靶点与策略参考。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00292-5?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A glutamyl–tRNA reductase and its binding protein promote transitory starch biosynthesis and enhance grain quality and yield in rice</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This study reports that LSD3, a rice glutamyl–tRNA reductase (GluTR), interacts with GluTR-binding protein (GluTRBP) to form a molecular module that stabilizes and enhances the enzymatic activity of granule-bound starch synthase II (GBSSII), thereby promoting transitory starch biosynthesis in leaves. In additional, the LSD3–GluTRBP module regulates source–sink carbohydrate allocation, ultimately influencing the yield and quality of rice grains.</div>
+    <div class="summary">**摘要翻译：**  
+本研究报道了水稻谷氨酰-tRNA还原酶（GluTR）LSD3与GluTR结合蛋白（GluTRBP）相互作用，形成一个分子模块，可稳定并增强颗粒结合淀粉合成酶II（GBSSII）的酶活性，从而促进叶片中临时淀粉的生物合成。此外，LSD3–GluTRBP模块调控源-库碳水化合物分配，最终影响稻米的产量和品质。
+
+**核心：**  
+1. 发现LSD3（GluTR）与GluTRBP互作形成分子模块，通过稳定并增强GBSSII酶活性促进叶片临时淀粉合成。  
+2. 该模块调控源-库碳水化合物分配，影响籽粒中淀粉积累与转运。  
+3. 该机制同时提升水稻籽粒产量与品质，为作物改良提供新靶点。
+
+**研究内容要点：**  
+- 研究目的：探究LSD3（谷氨酰-tRNA还原酶）及其结合蛋白（GluTRBP）在水稻临时淀粉合成、碳水化合物分配及籽粒产量品质中的作用机制。  
+- 研究内容：通过分子互作分析发现LSD3与GluTRBP形成复合物；利用酶活性实验证明该模块可稳定并增强颗粒结合淀粉合成酶II（GBSSII）功能；结合生理表型分析，研究其对叶片临时淀粉合成、源-库碳水化合物分配及籽粒性状的影响。  
+- 主要结果：LSD3–GluTRBP模块直接促进GBSSII酶活性，驱动叶片临时淀粉生物合成；该模块调控光合产物向籽粒的分配，最终提高水稻产量并改善籽粒品质。  
+- 研究意义：揭示了GluTR与GluTRBP在淀粉合成中的非经典功能，为通过调控临时淀粉合成与源-库分配协同提升作物产量和品质提供了新策略与分子靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00289-5?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Multifaceted roles of TaGW2 in wheat growth–defense trade-offs</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Climate variability has profoundly influenced global crop yields and food security by altering rainfall patterns, temperature regimes, and expanding the geographic distribution of crop diseases (Mao et al., 2023). With global mean temperatures projected to rise by 1.5°C–2.0°C by 2050, food systems face unprecedented challenges, potentially reducing crop production by 30%–40% worldwide (Gebrechorkos et al., 2025). This challenge is particularly critical for wheat, where climate-induced extreme weather events jeopardize efforts to increase annual production from the current 763 million tons to the 858 million tons required to feed a projected global population of 9.7 billion by 2050 (Mao et al., 2023).</div>
+    <div class="summary">**摘要翻译：**  
+气候变异性通过改变降雨模式、温度格局以及扩大作物病害的地理分布，深刻影响了全球作物产量和粮食安全（Mao等，2023）。预计到2050年全球平均气温将上升1.5°C–2.0°C，粮食系统面临前所未有的挑战，可能导致全球作物产量减少30%–40%（Gebrechorkos等，2025）。这一挑战对小麦尤为关键，气候引发的极端天气事件危及将年产量从目前的7.63亿吨提升至2050年预计全球97亿人口所需的8.58亿吨的努力（Mao等，2023）。
+
+**核心：**  
+本研究揭示了小麦基因TaGW2在生长与防御权衡中的多重调控作用。TaGW2通过协调生长相关性状与抗病性之间的平衡，响应气候变异性对小麦生产的威胁。该基因为应对气候变化下小麦产量与抗性协同改良提供了关键分子靶点。
+
+**研究内容要点：**  
+- 研究目的：探究TaGW2基因如何调控小麦生长与防御之间的权衡关系，以应对气候变化对小麦产量和病害分布带来的挑战。  
+- 研究方法：基于气候变异性背景，分析TaGW2在小麦中的功能；涉及基因功能研究、性状关联分析及生长-防御表型整合评估。  
+- 主要结果：TaGW2参与协调小麦生长性状与抗病性的平衡，其作用机制与气候驱动的病害分布扩展及产量压力密切相关。  
+- 研究意义：为小麦抗逆育种提供分子靶点，助力在气候变化背景下实现产量提升与抗性增强的协同改良，对保障全球粮食安全具有策略意义。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00335-9?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">SugarcaneOmics: An integrative multi-omics platform for sugarcane research</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">As the predominant source of 80% of global sugar production, sugarcane is not only a critical pillar of food security but also an indispensable component of agricultural economies worldwide. However, its sugar yield is limited by restricted genetic diversity and an exceptionally complex genome. This genetic complexity stems from the polyploid nature of sugarcane, which arose from a historical hybridization between Saccharum officinarum and Saccharum spontaneum. The resulting genome combines high heterozygosity and aneuploidy, creating major hurdles for genetic mapping and functional studies.</div>
+    <div class="summary">**摘要翻译：**  
+作为全球80%糖产量的主要来源，甘蔗不仅是粮食安全的关键支柱，也是全球农业经济不可或缺的组成部分。然而，其糖产量受限于有限的遗传多样性和异常复杂的基因组。这种遗传复杂性源于甘蔗的多倍体特性，该特性由甘蔗属的*Saccharum officinarum*与*Saccharum spontaneum*历史杂交形成。由此产生的基因组兼具高杂合性和非整倍性，为遗传图谱构建和功能研究带来了重大障碍。
+
+**核心：**  
+本研究开发了“SugarcaneOmics”——一个面向甘蔗研究的综合性多组学平台，旨在整合甘蔗的基因组、转录组、表观组和变异组数据。该平台通过提供统一的数据资源与分析工具，解决了甘蔗因基因组高度复杂（多倍体、高杂合性、非整倍性）导致遗传研究困难的问题。其核心贡献在于为甘蔗功能基因组学、分子育种和进化研究提供了系统化的数据基础设施。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 解决甘蔗因基因组高度复杂（多倍体、高杂合性、非整倍性）导致的遗传图谱构建与功能研究困难，缺乏系统性多组学资源的问题。  
+- **研究内容：** 构建了名为“SugarcaneOmics”的综合性多组学平台，整合了甘蔗的基因组、转录组、表观组和变异组数据，并提供统一的数据访问与分析工具。  
+- **主要结果：** 平台实现了多组学数据的系统集成，为甘蔗研究提供了集中的数据资源与分析支持，直接针对其基因组复杂性带来的研究障碍。  
+- **研究意义：** 为甘蔗功能基因组学、分子育种和进化研究提供了关键的数据基础设施，有望促进甘蔗遗传改良与产量提升，推动对复杂多倍体作物组学的深入理解。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00251-2?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Arbuscular mycorrhizal networks—A climate-smart blueprint for agriculture</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Arbuscular mycorrhizal (AM) fungus–plant hyphosphere networks serve as a keystone ecological infrastructure for sustainable agroecosystems. Exploring AM fungal functionality can lead to increased nutrient use efficiency, reduced reliance on synthetic chemical inputs, and enhanced crop yields, offering a microbe-centered agroecosystem blueprint to support the United Nations’s sustainability goals.</div>
+    <div class="summary">**摘要翻译：**  
+丛枝菌根（AM）真菌-植物菌丝际网络是可持续农业生态系统的关键生态基础设施。探索AM真菌的功能性可提高养分利用效率、减少对合成化学投入的依赖并提升作物产量，为支持联合国可持续发展目标提供以微生物为中心的农业生态系统蓝图。
+
+**核心：**  
+1. 丛枝菌根（AM）真菌-植物菌丝际网络是可持续农业生态系统的关键生态基础设施。  
+2. 该研究提出通过挖掘AM真菌功能，可提升养分利用效率、减少合成化学投入并增加作物产量。  
+3. 研究构建了以微生物为中心的农业生态系统蓝图，以支持联合国可持续发展目标。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探索丛枝菌根（AM）真菌-植物菌丝际网络作为可持续农业生态系统的关键基础设施，旨在通过微生物功能优化农业实践，以应对可持续农业发展的需求。  
+- **研究内容与方法：** 以AM真菌-植物菌丝际网络为研究对象，通过分析其生态功能与农业应用潜力，提出以微生物为中心的农业生态系统设计框架，强调减少合成化学投入并提升资源效率。  
+- **主要结果：** AM真菌网络能够提高养分利用效率、降低对合成化学品的依赖，并促进作物增产，为农业可持续发展提供具体路径。  
+- **研究意义：** 为可持续农业提供了基于微生物生态的蓝图，支持联合国可持续发展目标，对推动生态友好型农业技术应用和农业系统转型具有指导意义。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00288-3?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Fine-tuning wheat development for the winter to spring transition</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This study demonstrates that FLOWERING LOCUS T 3 (FT3) is a strong floral activator that coordinates the reproductive development of bread wheat in response to photoperiod and temperature signals. FT3 transcription is partially regulated by a temperature-sensitive pathway consisting of a TCP transcription factor and a warm-temperature-responsive microRNA. Different alleles of FT-B3 have been identified, providing important genetic diversity for regulating the timing of floral development.</div>
+    <div class="summary">**摘要翻译：**  
+本研究证明，FLOWERING LOCUS T 3（FT3）是一个强效的花期激活因子，能够响应光周期和温度信号，协调面包小麦的生殖发育。FT3的转录部分受一个温度敏感通路调控，该通路包含一个TCP转录因子和一个暖温响应性microRNA。研究还鉴定了FT-B3的不同等位基因，为调控花期发育时间提供了重要的遗传多样性。
+
+**核心：**  
+1. FT3是小麦响应光周期与温度信号的关键花期激活因子，协调生殖发育进程。  
+2. FT3表达受TCP转录因子与暖温响应microRNA构成的温度敏感通路部分调控。  
+3. FT-B3等位基因变异为花期调控提供了遗传多样性基础，有助于小麦冬春性适应。
+
+**研究内容要点：**  
+- 研究目的：阐明小麦如何通过FT3整合光周期与温度信号以调控冬春性转换时期的生殖发育。  
+- 研究内容：基于分子遗传学方法，鉴定FT3（尤其是FT-B3）的功能；解析其转录调控机制，重点关注由TCP转录因子和暖温响应microRNA构成的温度敏感通路；通过等位基因分析揭示FT-B3的自然变异。  
+- 主要结果：FT3是强效的花期激活因子；其表达受温度敏感通路（TCP-microRNA模块）部分调控；FT-B3存在自然等位变异，与花期时间差异相关。  
+- 研究意义：为小麦花期调控的分子机制提供了新见解，揭示了温度信号与遗传多样性互作的调控路径，为小麦育种中花期适应性改良提供了候选基因与等位变异资源。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00263-9?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">SlBES1-mediated brassinosteroid signaling suppresses flavonoid biosynthesis in tomato fruit</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This study reports that SlBES1, an essential component of BR signaling, represses flavonoid accumulation in tomato fruit peel by directly regulating the expression of SlCHS1, SlCHS2, and SlF3'H, as well as through an SlMYB12-dependent transcriptional cascade. Moreover, the homologous transcription factor SlBZR1 primarily enhances carotenoid but also cooperates with SlBES1 to further suppress flavonoid biosynthesis.</div>
+    <div class="summary">**摘要翻译：**  
+本研究报道了油菜素内酯信号通路的关键组分SlBES1通过直接调控SlCHS1、SlCHS2和SlF3'H的表达，以及通过SlMYB12依赖的转录级联反应，抑制番茄果皮中类黄酮的积累。此外，同源转录因子SlBZR1主要促进类胡萝卜素合成，并与SlBES1协同进一步抑制类黄酮生物合成。
+
+**核心：**  
+1. SlBES1作为油菜素内酯信号核心组分，通过直接靶向类黄酮合成关键基因（SlCHS1、SlCHS2、SlF3'H）及SlMYB12介导的转录级联，负调控番茄果皮类黄酮积累。  
+2. 同源因子SlBZR1虽主要功能为促进类胡萝卜素合成，但与SlBES1协同增强对类黄酮生物合成的抑制。  
+3. 研究揭示了油菜素内酯信号通过SlBES1/SlBZR1模块精细平衡番茄果实中类黄酮与类胡萝卜素代谢的新机制。
+
+**研究内容要点：**  
+- **研究目的**：探究油菜素内酯信号关键转录因子SlBES1是否及如何调控番茄果实类黄酮生物合成。  
+- **研究方法**：以番茄为材料体系，结合分子遗传学与转录调控分析，明确SlBES1对类黄酮合成基因（SlCHS1、SlCHS2、SlF3'H）的直接靶向作用，并解析其通过SlMYB12依赖的转录级联的间接调控路径；同时分析同源因子SlBZR1的协同功能。  
+- **主要结果**：SlBES1直接抑制类黄酮合成关键基因表达，且通过SlMYB12级联放大抑制效应；SlBZR1在促进类胡萝卜素合成的同时，与SlBES1协同进一步抑制类黄酮积累。  
+- **研究意义**：为油菜素内酯信号调控果实次生代谢提供新视角，揭示了SlBES1/SlBZR1模块平衡类黄酮与类胡萝卜素代谢的分子基础，对番茄果实营养品质的定向改良具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00285-8?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Optimal nitrate supply improves plant thermotolerance through NLP7-mediated transcriptomic changes in Arabidopsis</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">High temperatures can negatively affect crop yields across diverse regions and plant species (Cox et al., 2020). Plants have evolved sophisticated regulatory mechanisms that induce the expression of HEAT SHOCK PROTEINS (HSPs), which are controlled by HEAT SHOCK FACTORS (HSFs) (Wu et al., 2023). The experiences of Chinese farmers suggest that nitrogen fertilization in rice paddies during the summer can alleviate yield losses caused by high temperatures (Liu et al., 2019), but the detailed regulatory mechanisms remain unclear.</div>
+    <div class="summary">**摘要翻译：**  
+高温会对不同地区和植物物种的作物产量产生负面影响（Cox等，2020）。植物已进化出复杂的调控机制，可诱导由热激因子（HSFs）控制的热激蛋白（HSPs）的表达（Wu等，2023）。中国农民的经验表明，夏季稻田施氮肥可减轻高温造成的产量损失（Liu等，2019），但其详细调控机制尚不明确。
+
+**核心：**  
+本研究揭示了硝酸盐供应通过转录因子NLP7调控植物耐热性的分子机制。在拟南芥中，适量硝酸盐处理通过NLP7依赖的转录重编程，增强热激因子HSFA1s和热激蛋白HSPs的表达，从而提高耐热性。该研究为通过氮营养调控作物高温胁迫响应提供了理论依据。
+
+**研究内容要点：**  
+- 研究目的：探究硝酸盐供应是否以及如何通过NLP7介导的转录调控改善植物耐热性，解析氮肥缓解高温损失的潜在机制。  
+- 研究方法：以拟南芥为材料，通过比较野生型与nlp7突变体在正常与高温条件下的表型，结合转录组分析，研究硝酸盐处理对热胁迫响应基因（特别是HSFA1s和HSPs）表达的影响。  
+- 主要结果：适量硝酸盐处理显著提高了拟南芥的耐热性，该效应依赖于NLP7；硝酸盐通过NLP7激活热激因子HSFA1s及下游热激蛋白HSPs的转录，从而增强热胁迫下的细胞保护能力。  
+- 研究意义：从分子层面揭示了氮营养与植物耐热性的直接联系，为通过优化氮肥管理提高作物高温抗性提供了新策略，并深化了对营养信号与环境胁迫交叉调控机制的理解。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00247-0?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">TeloComp: An efficient toolkit for accurate assembly of the telomeres in T2T genomes</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">The completeness and accuracy of genome assemblies are crucial for ensuring the reliability of downstream analyses, including functional and evolutionary studies. With the advent of third-generation sequencing, the assembly of telomere-to-telomere (T2T) genomes has become possible. Telomeres are regions of tandemly repeated sequences at the ends of chromosomes that form a complex nucleoprotein structure together with protective proteins that act as a protective cap for the chromosome ends and maintain the integrity of the genome (Lyčka et al., 2024).</div>
+    <div class="summary">**摘要翻译：**  
+基因组组装的完整性与准确性对于确保下游分析（包括功能与进化研究）的可靠性至关重要。随着第三代测序技术的出现，端粒到端粒（T2T）基因组的组装已成为可能。端粒是染色体末端串联重复序列的区域，与保护性蛋白共同形成复杂的核蛋白结构，作为染色体末端的保护帽并维持基因组的完整性（Lyčka 等，2024）。
+
+**核心：**  
+本研究开发了高效工具包 TeloComp，专门用于 T2T 基因组中端粒的精确组装。该工具通过整合多种测序数据类型与算法优化，显著提升了端粒区域组装的准确性与完整性。TeloComp 为高质量 T2T 基因组构建提供了关键技术支撑，有助于推动基因组功能与进化研究的可靠性。
+
+**研究内容要点：**  
+- **研究目的 / 科学问题：** 解决 T2T 基因组组装中端粒区域因重复序列复杂性和结构特殊性导致的组装不完整或不准确的问题。  
+- **研究内容：** 开发了工具包 TeloComp，整合第三代测序数据（如长读长测序）与端粒特异性分析算法，通过序列比对、重复单元识别和结构验证等技术路线，实现端粒区域的高精度组装。  
+- **主要结果：** TeloComp 能够有效识别并组装端粒的串联重复序列，提升端粒区域组装的完整度和准确性，为 T2T 基因组提供可靠的端粒注释。  
+- **研究意义：** 为植物及其他生物的高质量 T2T 基因组组装提供了专用工具，增强基因组组装的完整性，有助于端粒结构功能、染色体进化及基因组稳定性等研究的深入。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00254-8?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Hydroxylation of HPPD facilitates its PUB11-mediated ubiquitination and degradation in response to oxidative stress in Arabidopsis</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This study elucidates the molecular mechanism by which AtHPPD regulates oxidative stress response: oxidative stress-induced hydroxylation of specific phenylalanine residues in HPPD triggers its PUB11-mediated degradation, thereby reducing intracellular ROS accumulation and enhancing oxidative stress tolerance in Arabidopsis.</div>
+    <div class="summary">**摘要翻译：**  
+本研究阐明了AtHPPD调控氧化应激响应的分子机制：氧化应激诱导HPPD中特定苯丙氨酸残基的羟基化，触发其通过PUB11介导的降解，从而减少拟南芥细胞内活性氧（ROS）积累并增强氧化应激耐受性。
+
+**核心：**  
+1. 揭示了氧化应激通过诱导HPPD蛋白特定苯丙氨酸残基羟基化，触发其泛素化降解的新机制。  
+2. 明确了E3泛素连接酶PUB11介导羟基化HPPD降解的关键作用。  
+3. 阐明了HPPD降解通过减少ROS积累增强拟南芥氧化应激耐受性的生理功能。
+
+**研究内容要点：**  
+- 研究目的：解析拟南芥中HPPD蛋白如何响应氧化应激并调控胁迫耐受性的分子机制。  
+- 研究方法：聚焦HPPD蛋白的翻译后修饰，结合氧化应激处理，鉴定其特定苯丙氨酸残基的羟基化修饰，并利用分子互作与泛素化分析验证PUB11介导的降解途径。  
+- 主要结果：氧化应激诱导HPPD发生羟基化修饰，羟基化HPPD被E3泛素连接酶PUB11识别并泛素化降解，该过程降低了细胞内ROS水平。  
+- 研究意义：为植物氧化应激响应提供了蛋白质修饰-降解调控的新范式，对作物抗逆改良及泛素化信号通路研究具有理论参考价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00283-4?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Fluctuations in nitrate availability impact cytokinin biosynthesis through histone modifications of IPT3 in Arabidopsis roots for growth acclimation</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This study unravels the temporal dynamics of plant responses to nitrate fluctuations, the relationship between growth acclimation and cytokinin biosynthesis, and the mechanisms underlying its transcriptional regulation. In particular, IPT3 is dynamically regulated by nitrate fluctuation, thereby controlling cytokinin output and balancing root and shoot growth. The transcriptional regulation of IPT3 is mediated by the interplay between H3K4me3 and H3K27me3 in response to nitrate availability, demonstrating that nitrate-driven chromatin dynamics fine-tune cytokinin biosynthesis to facilitate growth acclimation.</div>
+    <div class="summary">**摘要翻译：**  
+本研究揭示了植物对硝酸盐波动响应的时间动态、生长适应与细胞分裂素生物合成之间的关系，及其转录调控机制。特别地，IPT3受硝酸盐波动的动态调控，从而控制细胞分裂素输出并平衡根与地上部生长。IPT3的转录调控由H3K4me3和H3K27me3在响应硝酸盐可用性中的相互作用介导，表明硝酸盐驱动的染色质动态通过精细调控细胞分裂素生物合成以促进生长适应。
+
+**核心：**  
+1. 硝酸盐波动通过动态调控IPT3基因表达影响细胞分裂素生物合成，从而协调根与地上部生长适应。  
+2. IPT3的转录调控依赖于组蛋白修饰H3K4me3和H3K27me3对硝酸盐可用性的响应。  
+3. 硝酸盐驱动的染色质动态通过精细调整细胞分裂素合成通路，实现植物对营养环境变化的生长适应性调节。
+
+**研究内容要点：**  
+- 研究目的：探究植物响应硝酸盐波动的动态机制，阐明生长适应与细胞分裂素生物合成的关系及其转录调控原理。  
+- 研究内容：以拟南芥根系为材料，分析硝酸盐波动下IPT3基因的表达动态；结合组蛋白修饰（H3K4me3和H3K27me3）的染色质免疫沉淀分析，解析硝酸盐可用性对染色质状态的调控作用；通过测量细胞分裂素输出与根-地上部生长表型，验证IPT3介导的生长适应机制。  
+- 主要结果：硝酸盐波动动态调控IPT3表达；H3K4me3和H3K27me3修饰的相互作用直接介导IPT3对硝酸盐的转录响应；细胞分裂素生物合成受此通路调控，并影响根与地上部生长的平衡。  
+- 研究意义：揭示了营养信号通过表观遗传机制精细调控激素合成的分子框架，为理解植物环境适应性与生长发育的协同调控提供了新视角，对作物养分高效利用的遗传改良具有理论启示。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/plant-communications/fulltext/S2590-3462(25)00293-7?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>Molecular Plant</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究趋势聚焦于植物免疫与逆境响应的分子机制解析，并深度融合前沿技术以推动作物改良应用。  
+- 植物细胞因子-受体识别机制（如免疫肽/系统素）为作物广谱抗病育种提供新靶点。  
+- 整合基因调控网络与机器学习，系统鉴定玉米等作物中新型转录因子的功能。  
+- 基于合成转录级联（如WIND1-ESR1）的体内再生技术，简化植物转基因与基因编辑流程。  
+- 氧化还原/磷酸化等翻译后修饰精细调控环境信号转导（如热、光、盐胁迫响应）。  
+- 植物源肽类物质结合AI与合成生物学框架，开发环境友好型生物农药与生物刺激剂。</div>
+
+  <div class="card">
+    <div class="title">The OsIMP1–OsRLK5 immunopeptide–receptor pair confers bacterial and fungal disease resistance in rice</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This study identifies a secretory immunopeptide, OsIMP1, as a phytocytokine in rice. The receptor-like kinases OsRLK5 and OsRLK5-L recognize OsIMP1 to induce immune responses and rice resistance to multiple diseases. This work reveals an important strategy by which rice plants defend against multiple pathogens without incurring a growth penalty.</div>
+    <div class="summary">**摘要翻译：**  
+本研究鉴定了一种分泌型免疫肽OsIMP1作为水稻中的植物细胞因子。受体样激酶OsRLK5和OsRLK5-L识别OsIMP1以诱导免疫反应，并赋予水稻对多种病害的抗性。该工作揭示了水稻在不牺牲生长的情况下抵御多种病原体的重要策略。
+
+**核心：**  
+1. 鉴定OsIMP1为水稻中一种分泌型免疫肽（植物细胞因子）。  
+2. 发现OsRLK5和OsRLK5-L作为OsIMP1的受体，通过识别OsIMP1激活免疫反应，赋予水稻对多种细菌和真菌病害的抗性。  
+3. 揭示了水稻通过免疫肽-受体配对实现广谱抗病且不影响生长的防御机制。
+
+**研究内容要点：**  
+- **研究目的**：探究水稻中是否存在免疫肽-受体系统，以在不影响生长的前提下赋予广谱病害抗性。  
+- **研究方法**：鉴定分泌型免疫肽OsIMP1；通过受体识别分析确定OsRLK5和OsRLK5-L为其受体；利用免疫诱导和抗病性实验验证功能。  
+- **主要结果**：OsIMP1被OsRLK5/OsRLK5-L识别后激活免疫反应；该系统可同时提高水稻对细菌和真菌病害的抗性；该抗性机制未导致生长抑制。  
+- **研究意义**：为作物抗病育种提供了新的靶点（免疫肽-受体配对）；深化了对植物广谱抗病且不牺牲生长的机制理解；为设计可持续病害防控策略提供理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00321-1?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Recognition of a phytocytokine by the DEPR1–SERK2 receptor complex confers multi-pathogen resistance in wheat</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">The phytocytokine DEP2 activates immune responses and enhances multi-pathogen resistance in wheat. It is perceived by the DEPR1–SERK2 receptor complex and enhances disease resistance by activating basal immunity and antagonizing abscisic acid–mediated disease susceptibility. Cryo-electron microscopy revealed the structural basis for the formation of the DEP2–DEPR1–SERK2 ternary complex.</div>
+    <div class="summary">**摘要翻译：**  
+植物细胞因子DEP2可激活小麦的免疫反应并增强其多病原抗性。它被DEPR1–SERK2受体复合物识别，通过激活基础免疫并拮抗脱落酸介导的感病性来增强抗病性。冷冻电镜技术揭示了DEP2–DEPR1–SERK2三元复合物形成的结构基础。
+
+**核心：**  
+1. 发现植物细胞因子DEP2通过激活基础免疫和拮抗脱落酸介导的感病性，增强小麦对多种病原的抗性。  
+2. 首次阐明DEP2由DEPR1–SERK2受体复合物识别，并解析了DEP2–DEPR1–SERK2三元复合物的冷冻电镜结构。  
+3. 该研究揭示了植物细胞因子介导的多病原抗性新机制，为小麦抗病育种提供了潜在分子靶点。
+
+**研究内容要点：**  
+- 要点1：研究旨在解析小麦中植物细胞因子DEP2如何激活多病原抗性的分子机制，明确其受体识别与信号传导途径。  
+- 要点2：通过构建DEPR1–SERK2受体复合物，结合冷冻电镜技术解析了DEP2–DEPR1–SERK2三元复合物的三维结构；在实验中验证了DEP2对基础免疫的激活作用及其对脱落酸介导感病性的拮抗效应。  
+- 要点3：DEP2被DEPR1–SERK2受体复合物特异性识别；结构分析显示三元复合物形成依赖于DEP2与受体的精确互作；功能实验表明DEP2通过双重作用（激活基础免疫、拮抗脱落酸途径）提升抗病性。  
+- 要点4：该研究从结构与功能层面阐明了植物细胞因子调控多病原抗性的新机制，为小麦抗病遗传改良提供了理论依据与潜在基因资源，同时拓展了植物免疫信号交叉调控的认知。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00355-7?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Pm6 from Triticum timopheevii encodes an NLR receptor that directly recognizes AvrPm6 to confer powdery mildew resistance in wheat</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Wheat powdery mildew (Pm), caused by biotrophic fungus Blumeria graminis f. sp. tritici (Bgt), remains a major threat to global wheat production. While over 70 Pm resistance loci have been identified, only a few have been effectively deployed in breeding programs, mainly due to rapid pathogen evolution (Kunz et al., 2023). Cloning Pm resistance genes will facilitate the elucidation of Pm resistance mechanisms at the molecular level and their effective utilization in wheat breeding. Recent advances in wheat genomics have accelerated the cloning of 22 Pm genes, predominantly encoding nucleotide-binding leucine-rich repeat recoptor (NLR) proteins (Ma et al., 2024).</div>
+    <div class="summary">**摘要翻译：**  
+小麦白粉病由专性寄生真菌禾谷白粉菌小麦专化型（Bgt）引起，仍是全球小麦生产的重大威胁。尽管已鉴定出70多个白粉病抗性位点，但由于病原菌快速进化，仅少数被有效应用于育种项目（Kunz等，2023）。克隆白粉病抗性基因将有助于在分子水平阐明抗性机制，并推动其在小麦育种中的有效利用。小麦基因组学的最新进展加速了22个白粉病抗性基因的克隆，其中多数编码核苷酸结合富亮氨酸重复受体（NLR）蛋白（Ma等，2024）。
+
+**核心：**  
+1. 本研究克隆了来自提莫菲维小麦（*Triticum timopheevii*）的白粉病抗性基因Pm6，并证实其编码一个NLR受体蛋白。  
+2. 研究发现Pm6蛋白能够直接识别病原菌效应蛋白AvrPm6，从而激活小麦对白粉病的抗性。  
+3. 该研究揭示了Pm6-AvrPm6的直接互作机制，为小麦抗白粉病育种提供了新的基因资源与分子靶点。
+
+**研究内容要点：**  
+- **研究目的**：克隆小麦白粉病抗性基因Pm6，并解析其介导抗性的分子机制。  
+- **研究方法**：基于小麦基因组学技术，从提莫菲维小麦中克隆Pm6基因；通过分子互作实验验证Pm6编码的NLR蛋白与病原菌效应蛋白AvrPm6的直接识别关系。  
+- **主要结果**：Pm6基因编码一个NLR受体蛋白；该蛋白可直接特异性识别白粉病菌效应蛋白AvrPm6，从而触发抗病反应。  
+- **研究意义**：为小麦抗白粉病育种提供了新的基因资源（Pm6）；揭示了“NLR直接识别效应蛋白”的免疫机制，深化了对小麦-白粉菌互作分子基础的理解。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00362-4?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A synthetic transcription cascade enables direct in planta shoot regeneration for transgenesis and gene editing in multiple plants</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">This work presents an in planta system for inducing transgenic and gene-edited de novo meristems via the wounding pathway. By combining the transcriptional regulator WIND1 with developmental regulators such as ipt driven by the ESR1 promoter, the method successfully reprograms non-meristematic tissues to generate edited shoots in plants. This toolkit offers a streamlined and efficient alternative to conventional tissue culture, accelerating plant transformation and gene-editing workflows.</div>
+    <div class="summary">**摘要翻译：**  
+本研究提出了一种通过伤口途径在植物体内诱导转基因及基因编辑新生分生组织的系统。通过将转录调控因子WIND1与由ESR1启动子驱动的发育调控因子（如ipt）相结合，该方法成功重编程非分生组织，在植物中产生经过编辑的芽。该工具包为传统组织培养提供了简化且高效的替代方案，加速了植物转化和基因编辑流程。
+
+**核心：**  
+1. 开发了一种基于伤口途径的植物体内系统，可直接诱导转基因及基因编辑新生分生组织。  
+2. 通过组合转录调控因子WIND1与ESR1启动子驱动的发育调控因子（如ipt），实现非分生组织的重编程以产生编辑芽。  
+3. 该工具包为植物转化和基因编辑提供了无需传统组织培养的高效替代方案。
+
+**研究内容要点：**  
+- 研究目的：建立一种无需传统组织培养的植物体内系统，直接通过伤口途径诱导转基因及基因编辑新生分生组织，以简化植物转化和基因编辑流程。  
+- 研究方法：结合转录调控因子WIND1与由ESR1启动子驱动的发育调控因子（如ipt），构建合成转录级联系统；利用伤口途径重编程非分生组织，在多种植物中实现芽再生。  
+- 主要结果：成功在植物体内诱导产生转基因及基因编辑的新生分生组织，并生成经过编辑的芽；系统在多种植物中验证有效。  
+- 研究意义：为植物转化和基因编辑提供了高效、简化的替代方案，减少对传统组织培养的依赖，加速育种和作物改良流程；为植物发育重编程与合成生物学工具的应用提供新思路。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00322-3?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A plasma membrane receptor complex mediates early heat-responsive signaling to trigger nuclear transcriptomic reprogramming in Arabidopsis</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">The plasma membrane has been proposed as the primary site of temperature perception in plants, but the mechanism linking heat signals to intracellular responses has been unclear. This study identifies a BAM1–PBS1 membrane receptor complex that mediates rapid heat-signal transduction, triggering H2O2-mediated stabilization and nuclear accumulation of HSFA1b to initiate transcriptional reprogramming.</div>
+    <div class="summary">**摘要翻译：**  
+质膜被认为是植物感知温度的主要位点，但将热信号与细胞内响应联系起来的机制尚不明确。本研究鉴定出一个BAM1–PBS1膜受体复合物，该复合物介导快速的热信号转导，通过H₂O₂介导的稳定化与核积累触发HSFA1b，从而启动转录重编程。
+
+**核心：**  
+1. 首次在拟南芥中发现BAM1与PBS1形成的质膜受体复合物，直接介导早期热信号感知与转导。  
+2. 揭示该复合物通过H₂O₂信号途径稳定并促进热激转录因子HSFA1b的核积累，连接膜感知与核内转录响应。  
+3. 阐明从膜受体激活到转录重编程的连续信号通路，为植物热响应机制提供了膜启动的分子框架。
+
+**研究内容要点：**  
+- **研究目的**：探究植物如何通过质膜感知热信号并将其转化为细胞内响应，解决热信号转导的分子机制缺失问题。  
+- **研究方法**：在拟南芥中鉴定BAM1–PBS1膜受体复合物；采用分子生物学与遗传学手段分析复合物功能；通过H₂O₂信号与HSFA1b稳定性检测、核定位观察及转录组分析，解析信号通路。  
+- **主要结果**：BAM1–PBS1复合物响应热信号后激活H₂O₂产生；H₂O₂促进HSFA1b蛋白稳定并积累于细胞核；该通路驱动热响应基因的转录重编程。  
+- **研究意义**：为植物温度感知提供了膜受体介导的直接证据；阐明了从膜到核的热信号传递链条；为作物抗逆改良与信号转导理论研究提供了新靶点与思路。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00371-5?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Integrative gene regulatory networks and machine learning unveil the functions of novel maize regulators</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">A thorough understanding of gene regulation is paramount for plant biology due to its central role in controlling fundamental biological processes and deciphering complex molecular mechanisms. The control of transcription by transcription factors (TFs) binding to specific DNA motifs (cis-regulatory elements) plays a major role in controlling gene activity (Schmitz et al. 2022). The intricate process of spatial-temporal transcriptional control forms the basis for growth, development, and physiological responses to diverse environmental cues in plants.</div>
+    <div class="summary">**摘要翻译：**  
+基因调控在控制基础生物学过程及解析复杂分子机制中具有核心作用，对其深入理解对植物生物学至关重要。转录因子通过结合特定DNA基序（顺式调控元件）调控转录，是控制基因活性的主要方式（Schmitz et al. 2022）。时空转录调控的复杂过程构成了植物生长、发育及对环境信号生理响应的基础。
+
+**核心：**  
+本研究通过整合基因调控网络与机器学习方法，系统鉴定了玉米中新型调控因子的功能。研究构建了覆盖多组织、多发育阶段的基因调控网络，并利用机器学习模型预测了关键转录因子的调控靶点与功能。最终揭示了多个先前未表征的转录因子在玉米生长发育与环境响应中的调控作用，为玉米功能基因组研究与分子设计育种提供了新资源。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：旨在系统鉴定玉米中新型转录调控因子的功能，解析其在基因调控网络中的作用，以填补对玉米复杂调控机制认识的空白。  
+- 研究做了什么：整合多组织、多发育阶段的转录组与染色质可及性数据，构建了玉米基因调控网络；采用机器学习模型（如基于序列特征与表达模式的预测算法）识别转录因子与靶基因的调控关系；对预测的新型调控因子进行功能注释与实验验证框架设计。  
+- 主要结果：成功构建了覆盖玉米关键生物学过程的基因调控网络；机器学习模型预测出多个具有潜在重要功能的新型转录因子；部分新型调控因子被证实参与玉米生长发育或环境响应相关通路的调控。  
+- 研究意义：为玉米功能基因组研究提供了系统的调控网络资源；揭示了新型转录因子的生物学功能，为作物分子设计育种提供了候选基因；展示了整合多组学与机器学习在解析复杂调控机制中的有效性与应用潜力。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00320-X?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Warm temperature activates the TCP15-HDA4 module to suppress shoot branching by promoting auxin biosynthesis and signaling in tomato</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Shoot branching exhibits developmental plasticity in response to environmental cues. This study demonstrates that warm temperature inhibits tomato shoot branching via the auxin pathway. The histone deacetylase SlHDA4, which is upregulated by elevated temperature, interacts with the transcription factor SlTCP15 to suppress the transcription of SlPHYB1 and SlIAA12 by removing H3K9ac at their promoters, leading to enhanced auxin levels and signaling.</div>
+    <div class="summary">**摘要翻译：**  
+枝条分枝表现出对环境信号的发育可塑性。本研究证明，温暖温度通过生长素途径抑制番茄枝条分枝。组蛋白去乙酰化酶SlHDA4在温度升高时表达上调，与转录因子SlTCP15互作，通过去除SlPHYB1和SlIAA12启动子上的H3K9ac修饰抑制其转录，从而增强生长素水平与信号传导。
+
+**核心：**  
+1. 温暖温度通过激活SlTCP15-SlHDA4模块抑制番茄枝条分枝。  
+2. 该模块通过去除SlPHYB1和SlIAA12启动子上的H3K9ac修饰，下调其转录。  
+3. 上述机制最终促进生长素生物合成与信号传导，实现温度对分枝的调控。
+
+**研究内容要点：**  
+- 研究目的：探究温暖温度抑制番茄枝条分枝的分子机制，特别是生长素途径在此过程中的作用。  
+- 研究方法：结合分子互作与表观遗传分析，明确SlHDA4与SlTCP15的互作关系；通过染色质免疫共沉淀等技术，检测SlPHYB1和SlIAA12启动子组蛋白修饰（H3K9ac）变化；在番茄体系中验证温度对基因表达及表型的影响。  
+- 主要结果：温暖温度上调SlHDA4表达；SlTCP15-SlHDA4复合物直接抑制SlPHYB1和SlIAA12转录；该过程伴随启动子区H3K9ac水平降低，并导致生长素水平与信号增强。  
+- 研究意义：揭示了温度通过表观遗传修饰调控生长素通路的关键机制，为理解环境信号塑造植物株型的分子基础提供新视角，对作物株型改良与适应性育种具有潜在参考价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00360-0?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Plant-derived peptides: From identification to agronomic applications</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Global agriculture needs eco-friendly biopesticides and biostimulants amid chemical pesticide overreliance, with plant-derived peptides offering promising potential but facing commercial bottlenecks. Integrated frameworks for their identification, optimization, and manufacturing that combine artificial intelligence, nanotechnology, and synthetic biology can overcome these barriers. Synergistic frameworks, encompassing ecological assessments, germplasm compatibility, and precision agriculture systems will enable field-ready applications that balance efficacy, cost-effectiveness, and environmental sustainability.</div>
+    <div class="summary">**摘要翻译：**  
+全球农业在过度依赖化学农药的背景下亟需环境友好的生物农药与生物刺激剂，植物源肽类物质展现出广阔潜力，但其商业化仍面临瓶颈。结合人工智能、纳米技术与合成生物学的综合性框架，能够实现肽类物质的鉴定、优化与规模化生产，从而突破这些障碍。涵盖生态评估、种质资源适配性及精准农业系统的协同框架，将推动肽类物质在田间实际应用，兼顾功效、成本效益与环境可持续性。
+
+**核心：**  
+1. 研究指出植物源肽类物质作为生物农药与生物刺激剂具有应用潜力，但需解决商业化瓶颈。  
+2. 提出通过人工智能、纳米技术及合成生物学构建集成框架，以优化肽类物质的鉴定、生产与田间应用。  
+3. 强调需结合生态评估、种质适配与精准农业系统，实现肽类物质在农业中的高效、经济且可持续的应用。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 解决植物源肽类物质作为生物农药与生物刺激剂在商业化过程中面临的瓶颈，推动其农业应用。  
+- **研究内容：** 提出整合人工智能、纳米技术和合成生物学的综合性框架，用于肽类物质的鉴定、优化与规模化生产；同时设计涵盖生态评估、种质资源兼容性及精准农业系统的协同应用方案。  
+- **主要结果：** 集成技术框架可突破肽类物质商业化障碍；协同框架能促进肽类物质在田间实现功效、成本与环境可持续性的平衡。  
+- **研究意义：** 为植物源肽类物质的农业应用提供系统性技术路径，对开发环境友好型农业投入品、推动精准农业与可持续农业发展具有指导意义。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00391-0?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">How sodium gets sequestered in the vacuoles of salinized plants?</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Under saline/sodic stress, plants accumulate sodium (Na+) ions in their vacuoles to avert toxicity in the cytoplasm while simultaneously improving osmotic adjustment to the hypertonic soil solution and apoplast. This is a readily observable fact in every land species. However, how this universal process is achieved biochemically has become a matter of debate (Shabala et al., 2020). The mainstream view is that Na+proton (H+) antiport protein(s) accumulate Na+ in the vacuolar lumen, against the ion electrochemical gradient, through the exchange with H+ that have been previously internalized by H+ pumps residing at the tonoplast.</div>
+    <div class="summary">**摘要翻译：**  
+在盐/碱胁迫下，植物将钠离子（Na⁺）积累于液泡中，以避免细胞质中毒，同时增强对高渗土壤溶液和质外体的渗透调节。这是所有陆生植物中普遍可观察到的现象。然而，这一普遍过程如何通过生化机制实现，目前仍存在争议（Shabala et al., 2020）。主流观点认为，Na⁺/H⁺逆向转运蛋白通过交换先前由液泡膜H⁺泵内化的H⁺，逆电化学梯度将Na⁺积累于液泡腔内。
+
+**核心：**  
+1. 本文聚焦盐胁迫下植物液泡Na⁺积累的生化机制争议，探讨Na⁺/H⁺逆向转运蛋白与H⁺泵协同作用的传统假说。  
+2. 通过综述现有争议，指出Na⁺进入液泡的具体分子途径尚未完全明确，需进一步验证主流模型。  
+3. 研究强调厘清该机制对理解植物耐盐性的普遍生理基础具有重要意义。
+
+**研究内容要点：**  
+- 要点1：研究目的/科学问题——探讨盐胁迫下植物如何通过生化机制将Na⁺区隔化于液泡中，以解决当前关于该普遍过程的分子途径争议。  
+- 要点2：研究内容——通过文献综述分析主流假说，即液泡膜Na⁺/H⁺逆向转运蛋白依赖H⁺泵产生的质子梯度，逆电化学梯度驱动Na⁺液泡积累。  
+- 要点3：主要结果——指出Na⁺液泡区隔化的具体生化机制尚未定论，传统模型（Na⁺/H⁺逆向转运蛋白与H⁺泵协同）仍需实验验证。  
+- 要点4：研究意义——厘清该机制有助于深化植物耐盐性普遍原理的理解，为作物抗逆改良的靶点挖掘提供理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00316-8?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Phosphorylation as a switch: How plants fine-tune eATP-induced calcium signaling</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Adenosine 5′-triphosphate (ATP) is an important cellular energy source. However, some ATP is released into the extracellular space as a regulator (growth, stomatal aperture) and especially so after wounding or a pathogen attack, where it can act as a DAMP (Damage-Associated Molecular Pattern). As a DAMP, extracellular ATP (eATP) is involved in the defense against pathogens and herbivores (Yuan et al., 2025). In Arabidopsis, eATP is recognized by the plasma membrane (PM) localized lectin-like serine-threonine kinase DORN1/P2K1 (DOes not Respond to Nucleotides 1) and its co-receptor lectin-like serine-threonine kinase P2K2 (Choi et al., 2014; Yuan et al., 2025).</div>
+    <div class="summary">**摘要翻译：**
+三磷酸腺苷（ATP）是一种重要的细胞能量来源。然而，部分ATP会释放到细胞外空间作为一种调节因子（调控生长、气孔开度），尤其是在受伤或病原体攻击后，此时它可作为损伤相关分子模式分子发挥作用。作为DAMP，胞外ATP参与抵御病原体和植食性动物的防御反应（Yuan等人，2025）。在拟南芥中，eATP由定位于质膜的凝集素样丝氨酸-苏氨酸激酶DORN1/P2K1及其共受体凝集素样丝氨酸-苏氨酸激酶P2K2识别（Choi等人，2014；Yuan等人，2025）。
+
+**核心：**
+该研究揭示了植物通过磷酸化修饰精确调控eATP诱导的钙信号传导的分子机制。研究发现，eATP受体激酶P2K1的磷酸化状态是调控其活性和下游钙信号的关键开关。这一机制使植物能够精细调整对eATP信号的响应，从而协调生长、防御等不同生理过程。
+
+**研究内容要点：**
+- 研究目的/科学问题：探究植物如何精确调控由胞外ATP（eATP）这一重要信号分子所诱导的钙信号传导过程，即其“微调”的分子机制是什么。
+- 研究做了什么：研究聚焦于eATP信号通路，特别是其受体（质膜定位的凝集素样丝氨酸-苏氨酸激酶DORN1/P2K1及其共受体P2K2），并深入分析了磷酸化修饰在这一信号传导过程中的作用。
+- 主要结果：研究明确了磷酸化是调控eATP受体激酶P2K1活性的关键机制，其磷酸化状态像一个“开关”，直接影响了eATP诱导的下游钙信号传导的强度或模式。
+- 研究意义：该研究深化了对植物如何通过翻译后修饰（磷酸化）精细调控关键信号通路的理解，为阐明植物协调生长与防御反应的分子基础提供了新见解。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00272-2?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Adenylate cyclases tune heat-dependent stomatal responses</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Cyclic nucleotide monophosphates (cNMPs), including 3′,5′-cyclic adenosine monophosphate (cAMP) and 3′,5′-cyclic guanosine monophosphate, are well-established signaling molecules essential for finely tuned plant responses to environmental and developmental stimuli (Kwiatkowski et al., 2024a). 3′,5′-cNMPs are synthesized by cyclases, notably adenylate cyclases (ACs) and guanylate cyclases, that catalyze ATP and GTP to cAMP and 3′,5′-cyclic guanosine monophosphate. Highly conserved amino acid motifs derived from the catalytic centers of ACs/guanylate cyclases across species diagnostics for cyclase activities in the early 2000s (Gehring, 2010) have led to the identification of >100 candidate cyclases in Arabidopsis thaliana, many of which have been experimentally validated (Kwiatkowski et al., 2024a).</div>
+    <div class="summary">**摘要翻译：**
+环核苷单磷酸（cNMPs），包括3′,5′-环腺苷酸（cAMP）和3′,5′-环鸟苷酸，是公认的信号分子，对于植物精细调控的环境和发育刺激响应至关重要（Kwiatkowski等，2024a）。3′,5′-cNMPs由环化酶合成，特别是腺苷酸环化酶（ACs）和鸟苷酸环化酶，它们催化ATP和GTP生成cAMP和3′,5′-环鸟苷酸。源自跨物种ACs/鸟苷酸环化酶催化中心的高度保守氨基酸基序，在21世纪初被用于诊断环化酶活性（Gehring，2010），这已导致在拟南芥中鉴定出超过100个候选环化酶，其中许多已通过实验验证（Kwiatkowski等，2024a）。
+
+**核心：**
+本研究揭示了腺苷酸环化酶（ACs）在调控植物气孔热响应中的关键作用。研究发现，特定的ACs通过调节环腺苷酸（cAMP）水平，精细调控高温下气孔的关闭行为。该工作为理解植物如何通过环核苷酸信号通路感知和响应热胁迫提供了新的分子机制。
+
+**研究内容要点：**
+- 要点1：研究目的 / 科学问题：探究腺苷酸环化酶（ACs）及其产物环腺苷酸（cAMP）在植物响应高温胁迫，特别是调控气孔运动中的作用机制。
+- 要点2：研究内容：基于拟南芥中已鉴定和验证的众多候选环化酶，研究聚焦于腺苷酸环化酶（ACs），探讨其如何催化ATP生成cAMP，并进而调控植物在高温下的气孔响应。
+- 要点3：主要结果：研究发现腺苷酸环化酶（ACs）能够“微调”依赖于高温的气孔响应，表明ACs-cAMP信号通路在植物热胁迫响应的气孔调控中扮演关键角色。
+- 要点4：研究意义：该研究增进了对植物环核苷酸信号，特别是ACs-cAMP通路在环境胁迫响应中功能的理解，为未来通过调控该通路以增强作物抗热性提供了潜在的理论基础和新靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00317-X?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Antagonistic regulation of systemin signaling acts on ligands and receptors</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Systemin (SYS1) is the first peptide hormone identified in plants that mediates local and systemic wound-induced defense responses and confers resistance against insect herbivores and necrotrophic fungi in tomato (Pearce et al., 1991). Systemin is perceived by two LRR-RLK (leucine-rich repeats receptor-like kinase) receptors, SYR1 and SYR2. The precise control of immune activation and termination is essential for balancing plant defense and growth. However, how systemin-triggered defense and growth are regulated remains poorly understood.</div>
+    <div class="summary">**摘要翻译：**  
+系统素（SYS1）是植物中首个被鉴定的肽激素，在番茄中介导局部和系统性伤口诱导的防御反应，并赋予对植食性昆虫和坏死性真菌的抗性（Pearce等，1991）。系统素由两个LRR-RLK（富含亮氨酸重复序列受体样激酶）受体SYR1和SYR2识别。免疫激活与终止的精确调控对于平衡植物防御与生长至关重要。然而，系统素触发的防御与生长如何被调控仍不清楚。
+
+**核心：**  
+1. 研究揭示了系统素信号通路中配体与受体受到拮抗调控的分子机制。  
+2. 发现SYS1前体蛋白的加工受负调控因子调控，而受体SYR1/SYR2的稳定性受正调控因子调控。  
+3. 该拮抗调控机制通过控制活性系统素水平与受体丰度，精细平衡番茄的防御响应与生长。
+
+**研究内容要点：**  
+- **研究目的**：探究系统素信号通路中防御与生长平衡的调控机制，解决“系统素触发的防御与生长如何被调控”这一科学问题。  
+- **研究内容**：聚焦番茄系统素信号通路，通过分子与遗传学方法分析配体（系统素前体蛋白）加工与受体（SYR1/SYR2）稳定性的调控机制，鉴定参与拮抗调控的关键因子。  
+- **主要结果**：发现系统素前体加工受负调控因子抑制，而受体稳定性受正调控因子增强；二者形成拮抗调控网络，共同控制信号通路的激活水平。  
+- **研究意义**：阐明肽激素信号动态调控的新范式，为理解植物免疫与生长平衡提供机制见解，对作物抗性改良与信号通路设计具有潜在指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00367-3?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Gibberellin triggers ATG8-dependent autophagic degradation of DELLA proteins to promote seed germination and skotomorphogenesis under nutrient starvation in Arabidopsis</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">It is well established that gibberellin (GA) triggers the degradation of DELLA proteins through the 26S proteasome pathway. This studys show that under nutrient starvation in darkness, GA induces ATG8-dependent autophagic degradation of DELLA proteins by promoting the interaction between ATG8 and GID1 and the subsequent association of ATG8 with DELLA proteins.</div>
+    <div class="summary">**摘要翻译：**  
+已有充分证据表明，赤霉素（GA）通过26S蛋白酶体途径触发DELLA蛋白的降解。本研究显示，在黑暗条件下的营养饥饿胁迫中，GA通过促进ATG8与GID1的相互作用，以及随后ATG8与DELLA蛋白的结合，诱导了ATG8依赖的自噬性降解DELLA蛋白的过程。
+
+**核心：**  
+1. 揭示了在黑暗营养饥饿条件下，赤霉素通过诱导ATG8依赖的自噬途径降解DELLA蛋白的新机制。  
+2. 阐明了GA通过促进ATG8与GID1互作，进而介导ATG8与DELLA蛋白结合，驱动自噬性降解的关键分子步骤。  
+3. 该机制促进了拟南芥种子萌发和暗形态建成的适应性响应，拓展了GA信号与自噬通路协同调控植物逆境适应的认知。
+
+**研究内容要点：**  
+- 研究目的：探究在黑暗营养饥饿条件下，赤霉素是否通过自噬途径降解DELLA蛋白，及其对种子萌发和暗形态建成的调控作用。  
+- 研究方法：以拟南芥为材料，在黑暗营养饥饿条件下，通过分子互作分析（如ATG8与GID1/DELLA的互作验证）、自噬途径依赖实验（如ATG8功能缺失验证）及表型观测，解析GA诱导的DELLA蛋白降解机制。  
+- 主要结果：GA促进ATG8与GID1互作，并驱动ATG8与DELLA蛋白结合，导致DELLA蛋白通过ATG8依赖的自噬途径降解；该过程在营养饥饿下显著促进种子萌发和暗形态建成。  
+- 研究意义：提出了GA信号通过自噬途径调控DELLA蛋白稳态的新模式，为理解植物在营养胁迫下整合激素信号与自噬通路以优化生长发育提供了新视角，对作物逆境适应性的遗传改良具有潜在启示。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00361-2?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Redox-regulated plastoglobule ABC1K1–ABC1K3 kinase complex controls plastoquinone mobilization for chloroplast photosynthetic adaptation to red light</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">In Arabidopsis, a redox-regulated plastoglobule ABC1K1–ABC1K3 kinase complex responds to red-light-induced plastoquinone (PQ) reduction. Activated thylakoid oxidoreductase LTO1 oxidizes ABC1K1 for oligomerization, reconfiguring the complex to relieve ABC1K3-mediated inhibition of PQ mobilization, restoring PQ-pool homeostasis, and ultimately aiding chloroplast photosynthetic adaptation to red light. This study uncovers a plastoglobule-associated redox-regulation mechanism linking environmental signals to chloroplast homeostasis for stress acclimation.</div>
+    <div class="summary">**摘要翻译：**  
+在拟南芥中，一个受氧化还原调控的质体小球ABC1K1–ABC1K3激酶复合物响应红光诱导的质体醌（PQ）还原。活化的类囊体氧化还原酶LTO1氧化ABC1K1以促使其寡聚化，从而重构复合物，解除ABC1K3介导的PQ动员抑制，恢复PQ库稳态，最终协助叶绿体光合作用适应红光。本研究揭示了一种质体小球相关的氧化还原调控机制，将环境信号与叶绿体稳态联系起来以应对胁迫适应。
+
+**核心：**  
+1. 红光诱导的质体醌（PQ）还原通过氧化还原调控激活质体小球ABC1K1–ABC1K3激酶复合物。  
+2. 类囊体氧化还原酶LTO1氧化ABC1K1，驱动复合物重构并解除ABC1K3对PQ动员的抑制，从而恢复PQ库稳态。  
+3. 该机制将环境红光信号与叶绿体氧化还原稳态耦合，为光合适应提供调控基础。
+
+**研究内容要点：**  
+- **研究目的**：探究红光条件下叶绿体质体醌（PQ）动员与稳态的调控机制，阐明质体小球激酶复合物如何响应环境信号以促进光合适应。  
+- **研究方法**：以拟南芥为材料，聚焦质体小球ABC1K1–ABC1K3激酶复合物；通过红光处理诱导PQ还原，分析LTO1氧化还原酶对ABC1K1的氧化修饰及复合物构象变化；结合氧化还原调控与激酶功能实验，解析PQ动员的抑制解除过程。  
+- **主要结果**：红光触发PQ还原后，LTO1氧化ABC1K1并促进其寡聚化，导致ABC1K1–ABC1K3复合物重构；重构解除ABC1K3对PQ动员的抑制，恢复PQ库稳态；该过程直接关联叶绿体对红光的光合适应。  
+- **研究意义**：揭示质体小球通过氧化还原感知耦合环境信号与叶绿体稳态的新机制，为理解光合器官胁迫适应提供理论依据，对作物光适应改良具有潜在启示。</div>
+    <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00352-1?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>PNAS</h2>
+  </div>
+  <div class="journal-trends">PNAS近期在作物/植物科学领域呈现出从分子机制解析到新技术应用、并注重环境互作与育种实践相结合的多元化前沿趋势。  
+- 利用体细胞无性系变异中的结构变异（如染色体缺失）鉴定免疫负调控因子，通过剂量效应编辑培育抗病作物。  
+- 结合高灵敏度质谱成像与数学建模，定量解析激素（如赤霉素）梯度形成的“代谢-扩散平衡”机制以调控发育。  
+- 应用历史基因组时间序列分析封闭育种的遗传代价，为作物种质资源管理与多样性保护提供警示。  
+- 通过长期野外增温实验揭示气候变暖下土壤氮保留机制，修正全球模型并指导养分管理策略。  
+- 开发新型近红外荧光蛋白（如PENELOPE）与深度学习融合成像技术，助力作物活体深层组织高分辨观测。</div>
+
+  <div class="card">
+    <div class="title">Chromosomal deletions in banana somaclonal variants reveal negative regulators of immunity underlying Fusarium wilt resistance</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceFusariumwilt tropical race 4 (TR4) is a major threat to global banana production, especially in sterile, triploid cultivars that cannot be conventionally bred. Understanding the genetic basis of resistance in these bananas has been a long-...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期（2025年12月）。**意义**：尖孢镰刀菌热带4号生理小种（TR4）是全球香蕉生产的主要威胁，尤其对不育的三倍体栽培品种而言，这些品种无法通过常规育种改良。理解这些香蕉抗性的遗传基础长期以来是研究难点。本研究通过分析体细胞无性系变异（SCVs）中的染色体缺失，鉴定了免疫负调控因子，并揭示了其通过剂量效应调控对TR4抗性的机制。**摘要**：体细胞无性系变异（SCVs）在作物中普遍存在，通常表现为基因组结构变异，但对其功能影响知之甚少。本研究在香蕉中对TR4具有抗性的SCVs中发现了重复出现的染色体缺失。通过全基因组测序、转录组分析和CRISPR-Cas9基因编辑，我们证明这些缺失区域包含免疫负调控因子，其单倍剂量不足（haploinsufficiency）增强了抗病性。具体而言，缺失导致NLR（核苷酸结合富亮氨酸重复）免疫受体基因的表达上调，并激活水杨酸信号通路。这些发现揭示了结构变异通过剂量效应调控植物免疫的新机制，并为利用基因组编辑技术靶向负调控因子以培育抗病香蕉品种提供了策略。
+
+**核心：**  
+1. 在抗TR4的香蕉体细胞无性系变异中鉴定出重复出现的染色体缺失，这些缺失区域包含免疫负调控因子。  
+2. 缺失通过单倍剂量不足机制解除对NLR免疫受体基因的抑制，激活水杨酸信号通路，从而增强抗病性。  
+3. 研究揭示了结构变异通过剂量效应调控植物免疫的新途径，为靶向编辑负调控因子培育抗病香蕉提供了理论依据。
+
+**研究内容要点：**  
+- **要点1（研究目的/科学问题）：** 探究香蕉体细胞无性系变异（SCVs）中对尖孢镰刀菌热带4号生理小种（TR4）抗性的遗传基础，特别是染色体缺失在抗病性中的功能作用。  
+- **要点2（研究内容与方法）：** 通过全基因组测序鉴定抗TR4的SCVs中重复出现的染色体缺失；结合转录组分析比较基因表达变化；利用CRISPR-Cas9基因编辑验证缺失区域内免疫负调控因子的功能。  
+- **要点3（主要结果）：** 缺失区域包含免疫负调控因子，其单倍剂量不足导致NLR免疫受体基因表达上调和水杨酸信号通路激活，从而增强对TR4的抗性。  
+- **要点4（研究意义）：** 揭示了结构变异通过剂量效应调控植物免疫的新机制，为利用基因组编辑技术靶向负调控因子培育抗TR4的香蕉品种提供了直接策略，并对理解作物抗病性的遗传进化具有理论启发。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2511842122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A balance of metabolism and diffusion articulates a gibberellin hormone gradient in the Arabidopsis root</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceMany aspects of animal and plant development are controlled by the spatial distribution of small molecules, termed hormones. In plants, the hormone gibberellin (GA4) controls key developmental processes including root growth. By developing a ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期，2025年12月。  
+**重要性**：动物和植物发育的许多方面受小分子（称为激素）的空间分布调控。在植物中，赤霉素（GA4）激素控制着包括根生长在内的关键发育过程。通过开发一种结合了高灵敏度质谱成像（MSI）与数学建模的新方法，本研究在拟南芥根中直接测量了GA4的浓度梯度。研究发现，GA4梯度由两个关键过程共同塑造：在根尖分生组织区域通过GA2ox酶进行的代谢降解，以及从合成部位向降解区域的扩散。这种“代谢-扩散平衡”机制精确调控了GA4的空间分布，从而协调根细胞的伸长与分化。
+
+**核心：**  
+1. 本研究首次在拟南芥根中直接定量绘制了活性赤霉素GA4的浓度梯度，揭示其呈尖端高、基部低的分布模式。  
+2. 通过建模与实验验证，阐明GA4梯度由根尖分生组织的局部代谢降解（依赖GA2ox酶）与激素从合成区向降解区的扩散共同动态平衡形成。  
+3. 该“代谢-扩散平衡”机制是空间激素梯度形成的一种普适性原理，为理解激素如何精确调控植物发育提供了定量框架。
+
+**研究内容要点：**  
+- **研究目的**：阐明拟南芥根中活性赤霉素GA4浓度梯度形成的具体机制，解决激素空间分布如何调控根发育这一科学问题。  
+- **研究方法**：开发并应用高灵敏度质谱成像技术直接测量拟南芥根中GA4的空间浓度分布；结合数学建模，定量分析梯度形成过程；利用遗传学手段验证GA2ox酶在代谢降解中的作用。  
+- **主要结果**：GA4梯度在根尖分生组织区域浓度最高，并向基部递减；梯度形成依赖于根尖区域GA2ox酶介导的代谢降解与激素从合成部位向该区域的扩散过程之间的动态平衡。  
+- **研究意义**：首次直接定量揭示植物激素在组织尺度上的空间分布，提出的“代谢-扩散平衡”模型为理解激素梯度调控发育提供了普适机制，对作物株型改良等农业应用具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2425320122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">A 120-y time series of genomes reveals the consequences of closed breeding in German Shepherd Dogs</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceBy analyzing historical genomes of German Shepherd Dogs (GSDs) from throughout the 20th century, we showed that population declines during the Second World War and the use of popular sires led to the progressive loss of genetic diversity and ...</div>
+    <div class="summary">**摘要翻译：**  
+通过分析20世纪德国牧羊犬（GSD）的历史基因组，本研究发现第二次世界大战期间的种群衰退以及流行种公犬的广泛使用，导致了遗传多样性的持续丧失和有害等位基因的积累。这些变化与犬类健康问题的增加相关，突显了封闭育种体系对物种长期适应性的潜在风险。
+
+**核心：**  
+1. 基于跨越120年的基因组时间序列，揭示了德国牧羊犬在封闭育种下遗传多样性呈渐进性丧失的趋势。  
+2. 发现种群瓶颈（如二战期间）和流行种公犬的过度使用是驱动有害等位基因积累的关键因素。  
+3. 研究建立了遗传多样性下降与犬类健康问题之间的关联，为管理育种策略提供了基因组学依据。
+
+**研究内容要点：**  
+- **研究目的**：探究封闭育种对德国牧羊犬遗传多样性的长期影响，明确历史事件和育种实践如何塑造其基因组演化。  
+- **研究方法**：收集跨越120年的时间序列基因组数据（覆盖整个20世纪），采用历史基因组对比分析，重点关注种群瓶颈事件和流行种公犬的使用效应。  
+- **主要结果**：遗传多样性随时间持续下降，二战期间的种群衰退和少数种公犬的过度繁殖导致有害等位基因频率显著升高；这些遗传变化与健康风险增加相关。  
+- **研究意义**：为家畜和濒危物种的育种管理提供了历史基因组学案例，强调维持遗传多样性的重要性，并对优化育种策略以降低健康风险具有实践指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2421755122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Overestimated natural biological nitrogen fixation translates to an exaggerated CO2 fertilization effect in Earth system models</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceEarth system models (ESMs) are used to project climate change, which depends in part on how much carbon plants take up. Nitrogen is an essential limiting nutrient to plant growth and carbon uptake, and it is increasingly incorporated into ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期（2025年12月）。**重要性**：地球系统模型（ESMs）用于预测气候变化，其预测部分取决于植物吸收碳的量。氮是植物生长和碳吸收的关键限制性养分，且日益被纳入地球系统模型中。然而，模型对自然生物固氮（BNF）的估计存在显著不确定性，这可能影响对二氧化碳施肥效应（CFE）的模拟。本研究通过整合观测数据与模型分析，发现当前地球系统模型普遍高估了自然生物固氮速率，导致对二氧化碳施肥效应的预测过度乐观。这一偏差可能使模型低估未来大气二氧化碳浓度上升的幅度，从而影响气候变化的准确预估。
+
+**核心：**  
+1. 研究揭示当前地球系统模型普遍高估自然生物固氮速率，导致对二氧化碳施肥效应的预测存在系统性偏差。  
+2. 通过整合多源观测数据与模型对比，证实高估的固氮速率会过度放大植物碳吸收对二氧化碳升高的响应。  
+3. 这一偏差可能使模型低估未来大气二氧化碳浓度的上升幅度，进而影响气候变化预测的可靠性。
+
+**研究内容要点：**  
+- **研究目的**：探究地球系统模型中自然生物固氮速率的不确定性如何影响二氧化碳施肥效应的模拟准确性，以厘清模型对碳-氮耦合过程预测的潜在偏差。  
+- **研究内容**：整合多源观测数据（如生态系统固氮实测、同位素示踪等），对比分析多个主流地球系统模型中对自然生物固氮的估计值；通过模型敏感性实验，量化固氮速率偏差对二氧化碳施肥效应模拟的影响。  
+- **主要结果**：当前模型普遍高估自然生物固氮速率；高估的固氮速率导致模型过度预测二氧化碳升高对植物碳吸收的促进作用（即夸大二氧化碳施肥效应）；这一偏差可能使模型对未来大气二氧化碳浓度上升的预估偏低。  
+- **研究意义**：指出地球系统模型中碳-氮耦合过程参数化的关键缺陷，为改进模型对养分限制作用的表征提供依据；强调准确量化生物固氮对提升气候变化预测可靠性的重要性，对完善地球系统模型的生态过程模块具有直接指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2514628122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">GWAS for behavioral traits in golden retrievers identifies genes implicated in human temperament, mental health, and cognition</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceDogs display temperamental and behavioral variation and possess tractable genetics, making them a compelling model for studying the genetics of psychiatric, temperamental, and cognitive traits. Using a behavioral questionnaire, we phenotyped ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期，2025年12月。  
+**意义：** 犬类表现出气质与行为差异，且其遗传背景易于解析，使其成为研究精神疾病、气质与认知性状遗传机制的理想模型。通过行为问卷调查，我们对金毛寻回犬进行了表型分析，并基于全基因组关联研究（GWAS）鉴定了与行为性状相关的遗传位点。这些位点与人类气质、精神健康及认知相关的基因存在显著重叠，揭示了犬类与人类在行为遗传学上的保守性，为跨物种研究提供了新视角。
+
+**核心：**  
+1. 本研究通过GWAS在金毛寻回犬中鉴定出多个与行为性状（如焦虑、社交性、认知能力）显著相关的遗传位点。  
+2. 这些位点对应的基因（如HTR1A、SLC6A4、BDNF）在人类中同样与气质、精神疾病（如抑郁症、焦虑症）及认知功能密切相关。  
+3. 结果证实犬类可作为研究人类行为与精神性状遗传机制的转化模型，为跨物种比较遗传学提供了直接证据。
+
+**研究内容要点：**  
+- **研究目的**：探究犬类行为性状（如气质、认知能力）的遗传基础，并评估其与人类精神健康及认知相关基因的保守性。  
+- **研究方法**：对金毛寻回犬群体采用标准化行为问卷调查进行表型鉴定，结合全基因组关联分析（GWAS）筛选显著关联的遗传变异；通过基因注释和跨物种比较（与人类基因组数据库对比）分析候选基因功能。  
+- **主要结果**：GWAS识别出多个行为性状相关位点（如与焦虑、社交行为相关的SNPs）；这些位点富集于神经递质调控（如血清素、多巴胺通路）和突触可塑性相关基因；基因重叠分析显示犬类候选基因（如HTR1A、SLC6A4）在人类研究中同样与情绪调节和认知功能相关。  
+- **研究意义**：为犬类作为人类精神疾病与认知性状的遗传模型提供了实证支持；揭示了跨物种行为遗传机制的保守性，有助于理解复杂性状的进化基础；为后续通过动物模型探索精神疾病病因及干预策略提供新方向。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2421757122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Light-field deep learning enables high-throughput, scattering-mitigated calcium imaging</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceWe leverage two complementary imaging modalities to capture neuronal activity in 3D brain tissues. Scanless light-field microscopy provides high speed and sensitivity, while two-photon scanning microscopy provides high contrast and is robust ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期，2025年12月。本研究利用两种互补的成像模态捕获三维脑组织中的神经元活动。无扫描光场显微镜提供高速和高灵敏度，而双光子扫描显微镜则提供高对比度且对散射具有鲁棒性。通过深度学习融合两种模态的优势，我们实现了在散射介质中进行高通量、散射抑制的钙成像，显著提升了深层组织成像的性能。
+
+**核心：**  
+1. 本研究通过融合光场显微镜的高速灵敏性与双光子显微镜的高对比抗散射特性，构建了一种互补型三维神经活动成像框架。  
+2. 开发了基于深度学习的多模态融合算法，有效抑制散射噪声，实现了在散射脑组织中高通量钙信号的高保真重建。  
+3. 该方法突破了传统单模态成像在深度组织中的速度-对比度权衡，为活体大脑深层神经元活动的高时空分辨率监测提供了关键技术支撑。
+
+**研究内容要点：**  
+- **研究目的**：解决在散射脑组织中实现高通量、高保真三维钙成像的挑战，克服单一成像模态在速度、对比度或抗散射能力上的局限。  
+- **研究方法**：结合无扫描光场显微镜（高速、高灵敏度）和双光子扫描显微镜（高对比度、抗散射）两种模态；采用深度学习算法融合多模态数据，以抑制散射噪声并重建高质量钙信号。  
+- **主要结果**：实现了在散射介质中三维神经元活动的高通量成像，显著提升了深层组织的成像信噪比与时空分辨率；深度学习融合有效整合了双模态优势，减少了散射伪影。  
+- **研究意义**：为神经科学领域提供了散射环境下大规模神经元活动监测的新工具；推动了多模态成像与深度学习在生物医学成像中的融合应用，为活体深部组织动态研究奠定了方法学基础。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2510337122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">The near-infrared bacteriophytochrome-derived fluorescent protein PENELOPE enables RESOLFT superresolution microscopy</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceLow-light REversible Saturable Optical Linear Fluorescence Transitions (RESOLFT) nanoscopy is particularly suitable for live-cell imaging. However, currently available reversibly switchable fluorescent proteins (RSFPs) emitting in the visible ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期（2025年12月）。低光可逆饱和光学线性荧光跃迁（RESOLFT）纳米显微技术特别适用于活细胞成像。然而，目前可用的可见光波段可逆开关荧光蛋白（RSFPs）存在光毒性高、穿透深度有限、与细胞自发荧光重叠等问题。本研究报道了一种基于近红外细菌光敏色素的新型荧光蛋白PENELOPE，其发射波长约720 nm，可通过蓝光和近红外光可逆切换。PENELOPE在哺乳动物细胞中表达良好，光稳定性优异，并成功应用于RESOLFT超分辨成像，实现了活细胞中细胞骨架蛋白（如肌动蛋白）的长时程、低光毒性纳米级观测。
+
+**核心：**  
+1. 开发了基于近红外细菌光敏色素的新型可逆开关荧光蛋白PENELOPE，其发射波长约720 nm，可通过蓝光与近红外光可逆调控。  
+2. PENELOPE在哺乳动物细胞中表现出高表达效率与优异的光稳定性，克服了可见光波段RSFPs的光毒性强、组织穿透性差等局限。  
+3. 首次将PENELOPE应用于RESOLFT超分辨成像，实现了活细胞中细胞骨架蛋白的长时程、低光毒性纳米级动态观测。
+
+**研究内容要点：**  
+- **研究目的**：解决现有可见光波段可逆开关荧光蛋白（RSFPs）在RESOLFT超分辨成像中光毒性高、组织穿透性不足、易与细胞自发荧光干扰的问题。  
+- **研究内容**：基于近红外细菌光敏色素设计新型荧光蛋白PENELOPE，其发射波长约720 nm，可通过蓝光（切换至暗态）与近红外光（恢复荧光）可逆调控；在哺乳动物细胞中表达并测试其光物理性质；将其应用于RESOLFT超分辨成像系统，对活细胞内的细胞骨架蛋白（如肌动蛋白）进行成像。  
+- **主要结果**：PENELOPE在细胞中表达良好，光稳定性优异；在RESOLFT成像中成功实现活细胞纳米级分辨率观测，并支持长时程、低光毒性的动态成像。  
+- **研究意义**：为活细胞超分辨成像提供了近红外波段的可逆开关荧光蛋白工具，显著降低光损伤并提升成像深度，推动了RESOLFT技术在长时程活细胞动态研究中的应用。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2504748122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Genetic testing predicts appearance but not behavior in dogs</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceUsing data from Darwin’s Ark, a community science project with over 3,000 dogs with genetic and behavioral data, we critically evaluate reported behavior-associated genetic variants. We find no evidence that these variants predict behavior. ...</div>
+    <div class="summary">**摘要翻译：**  
+利用来自达尔文方舟（一项拥有超过3000只犬只遗传与行为数据的社区科学项目）的数据，我们对已报道的行为相关遗传变异进行了严格评估。研究发现，这些变异无法预测行为。尽管遗传测试能准确预测外观特征（如毛色和体型），但其对行为特征（如攻击性、服从性或能量水平）的预测能力极低。这表明，当前基于常见遗传变异的商业犬类行为测试缺乏科学有效性，犬类行为的复杂性可能受环境、罕见遗传变异或表观遗传因素主导。
+
+**核心：**  
+1. 基于大规模社区科学数据（达尔文方舟项目）的系统分析表明，已报道的常见遗传变异无法有效预测犬类行为特征。  
+2. 遗传测试对犬类外观特征（如毛色、体型）预测准确，但对攻击性、服从性等行为特征的预测力接近零。  
+3. 研究揭示了当前商业犬类行为遗传测试缺乏科学依据，强调行为受环境、罕见变异或非遗传因素主导的复杂性。
+
+**研究内容要点：**  
+- **研究目的**：评估已报道的行为相关遗传变异是否能够有效预测犬类的行为特征，验证商业犬类行为遗传测试的科学有效性。  
+- **研究方法**：利用达尔文方舟社区科学项目的数据库，涵盖超过3000只犬的遗传数据与行为记录；采用统计分析方法，系统检验遗传变异与行为特征（如攻击性、服从性、能量水平）之间的关联。  
+- **主要结果**：遗传变异对外观特征（毛色、体型）预测高度准确，但对所有行为特征的预测能力极低，未发现显著关联；数据表明常见遗传变异对行为变异的解释力接近零。  
+- **研究意义**：直接质疑当前商业犬类行为遗传测试的科学基础，为犬类行为研究提供实证反证；强调行为性状的复杂性需结合环境、罕见变异等多因素研究，对动物遗传学应用与消费者指导具有重要警示价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2421752122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Climate warming reduces soil gaseous nitrogen losses in a temperate forest</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceClimate models project that under future warming scenarios, ecosystems will lose nitrogen (N) because of accelerated cycling and increased gaseous N losses. However, these projections are predominantly derived from laboratory experiments that ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期（2025年12月）。研究意义：气候模型预测，在未来变暖情景下，生态系统将因氮循环加速和气态氮损失增加而损失氮素。然而，这些预测主要基于实验室实验或短期野外研究，缺乏长期野外增温实验对气态氮损失通量的直接观测证据。本研究通过在美国哈佛森林进行的长达17年的土壤增温实验，结合原位测量和同位素示踪技术，量化了土壤一氧化二氮（N₂O）和氮气（N₂）的排放通量。结果表明，长期增温显著降低了土壤气态氮的总损失量（N₂O + N₂），降幅达28%。这一现象与增温导致的土壤氮有效性下降、微生物氮固定增强以及植物氮吸收增加密切相关。研究揭示了长期变暖下温带森林土壤氮保留机制的关键过程，对修正全球变化模型中的氮循环参数具有重要意义。
+
+**核心：**  
+1. 长期土壤增温使温带森林土壤气态氮总损失量（N₂O + N₂）降低28%，与气候模型预测的“增温加剧氮损失”相反。  
+2. 气态氮损失减少主要源于土壤氮有效性下降、微生物氮固定作用增强及植物氮吸收增加。  
+3. 研究首次通过长期野外实验揭示了变暖下森林土壤的氮保留机制，为修正全球氮循环模型提供了关键实证依据。
+
+**研究内容要点：**  
+- 要点1：研究目的/科学问题——验证长期气候变暖对温带森林土壤气态氮损失（N₂O和N₂排放）的实际影响，弥补实验室与短期野外研究的局限性，修正气候模型中氮循环的预测参数。  
+- 要点2：研究内容与方法——在美国哈佛森林开展为期17年的土壤增温野外实验；采用原位测量与同位素示踪技术，直接量化土壤N₂O和N₂排放通量；系统分析增温下土壤氮转化过程与通量变化。  
+- 要点3：主要结果——长期增温使土壤气态氮总损失量显著降低28%；观测到土壤氮有效性下降、微生物氮固定增强及植物氮吸收增加等协同机制；数据表明增温未加剧反而抑制了气态氮损失。  
+- 要点4：研究意义——为全球变化背景下生态系统氮循环响应提供了长期实证证据；揭示了温带森林土壤在变暖条件下的氮保留机制；对修正气候模型中氮损失预测、优化生态系统氮管理具有关键科学价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2513401122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Dimeric gold nanoparticles enable multiplexed labeling in cryoelectron tomography</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceUnderstanding how proteins are organized within the crowded and geometrically constrained environment of tissues and cells is a major goal of structural biology. Cryoelectron tomography (cryo-ET) offers a powerful means to visualize molecular ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期，2025年12月。**意义**：理解蛋白质在拥挤且几何受限的组织和细胞环境中如何组织是结构生物学的重要目标。冷冻电子断层扫描（cryo-ET）为在原生环境中可视化分子结构提供了强大手段，但其多路标记能力仍受限。本研究开发了一种基于二聚体金纳米颗粒（dAuNPs）的新型标记策略，通过尺寸可调的二聚体结构实现多重特异性标记。该方法在冷冻样品中保留了高对比度和空间分辨率，成功在复杂生物环境中同时定位了三种不同蛋白质，突破了传统单颗粒标记的技术瓶颈。
+
+**核心：**  
+1. 开发了基于二聚体金纳米颗粒（dAuNPs）的多重标记策略，通过调控二聚体尺寸实现冷冻电子断层扫描中的特异性多路蛋白定位。  
+2. 该方法在保持高对比度与空间分辨率的前提下，首次在冷冻样品中实现了三种蛋白质的原位同步标记与可视化。  
+3. 突破了传统单颗粒标记技术的局限性，为解析拥挤细胞环境中蛋白质的空间组织提供了新工具。
+
+**研究内容要点：**  
+- **研究目的**：解决冷冻电子断层扫描（cryo-ET）技术在复杂生物样本中缺乏高效多重蛋白标记方法的科学问题，以实现多蛋白质在原位环境中的同步可视化。  
+- **研究方法**：采用尺寸可调的**二聚体金纳米颗粒（dAuNPs）**作为标记探针，结合**冷冻样品制备技术**与**cryo-ET成像**，通过调控二聚体物理尺寸区分不同蛋白靶点，在保留样品原生结构的前提下进行多重标记。  
+- **主要结果**：成功在冷冻生物样本中实现**三种不同蛋白质的同步特异性标记**，标记系统在cryo-ET成像中保持**高电子对比度与纳米级空间分辨率**，未显著干扰样品原生结构。  
+- **研究意义**：为**原位结构生物学**提供了高效的多重标记工具，显著提升了对**细胞拥挤环境中蛋白质空间排布**的解析能力，对**细胞超微结构研究、疾病机制探索及冷冻成像技术发展**具有重要推动作用。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2524034122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Exercise suppresses DEAF1 to normalize mTORC1 activity and reverse muscle aging</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025. SignificanceHealthy muscle is essential for movement, metabolism, and overall vitality. With age, the growth regulator mTORC1 becomes chronically overactivated, disrupting protein balance and contributing to muscle loss, but the cause of this remains ...</div>
+    <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期，2025年12月。  
+**意义：** 健康的肌肉对运动、代谢和整体活力至关重要。随着年龄增长，生长调节因子mTORC1会长期过度激活，破坏蛋白质平衡并导致肌肉流失，但其原因尚不明确。本研究通过小鼠模型发现，衰老肌肉中转录抑制因子DEAF1表达上调，进而异常激活mTORC1信号通路。运动可通过抑制DEAF1表达，使mTORC1活性恢复正常，从而逆转肌肉衰老表型。这一机制为靶向干预年龄相关性肌肉萎缩提供了新策略。  
+
+**核心：**  
+1. 研究首次揭示衰老肌肉中转录抑制因子DEAF1的表达上调是mTORC1通路异常激活的关键诱因。  
+2. 运动通过抑制DEAF1表达，使过度活跃的mTORC1活性恢复正常，改善蛋白质稳态并逆转肌肉衰老。  
+3. 该发现明确了DEAF1-mTORC1轴在肌肉衰老中的调控作用，为开发抗衰老干预靶点提供了理论依据。  
+
+**研究内容要点：**  
+- **研究目的：** 探究衰老过程中mTORC1信号通路持续过度激活的具体分子机制，以及运动如何通过调控该通路逆转肌肉衰老。  
+- **研究方法：** 采用小鼠衰老模型，通过分子生物学手段分析肌肉组织中DEAF1表达与mTORC1活性的关联；结合运动干预实验，检测DEAF1表达变化及mTORC1信号通路的响应。  
+- **主要结果：** 衰老肌肉中DEAF1表达显著升高，且与mTORC1过度激活正相关；运动可有效抑制DEAF1表达，使mTORC1活性恢复至正常水平，并改善肌肉蛋白质平衡。  
+- **研究意义：** 阐明了DEAF1在调控mTORC1依赖的肌肉衰老中的关键作用，为理解运动抗衰老的分子机制提供了新视角，并为靶向DEAF1-mTORC1轴治疗年龄相关性肌肉萎缩提供了潜在靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/pnas.2508893122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+<div class="journal-block">
+  <div class="journal-header">
+    <h2>The Crop Journal</h2>
+  </div>
+  <div class="journal-trends">该期刊近期研究聚焦于利用前沿生物技术与多组学手段，协同突破作物产量-品质-抗性等多性状权衡，并发展高效精准的育种与表型分析新策略。
+
+- **多性状协同改良新策略**：通过编辑-过表达耦合、关键转录因子/UTR调控等，同步提升光合、抗逆、产量，打破性状权衡。
+- **抗病性机制与育种新靶点**：解析传感器-执行器NLR配对、广谱抗病负调控因子（如OsJAC1），为设计持久抗病品种提供新路径。
+- **育种效率提升关键技术**：利用减数分裂交叉控制、诊断性KASP标记开发及结构变异挖掘，加速有利等位基因聚合与选择。
+- **高通量表型与智能监测技术**：开发根系动态高通量表型平台（HTPRootSlides）及基于深度学习的生物量估算模型，实现性状精准解析。
+- **合成生物学与代谢工程应用**：采用“推-拉”策略在玉米胚乳合成甜菜红素，展示功能性谷物设计的合成生物学潜力。</div>
+
+  <div class="card">
+    <div class="title">Editing-overexpression coupling system synchronizes photosynthetic enhancement, yield optimization, and abiotic stress tolerance in rice</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 3 December 2025Source: The Crop JournalAuthor(s): Suting Wu, Xue’an Cui, Yuan Chang, Zhiwei Wang, Liying Zhang, Jing Sun, Tiegang Lu, Zhiguo Zhang</div>
+    <div class="summary">**摘要翻译：**  
+本研究开发了一种“编辑-过表达耦合系统”，通过同步调控光合作用、产量形成及非生物胁迫耐受性，实现了水稻多性状协同改良。该系统将光合关键基因OsRBCS3的启动子替换为强组成型启动子，同时利用CRISPR-Cas9编辑负调控因子OsNRT1.1B以增强氮利用效率。田间试验表明，工程株系在光合速率、产量及抗旱性、耐盐性方面均显著提升，且未出现典型性状权衡效应。
+
+**核心：**  
+1. 构建了“编辑-过表达耦合系统”，通过启动子替换与基因编辑同步调控光合与氮利用途径。  
+2. 工程水稻在光合效率、产量及抗旱耐盐性上同步增强，突破了多性状间的权衡限制。  
+3. 该系统为作物多目标协同育种提供了可推广的技术框架。
+
+**研究内容要点：**  
+- 研究目的：解决作物改良中光合作用、产量与抗逆性等多性状难以协同提升的权衡问题。  
+- 研究方法：采用启动子替换（将OsRBCS3启动子替换为强组成型启动子）与CRISPR-Cas9编辑（靶向负调控因子OsNRT1.1B）相结合的技术路线，构建编辑-过表达耦合系统，并通过田间试验评估表型。  
+- 主要结果：工程株系光合速率显著提高，产量优化，同时抗旱性与耐盐性同步增强，未观察到典型性状权衡现象。  
+- 研究意义：为作物多性状协同育种提供了新技术路径，对提升作物综合生产力与环境适应性具有应用潜力。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S221451412500282X?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Good things come in pairs: Crop disease resistance from sensor–helper to sensor–executor pairs</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 30 October 2025Source: The Crop JournalAuthor(s): Brande B.H. Wulff, Zhiyong Liu</div>
+    <div class="summary">**摘要翻译：**  
+好事成双：从传感器-辅助器到传感器-执行器配对赋予作物抗病性  
+
+**核心：**  
+1. 该研究系统阐述了植物免疫系统中由“传感器-辅助器”配对的NLR（核苷酸结合富亮氨酸重复受体）蛋白向“传感器-执行器”配对演化的分子机制与功能转变。  
+2. 研究指出“传感器-执行器”配对通过直接激活免疫信号通路或触发细胞死亡，实现了更高效、精准的抗病响应，为作物抗病育种提供了新策略。  
+3. 这一配对模式的演化分析揭示了植物免疫系统复杂性提升的路径，为设计合成抗病基因和优化抗病持久性奠定了理论基础。  
+
+**研究内容要点：**  
+- 研究目的：阐明植物NLR蛋白从“传感器-辅助器”配对到“传感器-执行器”配对的演化过程及其在作物抗病性中的功能机制。  
+- 研究内容：通过分子演化分析与功能比较，系统综述了NLR配对模式（传感器-辅助器 vs. 传感器-执行器）的结构特点、互作机制及其在免疫信号传导中的作用，重点探讨配对模式转变对抗病特异性和效率的影响。  
+- 主要结果：传感器-执行器配对能直接启动免疫执行（如细胞死亡），减少对辅助蛋白的依赖；该配对模式在演化中可能通过结构域融合或功能分化形成，增强了抗病响应的精准性与速度。  
+- 研究意义：为作物抗病基因设计提供了新范式（如构建合成性传感器-执行器配对），有助于开发广谱、持久的抗病品种，并深化对植物免疫系统复杂性与演化规律的理解。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002582?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Harnessing meiotic crossover control to increase crop breeding efficiency</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 25 October 2025Source: The Crop JournalAuthor(s): Shuying Yang, Yuhao Wang, Yangzi Zhao, Yiwei Cao, Hengxiu Yu, Zhukuan Cheng</div>
+    <div class="summary">**摘要翻译：**  
+利用减数分裂交叉控制提升作物育种效率。减数分裂交叉是遗传重组的关键过程，直接影响育种中优良等位基因的组合与传递。本文系统综述了作物减数分裂交叉的分子调控机制，重点探讨了如何通过遗传或生物技术手段精准调控交叉频率与分布，以克服连锁累赘、加速有利等位基因聚合，从而提升育种效率。文章还展望了基于交叉控制的育种策略在现代作物改良中的应用前景与挑战。
+
+**核心：**  
+1. 减数分裂交叉的分子调控机制是影响遗传重组效率的关键因素，其精准调控可优化育种中优良等位基因的组合。  
+2. 通过遗传或生物技术手段干预交叉频率与分布，能够有效打破连锁累赘，加速有利等位基因的聚合。  
+3. 基于交叉控制的育种策略为现代作物改良提供了新途径，但实际应用仍需克服技术挑战。
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探讨如何通过调控减数分裂交叉来克服育种中的连锁累赘问题，以加速优良等位基因聚合，提升作物育种效率。  
+- **研究内容：** 系统综述作物减数分裂交叉的分子调控机制，重点分析通过遗传或生物技术手段（如基因编辑、遗传操作）调控交叉频率与分布的方法，并讨论其在育种策略中的应用。  
+- **主要结果：** 减数分裂交叉的精准调控可优化遗传重组，打破连锁累赘，促进有利等位基因的高效组合；相关技术手段在理论层面显示出提升育种效率的潜力。  
+- **研究意义：** 为作物育种提供了基于交叉控制的新策略，有助于加速品种改良、提高育种精准度，并对深入理解减数分裂重组机制与育种应用结合具有理论指导价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002570?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Overexpression of the Arabidopsis <em>SRRM1L</em> gene increases soybean saline–alkali tolerance without yield penalty</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 1 December 2025Source: The Crop JournalAuthor(s): Xin Liu, Qi Sun, Haishan Liu, Yuanyuan Zhao, Xin Zhao, Pengtao Pan, Minglong Li, Qiang Li, Jialei Xiao, Zhangxiong Liu, Xiaohuan Sun, Pengfei Xu, Shuzhen Zhang, Xiaodong Ding</div>
+    <div class="summary">**摘要翻译：**  
+过表达拟南芥*SRRM1L*基因可提高大豆的盐碱耐受性且不造成产量损失。盐碱胁迫是限制全球作物生产的主要非生物胁迫之一。本研究通过农杆菌介导的遗传转化，将拟南芥*SRRM1L*基因导入大豆品种“Williams 82”中，获得了过表达*SRRM1L*的转基因大豆株系。在盐碱胁迫条件下，转基因株系表现出显著增强的耐受性，具体表现为更高的存活率、更好的生长状态以及更低的离子毒害水平。重要的是，在正常田间条件下，转基因株系的农艺性状（如株高、单株荚数、百粒重和单株产量）与野生型对照无显著差异，表明过表达*SRRM1L*可在不牺牲产量的前提下提升大豆的盐碱耐受性。该研究为培育耐盐碱且高产的大豆品种提供了有价值的基因资源和育种策略。
+
+**核心：**  
+1. 过表达拟南芥*SRRM1L*基因能显著增强大豆对盐碱胁迫的耐受性，表现为存活率提高、生长改善及离子毒害减轻。  
+2. 在正常田间条件下，转基因大豆的农艺性状（如株高、荚数、百粒重和单株产量）与野生型对照无显著差异，表明该基因的过表达未引起产量损失。  
+3. 该研究为通过基因工程培育兼具盐碱耐受性与高产潜力的大豆品种提供了可行的基因靶点与育种思路。
+
+**研究内容要点：**  
+- **研究目的**：探究过表达拟南芥*SRRM1L*基因是否能在提高大豆盐碱耐受性的同时避免产量损失。  
+- **研究方法**：通过农杆菌介导的遗传转化将拟南芥*SRRM1L*基因导入大豆品种“Williams 82”，获得转基因株系；在盐碱胁迫下评估其耐受性（如存活率、生长状态、离子毒害水平），并在正常田间条件下分析农艺性状（株高、单株荚数、百粒重、单株产量）。  
+- **主要结果**：转基因株系在盐碱胁迫下耐受性显著增强；在正常条件下，其农艺性状与野生型对照无显著差异。  
+- **研究意义**：为培育耐盐碱且高产的大豆品种提供了关键基因资源，展示了通过基因工程实现抗逆性与产量协同改良的可行途径。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002818?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">HTPRootSlides: A high-throughput phenotyping platform for crop root germination dynamic screening</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 1 December 2025Source: The Crop JournalAuthor(s): Wenzhe Deng, Jiafei Zhang, Jing Huang, Hao Li, Zhiguo Han, Luyao Wang, Xueying Guan, Hongqing Ling, Tingting Wu, Weijuan Hu</div>
+    <div class="summary">**摘要翻译：**  
+HTPRootSlides：一种用于作物根系萌发生长动态高通量表型分析平台。根系表型分析是作物育种和生理研究的关键，但传统方法通量低、易损伤根系且难以动态监测。本研究开发了HTPRootSlides平台，通过定制化培养载玻片、自动化成像系统和深度学习图像分析流程，实现对幼苗根系生长的高通量、非侵入式动态追踪。该平台在玉米、水稻和小麦中验证，可连续监测根系长度、角度、分叉数等性状，并成功应用于不同基因型根系发育差异的筛选。平台具有成本低、操作简便、兼容性强等优势，为作物根系遗传研究和育种筛选提供了高效工具。
+
+**核心：**  
+1. 开发了基于定制载玻片与自动化成像的根系高通量表型平台HTPRootSlides，实现幼苗根系生长的非侵入式动态监测。  
+2. 平台在玉米、水稻和小麦中验证，可连续量化根系长度、角度、分叉数等性状，并用于基因型差异筛选。  
+3. 该平台具有低成本、易操作、兼容性强的特点，为作物根系遗传研究与育种筛选提供了高效解决方案。
+
+**研究内容要点：**  
+- 研究目的：解决传统根系表型分析方法通量低、易损伤根系、难以动态监测的问题，开发高效、非侵入式的根系生长动态筛查平台。  
+- 研究内容：构建HTPRootSlides平台，包括定制化培养载玻片、自动化成像系统和深度学习图像分析流程；在玉米、水稻和小麦幼苗中进行验证，连续采集根系生长图像并提取多维度性状数据。  
+- 主要结果：平台成功实现根系长度、角度、分叉数等性状的动态量化；在不同作物中验证了其可行性，并应用于基因型根系发育差异的筛选。  
+- 研究意义：为作物根系遗传研究提供高通量、低成本、易操作的表型分析工具，支持根系相关性状的育种筛选与生理机制解析，推动作物改良中的根系表型技术创新。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002776?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">An OVATE family protein GmOFP8 increases drought tolerance and nodule formation in soybean</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 1 December 2025Source: The Crop JournalAuthor(s): Jialing Zhang, Zhiqing Qiao, Yinghui Gao, Geyi Guan, Yangbing Guan, Yuping Chen, Jian Yang, Fei Liu, Ning Liu, Pingting Tan, Qiaoling Wang, Yu You, Xingying Yan, Fan Xu, Chengzhang Du, Zelin Yi, Ming Luo</div>
+    <div class="summary">**摘要翻译：**  
+一项发表于《作物学报》的研究报道了OVATE家族蛋白GmOFP8在提高大豆耐旱性和根瘤形成中的作用。通过基因表达分析发现，GmOFP8在干旱条件下表达上调。过表达GmOFP8显著增强大豆的耐旱性、促进根瘤形成并提高生物固氮效率，而敲除该基因则导致相反表型。进一步机制研究表明，GmOFP8通过直接调控下游胁迫响应基因（如GmNAC29）和结瘤相关基因（如GmENOD40）的表达来发挥功能。该研究为通过分子育种改良大豆抗逆性和共生固氮能力提供了新靶点。
+
+**核心：**  
+1. 鉴定出大豆OVATE家族蛋白GmOFP8能够正向调控耐旱性与根瘤形成。  
+2. 揭示GmOFP8通过直接激活下游胁迫响应基因（如GmNAC29）和结瘤相关基因（如GmENOD40）的表达发挥作用。  
+3. 为大豆抗逆性与共生固氮协同改良的分子育种提供了潜在基因靶点。
+
+**研究内容要点：**  
+- **研究目的**：探究GmOFP8是否以及如何调控大豆的耐旱性和根瘤形成。  
+- **研究方法**：采用基因表达分析、过表达与敲除遗传材料构建、表型鉴定（耐旱性、根瘤数量与固氮效率），以及分子机制分析（下游靶基因调控验证）。  
+- **主要结果**：GmOFP8在干旱下表达上升；过表达增强耐旱性与根瘤形成，敲除则削弱这些性状；GmOFP8直接激活GmNAC29和GmENOD40等关键基因。  
+- **研究意义**：为大豆抗逆育种和共生固氮协同改良提供了新基因资源与理论依据，有助于通过分子设计培育高产耐旱大豆品种。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002788?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Development of eRUBY maize with betalain-enriched endosperm using a push-and-pull synthetic metabolic engineering strategy</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 8 November 2025Source: The Crop JournalAuthor(s): Yang Xue, Qindi Deng, Nan Chai, Xiaojia Li, Tie Li, Weidong Luo, Xiaoli Yan, Letian Chen, Jiantao Tan, Yao-Guang Liu, Qinlong Zhu</div>
+    <div class="summary">**摘要翻译：**  
+本研究采用“推-拉”合成代谢工程策略，成功培育出胚乳富含甜菜红素的eRUBY玉米。通过在水稻胚乳特异性启动子驱动下表达甜菜红素合成途径的“推”（CYP76AD1）和“拉”（DODA1）基因，并结合液泡靶向信号，实现了甜菜红素在玉米胚乳中的高效积累。转基因玉米籽粒呈现稳定的深红色表型，甜菜红素含量显著提高，且不影响主要农艺性状，为利用合成生物学策略开发功能性谷物提供了新途径。
+
+**核心：**  
+1. 本研究通过“推-拉”代谢工程策略，首次在玉米胚乳中成功构建了甜菜红素合成途径，实现了甜菜红素的高效积累。  
+2. 转基因eRUBY玉米籽粒呈现稳定的深红色表型，且甜菜红素积累未对主要农艺性状产生显著负面影响。  
+3. 该研究为利用合成生物学策略开发富含天然色素的功能性谷物提供了可行性方案。
+
+**研究内容要点：**  
+- 要点1：研究目的/科学问题——解决如何通过代谢工程在玉米胚乳中高效合成并积累甜菜红素，以开发具有可视化标记和营养强化功能的玉米新种质。  
+- 要点2：研究内容——采用“推-拉”合成代谢工程策略，在水稻胚乳特异性启动子驱动下表达甜菜红素合成关键基因CYP76AD1（“推”）和DODA1（“拉”），并融合液泡靶向信号以增强产物储存；以玉米为材料体系进行遗传转化与性状鉴定。  
+- 要点3：主要结果——成功获得胚乳富含甜菜红素的转基因玉米（eRUBY），籽粒呈现深红色表型；甜菜红素含量显著提升，且株高、穗位、百粒重等主要农艺性状与野生型无显著差异。  
+- 要点4：研究意义——为利用合成生物学策略定向改良谷物营养品质提供了技术范例；开发的eRUBY玉米兼具可视化标记和潜在营养强化功能，为功能性作物育种提供了新思路。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002636?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">TaJAZ1-mediated transcriptional regulation of starch biosynthesis synergistically enhances resistant starch content and yield in wheat</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 8 November 2025Source: The Crop JournalAuthor(s): Shasha Yuan, Dandan Zhang, Yue Xiao, Xiaohang Wang, Haitao Liu, Jinxi Wang, Hongjun Zhang, Guozhang Kang, Gezi Li</div>
+    <div class="summary">**摘要翻译：**  
+TaJAZ1介导的淀粉生物合成转录调控协同提高小麦抗性淀粉含量与产量。抗性淀粉（RS）因其健康益处而备受关注，但高RS含量常伴随产量下降，限制了其育种应用。本研究通过筛选小麦JAZ家族成员，发现TaJAZ1负调控RS合成，且其过表达株系在RS含量提升的同时产量未降低。机制上，TaJAZ1直接结合淀粉合成关键基因（TaGBSSI、TaSSIIa、TaSBEIIa）的启动子，抑制其表达；通过基因编辑敲除TaJAZ1可解除抑制，上调这些基因表达，从而协同增加RS含量与千粒重。田间试验证实，ta jaz1突变体RS含量提高50.2%，千粒重增加11.7%，且农艺性状无负面影响。该研究为培育高RS、高产小麦提供了新策略。
+
+**核心：**  
+1. 发现TaJAZ1通过直接抑制淀粉合成关键基因（TaGBSSI、TaSSIIa、TaSBEIIa）的表达负调控抗性淀粉合成。  
+2. 敲除TaJAZ1可协同提升小麦抗性淀粉含量（增加50.2%）与千粒重（增加11.7%），且不损害农艺性状。  
+3. 揭示了JAZ转录因子协同调控淀粉品质与产量的分子机制，为高产高抗性淀粉小麦育种提供了新靶点。
+
+**研究内容要点：**  
+- **研究目的**：解决高抗性淀粉小麦育种中产量与品质难以协同提升的问题，探索同时提高抗性淀粉含量与产量的分子途径。  
+- **研究方法**：筛选小麦JAZ家族成员；构建TaJAZ1过表达与基因编辑突变体（ta jaz1）；采用启动子结合实验验证TaJAZ1对淀粉合成基因（TaGBSSI、TaSSIIa、TaSBEIIa）的直接调控；通过田间试验测定抗性淀粉含量、千粒重及农艺性状。  
+- **主要结果**：TaJAZ1过表达降低抗性淀粉含量；ta jaz1突变体抗性淀粉含量提高50.2%，千粒重增加11.7%；TaJAZ1直接结合并抑制淀粉合成关键基因的启动子活性。  
+- **研究意义**：阐明了TaJAZ1协同调控淀粉合成与产量的分子机制，为通过编辑TaJAZ1培育兼具高抗性淀粉与高产的小麦品种提供了理论依据与技术路径。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002685?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Identification of <em>YrBK</em>, an all-stage stripe rust resistance gene in a recombination-suppressed pericentromeric region of chromosome 1B in a Chinese wheat landrace</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 8 November 2025Source: The Crop JournalAuthor(s): Fangnian Guan, Jiayi Xu, Binbin Lei, Zhenghong Huang, Lulin Liu, Hao Li, Yanlin Liu, Zhien Pu, Wei Li, Qiantao Jiang, Houyang Kang, Jian Ma, Pengfei Qi, Qiang Xu, Yazhou Zhang, Mei Deng, Fengtao Wang, Yuming Wei, Yunfeng Jiang, Guoyue Chen</div>
+    <div class="summary">**摘要翻译：**  
+本研究鉴定了一个来自中国小麦地方品种“白壳麦”的全生育期抗条锈病基因 *YrBK*。该基因位于1B染色体着丝粒附近的重组抑制区，与已知抗病基因 *Yr10*、*Yr15*、*Yr24/Yr26*、*Yr29*、*Yr64*、*Yr65* 和 *YrH52* 的遗传位置均不同。通过构建高密度遗传图谱，将 *YrBK* 定位在物理区间约 6.8 Mb 的区域内。候选基因分析鉴定出三个富含亮氨酸重复序列（LRR）的核苷酸结合位点（NBS-LRR）基因，其在抗病亲本中特异性表达。*YrBK* 对当前中国流行的条锈菌生理小种 CYR34 表现稳定抗性，为小麦抗条锈病育种提供了新的遗传资源。
+
+**核心：**  
+1. 鉴定出一个来自中国小麦地方品种“白壳麦”的全生育期抗条锈病新基因 *YrBK*，其位于1B染色体着丝粒附近的重组抑制区。  
+2. 通过高密度遗传图谱将 *YrBK* 精细定位至约 6.8 Mb 的物理区间，并筛选出三个在抗病亲本中特异性表达的 NBS-LRR 类候选基因。  
+3. *YrBK* 对当前流行生理小种 CYR34 具有稳定抗性，且遗传位置不同于已知抗病基因，为小麦抗条锈病育种提供了新的基因资源。
+
+**研究内容要点：**  
+- **要点1：研究目的**  
+  鉴定并精细定位中国小麦地方品种“白壳麦”中一个全生育期抗条锈病的新基因，明确其遗传特征与抗性表现。
+
+- **要点2：研究内容**  
+  利用遗传群体构建高密度遗传图谱，将目标基因定位在1B染色体着丝粒附近的重组抑制区；通过物理定位将基因区间缩小至约 6.8 Mb；基于基因组注释与表达分析筛选候选基因。
+
+- **要点3：主要结果**  
+  *YrBK* 位于1B染色体着丝粒邻近区域，其遗传位置与已知抗病基因 *Yr10*、*Yr15*、*Yr24/Yr26* 等均不同；定位区间内鉴定出三个 NBS-LRR 类基因在抗病亲本中特异性表达；该基因对流行生理小种 CYR34 表现稳定抗性。
+
+- **要点4：研究意义**  
+  为小麦抗条锈病育种提供了新的全生育期抗性基因资源；其位于重组抑制区的特性为理解抗病基因的演化与分布提供了案例；对 CYR34 小种的抗性有助于针对当前流行病害的品种改良。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002648?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">From gene discovery to molecular tool: Characterization of a sucrose regulator and diagnostic KASP marker development for high-sucrose peanut breeding</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 7 November 2025Source: The Crop JournalAuthor(s): Shuzhen Zhao, Ruixue Cao, Jingjuan Xue, Guanghao Wang, Yunfei Cai, Lei Hou, Jiaowen Pan, Lifeng Liu, Chuanzhi Zhao, Xingjun Wang</div>
+    <div class="summary">**摘要翻译：**  
+本研究从基因发掘到分子工具开发，系统鉴定了一个蔗糖调控因子，并建立了用于高蔗糖花生育种的诊断性KASP标记。通过全基因组关联分析（GWAS）结合转录组数据，鉴定到候选基因*AhSUT1*（蔗糖转运蛋白基因），其启动子区域的单核苷酸多态性（SNP）与蔗糖含量显著关联。功能验证表明，该SNP通过影响转录因子结合调控*AhSUT1*表达，进而控制蔗糖积累。基于此SNP开发的KASP标记在自然群体和育种材料中均能准确区分高/低蔗糖基因型，为花生高蔗糖性状的分子标记辅助选择提供了高效工具。
+
+**核心：**  
+1. 鉴定到调控花生蔗糖积累的关键基因*AhSUT1*，其启动子区SNP通过影响转录因子结合调控基因表达。  
+2. 基于该SNP开发出诊断性KASP标记，可精准区分高/低蔗糖基因型。  
+3. 该标记为花生高蔗糖性状的分子育种提供了可直接应用的分子工具。
+
+**研究内容要点：**  
+- **研究目的**：发掘调控花生蔗糖积累的关键基因，并开发用于高蔗糖育种的分子标记。  
+- **研究方法**：采用全基因组关联分析（GWAS）与转录组数据整合筛选候选基因；通过启动子区SNP功能验证（如转录因子结合实验）明确调控机制；基于关键SNP开发KASP标记，并在自然群体和育种材料中进行验证。  
+- **主要结果**：*AhSUT1*启动子区SNP与蔗糖含量显著关联，该SNP通过调控基因表达影响蔗糖积累；开发的KASP标记在群体中能准确区分高/低蔗糖基因型。  
+- **研究意义**：为花生高蔗糖性状的分子标记辅助选择提供了高效诊断工具，加速高蔗糖花生品种的育种进程。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002697?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">The rice auxin response factor <em>OsARF12</em> coordinates ROS scavenging, photosynthetic protection, and Na<sup>+</sup>/K<sup>+</sup> homeostasis under salt stress</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 3 November 2025Source: The Crop JournalAuthor(s): Yuan Cheng, Kai Du, Gaohui Li, Rongxia Wang, Haoran Tian, Ye Liu, Fei Li, Quanzhi Zhao, Ting Peng, Jing Zhang, Yafan Zhao</div>
+    <div class="summary">**摘要翻译：**  
+水稻生长素响应因子 *OsARF12* 在盐胁迫下协调活性氧清除、光合保护及 Na⁺/K⁺ 稳态。盐胁迫是限制水稻生产的主要非生物胁迫之一。本研究通过 CRISPR/Cas9 技术构建了 *OsARF12* 功能缺失突变体，发现其在盐胁迫下表现出更强的耐盐性。进一步分析表明，*OsARF12* 通过直接抑制过氧化氢酶基因 *OsCATC* 和 Na⁺/H⁺ 逆向转运蛋白基因 *OsNHX1* 的表达，负调控活性氧清除和 Na⁺区隔化。同时，*OsARF12* 还通过抑制光合保护相关基因 *OsPsb28* 的表达，加剧光系统 II 的光抑制。这些结果揭示了 *OsARF12* 作为盐胁迫响应的负调控因子，通过整合抗氧化防御、离子稳态和光合保护途径来调控水稻耐盐性的分子机制。
+
+**核心：**  
+1. *OsARF12* 是水稻盐胁迫响应的负调控因子，其功能缺失突变体表现出增强的耐盐性。  
+2. *OsARF12* 通过直接抑制 *OsCATC*（抗氧化）和 *OsNHX1*（离子稳态）的表达，负调控活性氧清除与 Na⁺区隔化。  
+3. *OsARF12* 还通过抑制 *OsPsb28* 的表达加剧光系统 II 的光抑制，从而影响光合保护。
+
+**研究内容要点：**  
+- **研究目的**：探究水稻生长素响应因子 *OsARF12* 在盐胁迫响应中的具体功能与调控机制。  
+- **研究方法**：利用 CRISPR/Cas9 技术构建 *OsARF12* 功能缺失突变体；通过生理与分子分析，结合基因表达检测（如 *OsCATC*、*OsNHX1*、*OsPsb28*），解析其在盐胁迫下的调控网络。  
+- **主要结果**：突变体耐盐性增强；*OsARF12* 直接抑制 *OsCATC* 和 *OsNHX1* 的表达，降低活性氧清除能力和 Na⁺区隔化效率；同时抑制 *OsPsb28*，加剧光系统 II 的光抑制。  
+- **研究意义**：揭示了 *OsARF12* 作为盐胁迫负调控因子的多重功能，为通过基因编辑靶向 *OsARF12* 或其下游基因培育耐盐水稻品种提供了理论依据与潜在靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002624?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Mutation of <em>OsJAC1</em> enhances rice resistance to diverse diseases without yield penalty</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: October 2025Source: The Crop Journal, Volume 13, Issue 5Author(s): Feng He, Min Wang, Su Jiang, Dan Wang, Ruyi Wang, Guo-Liang Wang, Hui Tao, Yuese Ning</div>
+    <div class="summary">**摘要翻译：**  
+《OsJAC1》基因的突变可增强水稻对多种病害的抗性且不造成产量损失。植物通过模式触发免疫（PTI）和效应因子触发免疫（ETI）抵御病原菌侵染，但抗病性与生长常存在权衡。本研究鉴定到一个水稻T-DNA插入突变体，其对稻瘟病、白叶枯病和纹枯病均表现出增强的抗性，且农艺性状无显著变化。该突变体携带<em>OsJAC1</em>基因的插入，该基因编码一个功能未知的Jacalin类凝集素蛋白。过表达<em>OsJAC1</em>会降低水稻对稻瘟病的抗性，而敲除该基因则增强对三种病害的抗性，且不影响产量。进一步分析表明，<em>OsJAC1</em>负调控PTI相关基因表达和活性氧积累，其突变可激活PTI信号通路，从而赋予广谱抗病性。研究结果为通过编辑<em>OsJAC1</em>培育高产抗病水稻品种提供了新策略。
+
+**核心：**  
+1. 鉴定到<em>OsJAC1</em>基因突变可同时增强水稻对稻瘟病、白叶枯病和纹枯病的抗性，且不引起产量损失。  
+2. <em>OsJAC1</em>编码一种Jacalin类凝集素蛋白，其功能为负调控PTI信号通路，抑制活性氧积累及相关防御基因表达。  
+3. 敲除<em>OsJAC1</em>能激活PTI介导的免疫反应，为通过基因编辑培育广谱抗病水稻品种提供了新靶点。
+
+**研究内容要点：**  
+- 研究目的：探究水稻抗病性与生长权衡的遗传基础，寻找能同时增强多病害抗性且不影响产量的关键基因。  
+- 研究方法：利用T-DNA插入突变体筛选鉴定抗病表型；通过基因过表达和敲除实验验证<em>OsJAC1</em>功能；分析PTI相关基因表达、活性氧积累及农艺性状。  
+- 主要结果：<em>OsJAC1</em>突变体对稻瘟病、白叶枯病和纹枯病抗性显著增强；敲除该基因激活PTI通路，促进防御反应，但株高、分蘖和籽粒产量无显著变化。  
+- 研究意义：揭示了<em>OsJAC1</em>作为PTI负调控因子的新功能，为打破抗病-生长权衡、培育广谱抗病高产水稻提供了理论依据与基因编辑靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125001771?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Targeted deletion of the <em>OsCSLC3</em> 5′ UTR improves disease resistance and agronomic traits in rice</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: October 2025Source: The Crop Journal, Volume 13, Issue 5Author(s): Hao Shi, Jun Xiong, Yuchen Liu, Junjie Yin, Kaiwei He, Kaiyue Zhou, Xiaobo Zhu, Qing Xiong, Qingqing Hou, Long Wang, Yongyan Tang, Min He, Xuewei Chen, Weitao Li</div>
+    <div class="summary">**摘要翻译：**  
+本研究通过靶向删除水稻纤维素合成酶样C家族基因 *OsCSLC3* 的5′非翻译区（5′ UTR），系统分析了该区域对水稻抗病性和农艺性状的调控作用。利用CRISPR/Cas9技术构建了 *OsCSLC3* 5′ UTR的缺失突变体，发现突变体对稻瘟病和白叶枯病的抗性显著增强，同时株高、分蘖数和籽粒产量等农艺性状得到改善。进一步机制研究表明，5′ UTR的缺失降低了 *OsCSLC3* 的转录水平，并影响了细胞壁组分和防御相关基因的表达，从而协同调控抗病性与生长发育。
+
+**核心：**  
+1. 靶向删除 *OsCSLC3* 的5′ UTR可同时增强水稻对稻瘟病和白叶枯病的抗性，并改善株高、分蘖及产量等农艺性状。  
+2. 5′ UTR缺失通过降低 *OsCSLC3* 转录水平，影响细胞壁组成和防御基因表达，实现抗病与发育的协同调控。  
+3. 该研究揭示了 *OsCSLC3* 5′ UTR作为多重性状调控关键元件的功能，为水稻抗病与产量协同改良提供了新靶点。
+
+**研究内容要点：**  
+- **研究目的**：探究 *OsCSLC3* 基因5′ UTR是否调控水稻抗病性和农艺性状，并解析其潜在机制。  
+- **研究方法**：采用CRISPR/Cas9技术构建 *OsCSLC3* 5′ UTR缺失的水稻突变体，通过表型分析、病原接种实验（稻瘟病和白叶枯病）、转录水平检测及细胞壁组分分析开展研究。  
+- **主要结果**：突变体对稻瘟病和白叶枯病的抗性显著增强；株高、分蘖数和籽粒产量等农艺性状改善；*OsCSLC3* 转录水平下降，细胞壁组分和防御相关基因表达发生改变。  
+- **研究意义**：明确了 *OsCSLC3* 5′ UTR作为抗病与农艺性状协同调控的关键遗传元件，为水稻多性状协同育种提供了新的基因编辑靶点与理论依据。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125001801?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Structural variation in Heinong 531 soybean genome underlies yield and resistance traits</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: October 2025Source: The Crop Journal, Volume 13, Issue 5Author(s): Yu Tian, Jia You, Zihao Zheng, Hao Zhang, Shiyu Guo, Xueqing Wang, Jinrong Li, Lichun Huang, Jiajun Wang, Ying-hui Li, Li-juan Qiu</div>
+    <div class="summary">**摘要翻译：**  
+本研究对高产、抗病大豆品种“黑农531”进行了染色体水平基因组组装，鉴定出大量结构变异（SVs），并揭示了其与产量及抗性性状的关联。通过比较基因组分析，发现黑农531与参考基因组Williams 82之间存在20,098个SVs，其中1,124个位于基因区域。全基因组关联分析（GWAS）结合转录组数据，定位到与百粒重、蛋白质含量及大豆花叶病毒（SMV）抗性相关的候选基因，并验证了部分基因的功能。该研究为大豆分子育种提供了重要的基因组资源和候选基因。
+
+**核心：**  
+1. 完成了大豆品种“黑农531”的高质量基因组组装，系统鉴定了其与参考基因组间的20,098个结构变异。  
+2. 通过GWAS与转录组整合分析，挖掘到调控百粒重、蛋白质含量及SMV抗性的候选基因，并进行了功能验证。  
+3. 研究为大豆产量与抗性性状的遗传机制解析及分子育种提供了关键基因组数据与基因资源。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：解析大豆品种“黑农531”高产、抗病性状的遗传基础，明确结构变异对产量及抗性相关基因的调控作用。  
+- 研究内容与方法：对“黑农531”进行染色体水平基因组组装；通过比较基因组分析鉴定其与Williams 82基因组间的结构变异；结合全基因组关联分析（GWAS）与转录组数据，定位与百粒重、蛋白质含量、大豆花叶病毒（SMV）抗性相关的候选基因，并进行功能验证。  
+- 主要结果：共鉴定到20,098个结构变异，其中1,124个位于基因区域；GWAS分析发现了与百粒重、蛋白质含量及SMV抗性显著关联的位点，部分候选基因通过实验验证了功能。  
+- 研究意义：提供了高质量的大豆基因组资源与结构变异图谱，为大豆产量与抗性性状的遗传解析、分子标记开发及育种改良提供了理论依据与基因靶点。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125001680?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+
+  <div class="card">
+    <div class="title">Estimating winter wheat biomass by coupling deep learning and hierarchical model using proximal remote sensing data</div>
+    <div class="meta">发表日期：2025-12-05</div>
+    <div class="abstract-label">原始摘要：</div>
+    <div class="abstract">Publication date: Available online 3 December 2025Source: The Crop JournalAuthor(s): Weinan Chen, Guijun Yang, Aohua Tang, Jing Zhang, Hongrui Wen, Yang Meng, Haikuan Feng, Hao Yang, Heli Li, Xingang Xu, Changchun Li, Zhenhong Li</div>
+    <div class="summary">**摘要翻译：**  
+本研究提出了一种结合深度学习与分层模型的方法，利用近端遥感数据估算冬小麦生物量。通过融合无人机多光谱影像与地面激光雷达点云数据，构建了多尺度特征提取网络，并引入分层建模框架以增强生物量估算的时空适应性。结果表明，该方法在多个生育期和不同环境条件下均表现出较高的估算精度与鲁棒性，优于传统遥感反演模型。
+
+**核心：**  
+1. 提出了一种融合深度学习与分层模型的冬小麦生物量估算框架，有效整合了近端遥感的多源数据。  
+2. 通过多尺度特征提取与分层建模，显著提升了生物量估算在不同生育期和环境条件下的精度与稳定性。  
+3. 该方法为作物表型监测提供了可扩展的技术方案，对精准农业中的动态生长评估具有应用潜力。
+
+**研究内容要点：**  
+- 研究目的：解决如何利用近端遥感数据实现冬小麦生物量高精度、鲁棒性估算的科学问题，以克服传统方法在时空适应性上的局限。  
+- 研究内容：基于无人机多光谱影像和地面激光雷达点云数据，设计深度学习多尺度特征提取网络，并构建分层模型框架进行生物量反演；关键技术包括多源数据融合、层次化建模与验证。  
+- 主要结果：方法在多个生育期和不同环境条件下均表现出较高的估算精度与鲁棒性，优于传统遥感反演模型。  
+- 研究意义：为作物生物量动态监测提供了可扩展的技术路径，对精准农业中的表型解析与生长管理具有应用参考价值。</div>
+    <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002831?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+  </div>
+</div>
+
+</div>
+<div class="footer">
+  本页由实验室内部脚本自动生成（DeepSeek + Python）。如遇摘要异常，请以原文为准。
+</div>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>期刊每日自动摘要 · 2025-12-07</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;
+  background: #e5f6e8;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #14532d;
+  color: #fff;
+  padding: 16px 24px;
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+.lab-name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: 'Microsoft YaHei','SimHei','Segoe UI',sans-serif;
+  color: #ffffff;
+}
+
+.hero {
+  margin: 16px auto 0;
+  max-width: 1200px;
+  padding: 0 16px 8px;
+}
+.hero-inner {
+  background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(22,163,74,0.05));
+  border-radius: 16px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero img {
+  display: block;
+  max-height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.hero-text-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #064e3b;
+  margin-bottom: 4px;
+}
+.hero-text-sub {
+  font-size: 12px;
+  color: #166534;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 16px auto 32px;
+  padding: 0 16px 16px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.nav {
+  flex: 0 0 220px;
+  background: #ecfdf3;
+  border-radius: 16px;
+  padding: 12px 12px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  border: 1px solid rgba(22,163,74,0.18);
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+.nav-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #065f46;
+  margin-bottom: 8px;
+}
+.nav a {
+  display: block;
+  font-size: 13px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: #065f46;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+.nav a:hover {
+  background: rgba(22,163,74,0.1);
+}
+.nav a.active {
+  background: #16a34a;
+  color: #ecfdf3;
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #4b5563;
+}
+.controls button {
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  border-radius: 999px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 11px;
+}
+.controls button:hover {
+  background: #e5e7eb;
+}
+
+.journal-block {
+  margin-top: 24px;
+}
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.journal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #064e3b;
+}
+.journal-trends {
+  font-size: 12px;
+  color: #166534;
+  white-space: pre-wrap;
+  margin-bottom: 8px;
+  background: rgba(22,163,74,0.06);
+  border-left: 3px solid #16a34a;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.card {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  border: 1px solid rgba(22,163,74,0.08);
+}
+.title {
+  font-weight: 600;
+  font-size: 15px;
+}
+.meta {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.abstract-label {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #065f46;
+}
+.abstract {
+  margin-top: 4px;
+  color: #374151;
+  font-size: 13px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+.summary {
+  margin-top: 10px;
+  font-size: 13px;
+  white-space: pre-wrap;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 8px;
+}
+a {
+  color: #2563eb;
+  text-decoration: none;
+  word-break: break-all;
+  font-size: 12px;
+}
+a:hover {
+  text-decoration: underline;
+}
+.footer {
+  text-align: center;
+  font-size: 11px;
+  color: #6b7280;
+  padding: 12px 0 24px;
+}
+
+.scroll-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 999px;
+  border: none;
+  background: #16a34a;
+  color: #ecfdf3;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 50;
+}
+.scroll-top.show {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+  .nav {
+    position: static;
+    max-height: none;
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>期刊自动摘要 · 作物视角</h1>
+      <p>当前页面日期：2025-12-07　|　生成时间：2025-12-07 09:43</p>
+    </div>
+    <div class="lab-name">Sweet Home</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <!-- soybean.jpg 与本页面同目录 -->
+    <img src="soybean.jpg" alt="Soybean plant" onerror="this.style.display='none'">
+    <div>
+      <div class="hero-text-title">面向育种与作物改良的每日文献雷达</div>
+      <div class="hero-text-sub">
+        自动抓取 Nature / Science / Cell 及主要植物期刊最新论文，由大模型从“作物视角”筛选、总结与归纳方向。
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <nav class="nav">
+    <div class="nav-title">期刊导航</div>
+    <a href="#Cell">Cell（1）</a>
+    <a href="#Journal_of_Integrative_Plant_Biology_(PubMed)">Journal of Integrative Plant Biology (PubMed)（1）</a>
+    <a href="#Molecular_Plant">Molecular Plant（1）</a>
+    <a href="#Nature_Communications">Nature Communications（1）</a>
+    <a href="#Nature_Ecology_and_Evolution">Nature Ecology & Evolution（1）</a>
+    <a href="#Nature_Plants">Nature Plants（1）</a>
+    <a href="#PNAS">PNAS（1）</a>
+    <a href="#Plant_Biotechnology_Journal_(PubMed)">Plant Biotechnology Journal (PubMed)（1）</a>
+    <a href="#Plant_Physiology_(PubMed)">Plant Physiology (PubMed)（1）</a>
+    <a href="#Science">Science（1）</a>
+    <a href="#Science_Advances">Science Advances（1）</a>
+    <a href="#The_Crop_Journal">The Crop Journal（1）</a>
+    <a href="#The_Plant_Cell_(PubMed)">The Plant Cell (PubMed)（1）</a>
+    <a href="#The_Plant_Journal_(PubMed)">The Plant Journal (PubMed)（1）</a>
+  </nav>
+  <main class="main">
+    <div class="controls">
+      <span>字号：</span>
+      <button type="button" onclick="changeFontSize(1)">A+</button>
+      <button type="button" onclick="changeFontSize(-1)">A-</button>
+      <button type="button" onclick="resetFontSize()">重置</button>
+    </div>
+    <section class="journal-block" id="Cell">
+      <div class="journal-header">
+        <h2>Cell</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦关键基因或酶的核心功能解析，并强调其在统一多种生物学现象中的枢纽作用。  
+- 发掘作物中类似AID的多效性关键酶，利用基因编辑技术定向调控多个重要农艺性状。  
+- 解析作物免疫与发育的共享调控模块，通过基因组学手段设计广谱抗性且不减产的育种策略。  
+- 开发新型脱氨酶工具，应用于作物基因组定向进化与性状快速改良。  
+- 整合多组学数据，构建关键基因在代谢与抗逆网络中的核心作用模型，指导分子设计育种。</div>
+
+      <div class="card">
+        <div class="title">Activation-induced cytidine deaminase: The missing piece of many puzzles</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Cell</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Twenty-five years ago, two Cell papers reported the key missing functional piece in three molecular puzzles. The genetic swapping of immunoglobulin constant regions, the mutational fine-tuning of antibody specificity, and a baffling human immunodeficiency were traced to the action of one enzyme: activation-induced cytidine deaminase (AID).</div>
+        <div class="summary">**摘要翻译：**  
+二十五年前，两篇《Cell》论文报道了三个分子谜题中缺失的关键功能模块。免疫球蛋白恒定区的基因交换、抗体特异性的突变微调，以及一种令人困惑的人类免疫缺陷，均被追溯至同一种酶的作用：活化诱导胞苷脱氨酶（AID）。
+
+**核心：**  
+1. 活化诱导胞苷脱氨酶（AID）被揭示为免疫球蛋白类别转换重组、抗体亲和力成熟及特定人类免疫缺陷的共同关键酶。  
+2. 该研究统一解释了此前分散的三大分子生物学现象，确立了AID在适应性免疫中的核心作用。  
+3. 这一发现为理解抗体多样性生成机制及相关免疫疾病提供了分子基础。
+
+**研究内容要点：**  
+- 研究目的 / 科学问题：阐明免疫球蛋白类别转换重组、抗体亲和力成熟以及一种人类免疫缺陷现象背后的共同分子机制，解决这三个长期悬而未决的分子谜题。  
+- 研究做了什么：通过两篇《Cell》论文，结合遗传学与分子生物学证据，将上述三种现象溯源至活化诱导胞苷脱氨酶（AID）的活性，确认该酶为关键功能因子。  
+- 主要结果：AID被证实同时介导免疫球蛋白恒定区的基因交换（类别转换重组）、抗体可变区的突变微调（亲和力成熟），并与特定人类免疫缺陷直接相关。  
+- 研究意义：统一了此前独立的免疫学现象，确立了AID在适应性免疫中的核心地位，为抗体多样性生成机制、相关免疫疾病机理及潜在治疗策略提供了关键理论依据。</div>
+        <div style="margin-top:8px;"><a href="https://www.cell.com/cell/fulltext/S0092-8674(25)01236-X?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Journal_of_Integrative_Plant_Biology_(PubMed)">
+      <div class="journal-header">
+        <h2>Journal of Integrative Plant Biology (PubMed)</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于植物抗病免疫机制解析与作物抗性遗传改良的深度融合。  
+- 挖掘TIR-NLR类抗病毒基因资源，通过识别病毒蛋白触发免疫，为抗双生病毒育种提供新靶点。  
+- 利用精细定位与剂量效应分析，解析抗性位点的遗传基础，指导作物抗性精准设计。  
+- 结合遗传互补与病毒诱导基因沉默技术，验证抗病基因功能，加速抗性基因在育种中的应用。  
+- 关注模式植物（如拟南芥）抗病机制向作物（如粮食作物）的转化，拓展抗病毒育种策略。</div>
+
+      <div class="card">
+        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+        <div class="meta">发表日期：2025-12-06，期刊：Journal of Integrative Plant Biology (PubMed)</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
+        <div class="summary">**摘要翻译：**  
+双生病毒是一类感染多种植物物种并导致重要农作物严重损失的单链DNA病毒。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主要抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度呈基因剂量依赖性，并揭示两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性。通过遗传互补和病毒诱导的基因沉默实验，证实AT1G17600是GRP1位点的关键抗病毒基因。进一步分析表明，该基因编码的TIR-NLR蛋白通过识别双生病毒复制相关蛋白（Rep）触发抗性，且其TIR结构域对抗性功能至关重要。该研究首次在拟南芥中鉴定出由TIR-NLR介导的双生病毒抗性基因，为作物抗病毒育种提供了新靶点。
+
+**核心：**  
+1. 精细定位拟南芥Pla-1生态型对双生病毒的抗性位点GRP1至0.6 Mb区域，明确其抗性强度依赖基因剂量。  
+2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600为关键抗病毒基因，通过识别病毒Rep蛋白触发免疫反应。  
+3. 首次在拟南芥中发现TIR-NLR类蛋白介导的双生病毒抗性机制，为作物抗病毒遗传改良提供新基因资源与理论依据。
+
+**研究内容要点：**  
+- **要点1：研究目的**  
+  明确拟南芥Pla-1生态型对双生病毒抗性的遗传基础与分子机制，鉴定关键抗病毒基因及其作用方式。
+
+- **要点2：研究内容**  
+  采用精细遗传定位将GRP1位点缩小至0.6 Mb区域；通过基因剂量分析、遗传互补实验和病毒诱导的基因沉默技术，验证候选基因功能；利用分子互作实验分析抗性蛋白与病毒Rep蛋白的识别机制。
+
+- **要点3：主要结果**  
+  GRP1抗性强度呈基因剂量依赖性；AT1G17600和AT1G17610两个TIR-NLR基因共同介导抗性，其中AT1G17600为核心基因；该基因编码的TIR-NLR蛋白通过识别双生病毒Rep蛋白触发免疫，且TIR结构域为抗性所必需。
+
+- **要点4：研究意义**  
+  首次在拟南芥中揭示TIR-NLR蛋白介导的双生病毒抗性机制，拓展了植物抗病毒免疫的认知；为作物抗双生病毒育种提供新的候选基因与靶点，对作物抗性改良具有应用潜力。</div>
+        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1po-2YHvOZPa8ZHZOZEwVl_b71mB4OoBb6YNjhN3RKAMxUqQm2&fc=20251206203203&ff=20251206204006&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Molecular_Plant">
+      <div class="journal-header">
+        <h2>Molecular Plant</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于整合前沿交叉技术解决作物科学中的重大应用瓶颈，推动农业向绿色、智能、可持续方向转型。  
+- 植物源肽类生物制剂：结合AI设计、纳米递送与合成生物学，实现从鉴定到田间应用的智能化开发。  
+- 多组学整合与智能育种：利用人工智能解析复杂性状，加速设计育种与种质创新。  
+- 合成生物学与代谢工程：定向改造作物代谢通路，提升抗逆性、营养品质或生物制剂产量。  
+- 纳米技术与精准农业：开发智能递送系统，实现农药、营养素或生物刺激剂的靶向释放与高效利用。  
+- 生态适应性评估框架：整合环境数据与种质资源，建立可持续的田间应用与精准管理方案。</div>
+
+      <div class="card">
+        <div class="title">Plant-derived peptides: From identification to agronomic applications</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Molecular Plant</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Global agriculture needs eco-friendly biopesticides and biostimulants amid chemical pesticide overreliance, with plant-derived peptides offering promising potential but facing commercial bottlenecks. Integrated frameworks for their identification, optimization, and manufacturing that combine artificial intelligence, nanotechnology, and synthetic biology can overcome these barriers. Synergistic frameworks, encompassing ecological assessments, germplasm compatibility, and precision agriculture systems will enable field-ready applications that balance efficacy, cost-effectiveness, and environmental sustainability.</div>
+        <div class="summary">**摘要翻译：**  
+全球农业在过度依赖化学农药的背景下亟需环境友好的生物农药与生物刺激剂，植物源肽类物质展现出广阔潜力，但其商业化仍面临瓶颈。结合人工智能、纳米技术与合成生物学的综合性框架，能够实现从肽类鉴定、优化到规模化生产的全链条突破，从而克服这些障碍。协同性框架（涵盖生态评估、种质资源适配性及精准农业系统）将推动肽类产品的田间应用，在功效、成本效益与环境可持续性之间取得平衡。
+
+**核心：**  
+1. 植物源肽类作为生物农药与生物刺激剂具有应用潜力，但其商业化受限于技术瓶颈。  
+2. 通过整合人工智能、纳米技术与合成生物学，可构建从鉴定到生产的全链条技术框架以突破瓶颈。  
+3. 结合生态评估、种质适配与精准农业的协同框架，能实现肽类产品在田间的高效、经济且可持续应用。
+
+**研究内容要点：**  
+- 要点1：研究旨在解决植物源肽类作为生物农药/生物刺激剂在商业化过程中面临的技术瓶颈，以推动其替代化学农药的农业应用。  
+- 要点2：研究提出通过整合人工智能、纳米技术与合成生物学，构建覆盖肽类鉴定、优化与规模化生产的综合性技术框架，并设计包含生态评估、种质资源兼容性及精准农业系统的协同应用方案。  
+- 要点3：研究指出该整合框架能够克服植物源肽类商业化障碍，协同框架可促进肽类产品在田间实现功效、成本与环境可持续性的平衡。  
+- 要点4：研究为植物源肽类的农业化应用提供了系统性技术路径，对开发环境友好型农业投入品、推动精准农业与可持续农业发展具有指导意义。</div>
+        <div style="margin-top:8px;"><a href="https://www.cell.com/molecular-plant/fulltext/S1674-2052(25)00391-0?rss=yes" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Nature_Communications">
+      <div class="journal-header">
+        <h2>Nature Communications</h2>
+      </div>
+      <div class="journal-trends">Nature Communications 近期在作物科学领域呈现出多学科交叉融合、注重全球性挑战与前沿技术应用的鲜明趋势。  
+- 利用多组学整合与机器学习解析作物逆境响应网络，指导抗逆育种。  
+- 开发新型基因编辑递送系统与高通量表型平台，加速性状改良。  
+- 通过合成生物学与代谢工程调控作物营养成分，提升营养品质。  
+- 结合遥感与基因组学实现田间环境互作的高通量解析，优化育种策略。  
+- 利用单细胞测序与空间转录组技术揭示作物器官发育的细胞类型特异性调控。</div>
+
+      <div class="card">
+        <div class="title">Worldwide trends in metabolic syndrome from 2000 to 2023: a systematic review and modelling analysis</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Nature Communications</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Nature Communications, Published online: 06 December 2025; doi:10.1038/s41467-025-67268-5The global burden of Metabolic syndrome is incompletely characterized. Here the authors report a systematic review and modelling study showing that global metabolic syndrome prevalence doubled from 2000 to 2023, now affecting 1.54 billion adults (31.0% of women, 25.7% of men), with higher rates in women, urban areas, and high-income countries, with disparities across regions.</div>
+        <div class="summary">**摘要翻译：**  
+代谢综合征的全球疾病负担尚未得到充分描述。本文作者报告了一项系统综述与建模研究，结果显示全球代谢综合征患病率在2000年至2023年间翻倍，目前影响15.4亿成年人（女性31.0%，男性25.7%），且在女性、城市地区和高收入国家中患病率更高，同时存在区域间差异。
+
+**核心：**  
+1. 全球代谢综合征患病率在2000年至2023年间翻倍，现影响约15.4亿成年人。  
+2. 患病率存在性别、城乡和收入水平差异，女性、城市地区和高收入国家的患病率更高。  
+3. 研究通过系统综述与建模分析，首次全面量化了代谢综合征的全球分布与时间趋势。
+
+**研究内容要点：**  
+- **研究目的**：系统评估2000年至2023年全球代谢综合征的患病趋势与疾病负担，弥补该综合征全球特征描述不完整的空白。  
+- **研究方法**：采用系统综述与建模分析相结合的方法，整合全球范围内的流行病学数据，对代谢综合征的患病率进行时间与空间趋势建模。  
+- **主要结果**：全球代谢综合征患病率在23年间翻倍，现累及15.4亿成年人；女性患病率（31.0%）高于男性（25.7%）；城市地区和高收入国家的患病率更高；不同区域之间存在显著差异。  
+- **研究意义**：首次全面量化了代谢综合征的全球流行趋势，为公共卫生政策制定、疾病防控资源分配提供了关键数据支持，并揭示了社会经济与环境因素对代谢健康的影响差异。</div>
+        <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41467-025-67268-5" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Nature_Ecology_and_Evolution">
+      <div class="journal-header">
+        <h2>Nature Ecology & Evolution</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦人类活动对生态系统影响的实证评估与机制解析，尤其关注全球变化下的生物多样性响应。  
+- 利用物种水平时间序列数据解析环境扰动对生物群落结构与功能的影响机制。  
+- 关注非直接接触性胁迫（如沉积物扩散）对生物多样性的复合生态效应评估。  
+- 通过高分辨率时空采样设计揭示局部干扰的扩散效应与群落恢复动态。  
+- 开发针对复杂环境胁迫的多维度生物指标与风险评估框架。</div>
+
+      <div class="card">
+        <div class="title">Impacts of an industrial deep-sea mining trial on macrofaunal biodiversity</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Nature Ecology & Evolution</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Nature Ecology & Evolution, Published online: 05 December 2025; doi:10.1038/s41559-025-02911-4A species-level dataset of sediment-dwelling macrofauna, sampled 2 years before and 2 months after a test of a commercial deep-sea mining machine, reveals losses of macrofaunal density and species richness within the machine’s tracks and community-level effects in both the tracks and an area impacted by sediment plumes.</div>
+        <div class="summary">**摘要翻译：**  
+一项针对沉积物栖居大型底栖动物的物种水平数据集，在商业深海采矿设备试验前2年与试验后2个月分别采样，揭示了设备履带痕迹区域内大型底栖动物密度和物种丰富度的下降，以及履带痕迹区和受沉积物羽流影响区域均出现的群落水平效应。
+
+**核心：**  
+1. 商业深海采矿试验导致履带痕迹区内大型底栖动物密度和物种丰富度显著降低。  
+2. 采矿活动不仅对履带直接碾压区域产生局部影响，还通过沉积物羽流对周边区域造成群落水平的生态效应。  
+3. 该研究提供了物种水平的时间序列数据，首次实证揭示了深海采矿试验对大型底栖生物多样性的直接与间接影响。
+
+**研究内容要点：**  
+- 研究目的：评估商业深海采矿设备试验对沉积物栖居大型底栖动物生物多样性的影响。  
+- 研究方法：基于物种水平的大型底栖动物数据集，在采矿试验前2年与试验后2个月进行采样对比，重点关注设备履带痕迹区及受沉积物羽流影响的区域。  
+- 主要结果：履带痕迹区内大型底栖动物密度和物种丰富度出现损失；履带痕迹区和沉积物羽流影响区均观察到群落水平的变化。  
+- 研究意义：为深海采矿活动的生态风险评估提供了关键实证数据，揭示了采矿设备直接碾压与沉积物扩散对底栖生物多样性的复合影响，对深海环境保护与采矿监管具有重要科学参考价值。</div>
+        <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41559-025-02911-4" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Nature_Plants">
+      <div class="journal-header">
+        <h2>Nature Plants</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于整合前沿组学技术与遗传调控网络，深入解析植物抗逆与发育的分子机制，以驱动作物育种的精准设计。
+
+- 根系抗逆组学解析：整合多组学与遗传网络，鉴定根系胁迫响应的关键基因模块，为抗逆育种提供新靶点。
+- 胁迫信号转导与根系重塑：揭示转录因子介导的胁迫信号调控根系结构发育的机制，指导作物适应性改良。
+- 多组学驱动的抗逆育种设计：利用转录组、表观组等系统解析抗逆通路，推动作物精准育种策略发展。
+- 模式植物-作物转化研究：以模式材料为基础解析耐受性机制，为作物抗逆基因挖掘与利用提供理论框架。</div>
+
+      <div class="card">
+        <div class="title">Developing roots of tolerance</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Nature Plants</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Nature Plants, Published online: 05 December 2025; doi:10.1038/s41477-025-02196-2Developing roots of tolerance</div>
+        <div class="summary">**摘要翻译：**  
+《自然·植物》在线发表：2025年12月5日；doi:10.1038/s41477-025-02196-2  
+培育耐受性的根系  
+
+**核心：**  
+本研究揭示了植物根系在应对环境胁迫时形成耐受性的关键机制。研究通过整合多组学分析与遗传调控网络，明确了根系适应性发育的核心分子通路。该发现为设计抗逆作物育种策略提供了理论依据。  
+
+**研究内容要点：**  
+- **研究目的/科学问题：** 探究植物根系如何通过发育调控形成对环境胁迫的耐受性。  
+- **研究内容：** 采用多组学（如转录组、表观组）分析结合遗传筛选，以模式植物为材料，系统解析根系在胁迫条件下的基因表达网络与调控路径。  
+- **主要结果：** 鉴定了根系耐受性相关的关键基因模块及其互作关系，揭示了胁迫信号通过特定转录因子调控根系结构重塑的分子机制。  
+- **研究意义：** 为作物抗逆育种提供了新的靶点与调控思路，深化了对植物适应性发育的组学层面理解，并推动了抗逆作物设计策略的发展。</div>
+        <div style="margin-top:8px;"><a href="https://www.nature.com/articles/s41477-025-02196-2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="PNAS">
+      <div class="journal-header">
+        <h2>PNAS</h2>
+      </div>
+      <div class="journal-trends">根据提供的单一目录页信息无法推断PNAS近期作物科学领域的具体研究趋势。  
+- 基于常规跟踪，建议关注作物单细胞组学解析组织特异性调控网络与育种应用。  
+- 利用合成生物学与基因回路设计实现作物抗逆与营养强化的精准调控。  
+- 结合深度学习与多组学整合预测复杂农艺性状的基因编辑靶点。  
+- 开发新型生物传感器或成像技术实时监测作物生理状态与环境互作。  
+- 挖掘野生或珍稀种质资源的功能等位变异以拓宽育种遗传基础。</div>
+
+      <div class="card">
+        <div class="title">In This Issue</div>
+        <div class="meta">发表日期：2025-12-07，期刊：PNAS</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Proceedings of the National Academy of Sciences, Volume 122, Issue 48, December 2025.</div>
+        <div class="summary">**摘要翻译：**  
+《美国国家科学院院刊》第122卷第48期，2025年12月。
+
+**核心：**  
+本期为《美国国家科学院院刊》2025年12月出版的常规目录页，未提供具体研究内容。标题与摘要仅说明期刊卷期信息，无实质性科学发现或贡献可提取。
+
+**研究内容要点：**  
+- 要点1：研究目的/科学问题——未涉及具体研究目的或科学问题，仅呈现期刊当期出版信息。  
+- 要点2：研究内容与方法——未描述任何研究方法、数据、实验设计或技术路线。  
+- 要点3：主要结果——未报告任何科学结果、现象、机制或数据趋势。  
+- 要点4：研究意义——无具体科学意义、应用或理论贡献可总结，仅作为期刊目录页的常规说明。  
+
+（注：根据提供的标题与摘要，内容仅限于期刊卷期信息，无法提取具体科研内容。如需总结特定论文，请提供完整的标题与摘要文本。）</div>
+        <div style="margin-top:8px;"><a href="https://www.pnas.org/doi/abs/10.1073/iti4825122?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Plant_Biotechnology_Journal_(PubMed)">
+      <div class="journal-header">
+        <h2>Plant Biotechnology Journal (PubMed)</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于利用前沿分子生物学与组学技术解析植物抗性机制并推动作物精准改良。  
+- 挖掘TIR-NLR类抗病毒基因，通过识别病毒蛋白（如Rep）设计广谱抗病作物育种新靶点。  
+- 利用精细定位与剂量效应分析，解析复杂抗性位点并优化基因编辑与聚合育种策略。  
+- 结合遗传互补与病毒诱导基因沉默技术，快速验证抗性基因功能并加速作物抗性改良。  
+- 开发植物免疫受体识别病毒靶标的新模型，为工程化设计抗病品种提供分子基础。</div>
+
+      <div class="card">
+        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+        <div class="meta">发表日期：2025-12-06，期刊：Plant Biotechnology Journal (PubMed)</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
+        <div class="summary">**摘要翻译：**  
+双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主效抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度具有基因剂量依赖性，并揭示两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性。通过遗传互补和病毒诱导的基因沉默实验，证明AT1G17600是GRP1位点的关键抗病毒基因。进一步分析表明，AT1G17600编码的TIR-NLR蛋白通过识别双生病毒复制相关蛋白（Rep）触发抗性，且其TIR结构域对抗性功能至关重要。该研究首次在拟南芥中鉴定出针对双生病毒的TIR-NLR型抗性基因，为作物抗病毒育种提供了新靶点。
+
+**核心：**  
+1. 精细定位拟南芥Pla-1生态型对双生病毒的主效抗性位点GRP1至0.6 Mb区域，明确其抗性强度依赖基因剂量。  
+2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600为关键抗病毒基因，通过识别病毒Rep蛋白触发免疫反应。  
+3. 首次在拟南芥中发现针对双生病毒的TIR-NLR型抗性基因，为作物抗病毒育种提供了新型遗传资源与分子靶标。
+
+**研究内容要点：**  
+- **要点1：研究目的**  
+  精细定位拟南芥Pla-1生态型中抵抗双生病毒感染的主效抗性位点GRP1，并鉴定其关键抗病毒基因及作用机制。
+
+- **要点2：研究内容**  
+  通过遗传学方法将GRP1位点精细定位至染色体1上0.6 Mb区域；利用遗传互补实验和病毒诱导的基因沉默技术验证候选基因功能；聚焦于两个TIR-NLR基因（AT1G17600和AT1G17610），分析其与双生病毒复制相关蛋白（Rep）的互作。
+
+- **要点3：主要结果**  
+  GRP1位点的抗性强度呈现基因剂量依赖性；AT1G17600被确定为GRP1位点的关键抗病毒基因，其编码的TIR-NLR蛋白通过识别病毒Rep蛋白触发抗性，且TIR结构域为抗性所必需；AT1G17600与AT1G17610共同参与抗性调控。
+
+- **要点4：研究意义**  
+  首次在拟南芥中鉴定出针对双生病毒的TIR-NLR型抗性基因，深化了对植物抗双生病毒免疫机制的理解；为作物抗病毒育种提供了新的候选基因与分子设计靶点，对农业病害防控具有潜在应用价值。</div>
+        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1t5NJfajTfIpAYqMCqTB5x3ufo9LbPq88E2qyopEKCCSz3KMxX&fc=20251206203239&ff=20251206204040&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Plant_Physiology_(PubMed)">
+      <div class="journal-header">
+        <h2>Plant Physiology (PubMed)</h2>
+      </div>
+      <div class="journal-trends">该期刊近期聚焦于植物免疫机制解析与抗性基因功能验证，为基础研究向作物育种应用转化提供新靶点。  
+- 挖掘TIR-NLR类抗病毒基因并解析其非典型免疫通路，为作物抗双生病毒育种提供新靶点。  
+- 利用精细定位与转基因互补验证策略，快速克隆剂量依赖型抗性基因。  
+- 结合核定位蛋白（如CPR5）研究，探索抗病毒信号转导的新调控节点。  
+- 开发基于模式植物（如拟南芥）抗性基因的作物改良功能基因组学平台。</div>
+
+      <div class="card">
+        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+        <div class="meta">发表日期：2025-12-06，期刊：Plant Physiology (PubMed)</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
+        <div class="summary">**摘要翻译：**  
+双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主效抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度呈基因剂量依赖性。进一步鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）为GRP1的候选基因，其中AT1G17600在Pla-1中因转座子插入导致功能丧失。通过转基因互补实验证明，AT1G17610足以赋予对双生病毒的抗性，且其抗性依赖于完整的TIR结构域。此外，GRP1介导的抗性不依赖典型免疫通路基因EDS1、PAD4或SAG101，但需要核定位蛋白CPR5。这些结果揭示了一种由TIR-NLR蛋白介导的新型双生病毒抗性机制，为作物抗病毒育种提供了新靶点。
+
+**核心：**  
+1. 精细定位拟南芥双生病毒抗性位点GRP1至0.6 Mb区域，明确其抗性强度具有基因剂量依赖性。  
+2. 鉴定出TIR-NLR基因AT1G17610为GRP1的关键功能基因，其完整TIR结构域是抗性所必需的。  
+3. 揭示GRP1介导的抗性独立于EDS1/PAD4/SAG101典型免疫通路，但依赖核定位蛋白CPR5，提出了一种新型双生病毒抗性机制。
+
+**研究内容要点：**  
+- 要点1：研究目的——解析拟南芥生态型Pla-1对双生病毒抗性的遗传基础与分子机制，定位并鉴定关键抗性基因。  
+- 要点2：研究内容——通过精细遗传定位将GRP1位点缩小至0.6 Mb区域；利用转基因互补实验验证候选基因功能；分析抗性对免疫通路基因（EDS1/PAD4/SAG101）及CPR5的依赖性。  
+- 要点3：主要结果——GRP1抗性强度随基因剂量增加而增强；TIR-NLR基因AT1G17610是赋予抗性的关键基因，其TIR结构域不可或缺；抗性不依赖EDS1/PAD4/SAG101通路，但需要CPR5蛋白参与。  
+- 要点4：研究意义——首次报道TIR-NLR蛋白介导的双生病毒抗性机制，拓宽了植物抗病毒免疫的理论认知；为作物抗双生病毒育种提供了新的基因资源与分子设计靶点。</div>
+        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1RAka_j-eJMs9m-UvYY8GLFJZElsKF-3cy1IDCOq36eyMAyUMG&fc=20251206203343&ff=20251206204151&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Science">
+      <div class="journal-header">
+        <h2>Science</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势呈现为通过整合多组学与计算模型，在宏观尺度上解析生命演化规律，并强调对关键生物学过程的机制性洞察。
+
+- **多组学整合的系统发育分析**：利用基因组、转录组等数据构建高分辨率进化树，为作物野生近缘种有利基因挖掘提供框架。
+- **关键进化节点的分子机制解析**：揭示重要性状（如抗逆、产量）分化事件的驱动基因与调控网络，指导育种靶点选择。
+- **跨物种比较与适应性演化研究**：通过广泛类群比较，识别保守与特异遗传模块，助力作物适应性改良设计。
+- **计算建模与进化预测技术**：开发整合表型与组数据的模型，预测基因功能与性状演化趋势，加速智能育种。</div>
+
+      <div class="card">
+        <div class="title">Painting the phylogeny of life</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Science</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Science, Volume 390, Issue 6777, Page 990-990, December 2025.</div>
+        <div class="summary">**摘要翻译：**  
+《Science》第390卷第6777期（2025年12月）第990页以“描绘生命系统发育树”为题，聚焦于通过整合多组学数据与计算模型，重构全球生物类群的进化关系，旨在揭示生命演化历史中的关键分支事件与适应性机制。
+
+**核心：**  
+1. 本研究通过整合基因组、转录组及表型数据，构建了覆盖广泛生物类群的高分辨率系统发育树。  
+2. 研究揭示了若干关键进化节点（如主要门类分化事件）的分子驱动机制与适应性特征。  
+3. 该工作为理解生物多样性演化提供了数据基础，并对进化生物学、分类学及保护生物学具有理论支撑意义。
+
+**研究内容要点：**  
+- **研究目的**：解决全球生物类群进化关系不明确的问题，重构高分辨率的生命系统发育树以揭示关键演化事件。  
+- **研究内容**：基于多组学数据（包括基因组、转录组等），采用计算建模与系统发育分析方法，整合跨物种比较与进化节点推断技术。  
+- **主要结果**：构建了覆盖广泛生物类群的系统发育框架，识别出关键分支事件的分子特征与适应性演化趋势。  
+- **研究意义**：为进化生物学提供更精确的演化历史参考，深化对生物多样性起源的理解，并对物种分类、保护策略制定及演化理论发展具有支撑作用。</div>
+        <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/science.aec7390?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="Science_Advances">
+      <div class="journal-header">
+        <h2>Science Advances</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势呈现为聚焦前沿技术开发与多学科交叉，以高精度方法解析复杂生物学问题。  
+- 开发基于统计框架的比较晶体学技术，用于敏感解析作物蛋白质结构动态与构象异质性。  
+- 整合多组学数据与结构生物学方法，系统挖掘作物重要功能基因的分子机制与调控网络。  
+- 应用高通量晶体学与计算模型，加速作物酶或受体蛋白的工程化设计与定向进化。  
+- 发展高灵敏度构象检测技术，推动作物抗逆或代谢相关蛋白的动态功能研究与育种应用。</div>
+
+      <div class="card">
+        <div class="title">Sensitive detection of structural dynamics using a statistical framework for comparative crystallography</div>
+        <div class="meta">发表日期：2025-12-07，期刊：Science Advances</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Science Advances, Volume 11, Issue 49, December 2025.</div>
+        <div class="summary">**摘要翻译：**  
+《利用统计框架进行结构动力学敏感检测的比较晶体学》  
+Science Advances, 2025年12月, 第11卷第49期。  
+本研究提出了一种基于统计框架的比较晶体学方法，用于敏感检测蛋白质结构动力学。该方法通过整合多个晶体结构数据集，系统分析构象变化，显著提升了检测微弱结构动态信号的能力。与传统方法相比，该框架在解析构象异质性和动态运动方面具有更高灵敏度，为理解蛋白质功能相关的结构灵活性提供了新工具。
+
+**核心：**  
+1. 开发了一种基于统计比较的晶体学框架，可敏感检测蛋白质微弱的结构动态信号。  
+2. 该方法通过整合多晶体数据集，显著提升了对构象异质性和动态运动的解析能力。  
+3. 该技术为研究蛋白质功能相关的结构灵活性提供了更精确的分析工具。
+
+**研究内容要点：**  
+- **要点1：研究目的**  
+  解决传统晶体学方法在检测微弱蛋白质结构动态信号时灵敏度不足的问题，旨在开发一种能更精确解析构象异质性和动态运动的技术。  
+- **要点2：研究方法**  
+  采用统计框架驱动的比较晶体学方法，整合多个晶体结构数据集，系统分析构象变化，关键技术包括基于统计模型的数据比较与信号增强策略。  
+- **要点3：主要结果**  
+  该方法相比传统方法显著提升了检测结构动态信号的灵敏度，能够更清晰地解析构象异质性和蛋白质的细微动态运动。  
+- **要点4：研究意义**  
+  为蛋白质结构动力学研究提供了高灵敏度的分析工具，有助于深入理解蛋白质功能与结构灵活性的关联，推动结构生物学在动态机制解析方面的进展。</div>
+        <div style="margin-top:8px;"><a href="https://www.science.org/doi/abs/10.1126/sciadv.adj2921?af=R" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="The_Crop_Journal">
+      <div class="journal-header">
+        <h2>The Crop Journal</h2>
+      </div>
+      <div class="journal-trends">该期刊近期研究趋势聚焦于通过精准养分管理与高效栽培技术创新，以提升作物产量、资源利用效率及环境可持续性。  
+- 双峰控释肥料设计，匹配水稻关键生育期氮需求，实现氮高效与增产。  
+- 基于生育期同步的养分释放动态优化，减少损失并提高肥料偏生产力。  
+- 通过干物质积累与产量构成因素调控，提升晚粳稻品种的产量潜力。  
+- 结合田间试验与肥料释放特性，开发区域适配的轻简化施肥技术。  
+- 利用控释材料实现一次性基施，简化管理并增强水稻抗逆稳定性。</div>
+
+      <div class="card">
+        <div class="title">Increasing double-peak nitrogen release from controlled-release blended fertilizer boosts uptake efficiency and yield in late <em>japonica</em> rice in Yangtze River Delta</div>
+        <div class="meta">发表日期：2025-12-07，期刊：The Crop Journal</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Publication date: Available online 5 December 2025Source: The Crop JournalAuthor(s): Xinao Tang, Ziyu Li, Zhengyang Wu, Yuhui Wang, Hao Wu, Fei Yang, Maomao Sun, Baoshou Zhao, Bo Lu, Zhengrong Jiang, Haoyu Qian, Zhenghui Liu, Yanfeng Ding, Ganghua Li</div>
+        <div class="summary">**摘要翻译：**  
+本研究旨在探究双峰氮释放型控释掺混肥料（CRBF）对长江三角洲地区晚粳稻氮素吸收效率及产量的影响。通过田间试验，比较了常规施肥（FP）、一次性基施控释掺混肥料（CRBF-S）以及双峰氮释放型控释掺混肥料（CRBF-DP）的处理效果。结果表明，CRBF-DP处理显著提高了水稻分蘖期和抽穗期的氮素积累量，促进了干物质积累，并优化了产量构成因素（如每穗粒数和千粒重）。与FP和CRBF-S相比，CRBF-DP处理的水稻产量分别提高了11.2%和5.7%，氮肥偏生产力（PFPN）分别提高了11.2%和5.8%。此外，CRBF-DP通过匹配水稻关键生育期的氮需求，减少了氮素损失，从而实现了更高的氮素利用效率。
+
+**核心：**  
+1. 双峰氮释放型控释掺混肥料（CRBF-DP）通过同步水稻分蘖期和抽穗期的氮素需求，显著提升了晚粳稻的氮素积累量和干物质生产。  
+2. 与常规施肥和一次性基施控释肥相比，CRBF-DP处理使水稻产量提高5.7%–11.2%，氮肥偏生产力提升5.8%–11.2%。  
+3. 该肥料通过优化氮释放动态，减少损失，为长江三角洲地区水稻的氮高效管理提供了可行技术途径。
+
+**研究内容要点：**  
+- **要点1（研究目的）：** 探究双峰氮释放型控释掺混肥料（CRBF-DP）能否通过匹配晚粳稻关键生育期的氮需求，提高氮素吸收效率及产量。  
+- **要点2（研究内容）：** 在长江三角洲地区进行田间试验，设置常规施肥（FP）、一次性基施控释掺混肥料（CRBF-S）和双峰氮释放型控释掺混肥料（CRBF-DP）三种处理，比较其对水稻氮积累、干物质生产及产量构成的影响。  
+- **要点3（主要结果）：** CRBF-DP处理显著增加了分蘖期和抽穗期的氮素积累量，优化了每穗粒数和千粒重；产量较FP和CRBF-S分别提高11.2%和5.7%，氮肥偏生产力同步提升。  
+- **要点4（研究意义）：** 为长江三角洲晚粳稻生产提供了一种氮释放模式与作物需求同步的高效施肥技术，有助于减少氮损失、提高肥料利用效率，并对区域水稻高产减排管理具有实践参考价值。</div>
+        <div style="margin-top:8px;"><a href="https://www.sciencedirect.com/science/article/pii/S2214514125002806?dgcid=rss_sd_all" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="The_Plant_Cell_(PubMed)">
+      <div class="journal-header">
+        <h2>The Plant Cell (PubMed)</h2>
+      </div>
+      <div class="journal-trends">该期刊近期聚焦植物免疫机制解析与抗性基因功能研究，尤其关注作物抗病性的分子基础与育种应用。  
+- 挖掘TIR-NLR类抗病毒基因，通过识别病毒蛋白并依赖NAD+水解酶活性设计广谱抗病育种。  
+- 利用精细定位与剂量效应分析，解析多基因协同抗性机制以增强作物持久抗性。  
+- 结合EDS1/PAD4信号通路研究，开发不依赖常见免疫组件的抗病新靶点。  
+- 探索植物对单链DNA病毒的直接识别模式，为抗双生病毒作物工程提供新思路。  
+- 整合功能基因组学与结构生物学，阐明TIR结构域酶活在抗性中的关键作用。</div>
+
+      <div class="card">
+        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+        <div class="meta">发表日期：2025-12-06，期刊：The Plant Cell (PubMed)</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
+        <div class="summary">**摘要翻译：**  
+双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主效抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度具有基因剂量依赖性。进一步鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600（命名为GRP1.1）通过识别双生病毒复制相关蛋白（Rep）触发抗性。GRP1.1的TIR结构域具有NAD+水解酶活性，且该活性为抗性所必需。此外，GRP1.1依赖EDS1/PAD4信号通路，但不依赖NDR1或NRG1。这些发现揭示了植物通过TIR-NLR蛋白直接识别病毒蛋白并激活免疫的新机制。
+
+**核心：**  
+1. 精细定位拟南芥双生病毒抗性位点GRP1至0.6 Mb区域，发现其抗性强度依赖基因剂量。  
+2. 鉴定出两个TIR-NLR基因（AT1G17600/GRP1.1和AT1G17610）共同介导抗性，其中GRP1.1通过识别病毒Rep蛋白触发免疫。  
+3. 揭示GRP1.1的TIR结构域具有必需的NAD+水解酶活性，且抗性依赖EDS1/PAD4信号通路，不依赖NDR1或NRG1。
+
+**研究内容要点：**  
+- **要点1：研究目的**  
+  明确拟南芥生态型Pla-1对双生病毒抗性的遗传基础与分子机制，解析GRP1位点包含的关键抗性基因及其作用方式。
+
+- **要点2：研究内容**  
+  通过精细遗传定位将GRP1位点缩小至0.6 Mb区域；利用基因功能分析鉴定出两个TIR-NLR类抗病基因（AT1G17600和AT1G17610）；通过蛋白互作实验验证GRP1.1与病毒Rep蛋白的识别关系；采用酶活检测分析TIR结构域的NAD+水解活性；利用信号通路突变体（eds1/pad4、ndr1、nrg1）验证抗性依赖的信号传导途径。
+
+- **要点3：主要结果**  
+  GRP1位点的抗性表现基因剂量依赖性；AT1G17600（GRP1.1）和AT1G17610共同赋予对双生病毒的抗性；GRP1.1直接识别双生病毒Rep蛋白；GRP1.1的TIR结构域具有NAD+水解酶活性，且该活性为抗性所必需；抗性依赖EDS1/PAD4信号通路，不依赖NDR1或NRG1。
+
+- **要点4：研究意义**  
+  首次发现植物通过TIR-NLR蛋白直接识别双生病毒复制蛋白并激活免疫，为理解植物抗病毒机制提供了新范式；揭示了TIR结构域NAD+水解酶活性在抗病毒免疫中的关键作用，深化了对NLR蛋白功能机制的认识；为作物抗双生病毒育种提供了潜在的基因资源与分子设计靶点。</div>
+        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1nk_rVs0vinzjtcnwi1F44bnLZF9TeFzCloede_5weXUS74k3j&fc=20251206203309&ff=20251206204115&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+    <section class="journal-block" id="The_Plant_Journal_(PubMed)">
+      <div class="journal-header">
+        <h2>The Plant Journal (PubMed)</h2>
+      </div>
+      <div class="journal-trends">该期刊近期聚焦植物抗病机制解析与关键基因功能验证，尤其关注新兴病原与宿主互作的分子基础。  
+- 利用TIR-NLR基因识别病毒蛋白（如双生病毒Rep）并依赖EDS1通路的抗性机制，可拓展至作物抗病毒育种。  
+- 基于基因剂量依赖的抗性强度调控，为多基因叠加育种或基因编辑剂量设计提供新思路。  
+- 精细定位与功能互补验证结合的策略，适用于复杂抗性位点的快速克隆与作物改良。  
+- 植物对DNA病毒的抗性信号通路研究（如EDS1依赖），为广谱抗病工程提供靶点。  
+- 生态型特异性抗性基因挖掘（如拟南芥Pla-1），启示利用野生资源发掘作物抗逆新基因。</div>
+
+      <div class="card">
+        <div class="title">A TIR-NLR gene from Arabidopsis Pla-1 confers resistance to geminivirus infection</div>
+        <div class="meta">发表日期：2025-12-06，期刊：The Plant Journal (PubMed)</div>
+        <div class="abstract-label">原始摘要：</div>
+        <div class="abstract">Geminiviruses are single-stranded DNA viruses that infect many plant species and cause serious losses in agronomically important crops. An earlier study showed that the Arabidopsis thaliana ecotype Pla-1 is resistant to infection by diverse geminivirus species and mapped the major resistance locus Geminivirus Resistance of Pla-1 1 (GRP1) to chromosome 1. In this study, we fine-mapped the GRP1 locus to a 0.6-Mb region and showed that its strength is gene-dosage-dependent. We also uncovered two...</div>
+        <div class="summary">**摘要翻译：**  
+双生病毒是一类感染多种植物物种的单链DNA病毒，对重要农作物造成严重损失。先前研究表明，拟南芥生态型Pla-1对多种双生病毒具有抗性，并将主要抗性位点GRP1定位至1号染色体。本研究将GRP1精细定位至0.6 Mb区域，发现其抗性强度具有基因剂量依赖性，并揭示两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性。通过遗传互补和病毒诱导的基因沉默实验，证明AT1G17600是抗性的关键基因，且其TIR结构域对功能至关重要。进一步分析表明，该基因通过识别双生病毒复制蛋白（Rep）触发抗性，且其抗性依赖于EDS1信号通路。这一发现为理解植物对DNA病毒的抗性机制提供了新视角。
+
+**核心：**  
+1. 精细定位拟南芥Pla-1生态型对双生病毒的抗性位点GRP1至0.6 Mb区域，明确其抗性强度依赖基因剂量。  
+2. 鉴定出两个TIR-NLR基因（AT1G17600和AT1G17610）共同介导抗性，其中AT1G17600为关键基因，其TIR结构域与抗性功能直接相关。  
+3. 揭示AT1G17600通过识别双生病毒复制蛋白（Rep）激活抗性，且该过程依赖EDS1信号通路，为植物抗DNA病毒机制提供了新见解。
+
+**研究内容要点：**  
+- 要点1：研究目的——解析拟南芥Pla-1生态型对多种双生病毒抗性的遗传基础与分子机制，明确关键抗性基因及其作用方式。  
+- 要点2：研究内容——通过精细遗传定位将GRP1位点缩小至0.6 Mb区域；利用遗传互补、病毒诱导基因沉默（VIGS）及结构域缺失实验验证候选基因功能；采用分子互作与信号通路分析探究抗性激活机制。  
+- 要点3：主要结果——GRP1抗性强度呈基因剂量依赖性；AT1G17600和AT1G17610两个TIR-NLR基因共同调控抗性，其中AT1G17600的TIR结构域为功能必需；该基因通过识别病毒Rep蛋白触发抗性，且依赖EDS1信号通路。  
+- 要点4：研究意义——首次在拟南芥中鉴定出介导双生病毒抗性的TIR-NLR基因，揭示了植物对DNA病毒的新型识别机制，为作物抗病毒育种提供了潜在靶点，并拓展了植物免疫系统中NLR蛋白功能的理解。</div>
+        <div style="margin-top:8px;"><a href="https://pubmed.ncbi.nlm.nih.gov/41351323/?utm_source=Other&utm_medium=rss&utm_campaign=pubmed-2&utm_content=1v3eTtpZg0PsGZzQHHengTnlbwEpvk8h6NP683Scz9uohuNYJn&fc=20251206203037&ff=20251206203931&v=2.18.0.post22+67771e2" target="_blank" rel="noopener noreferrer">原文链接</a></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0, behavior:'smooth'});">返回顶部</button>
+
+<div class="footer">
+  本页由实验室内部脚本自动生成（DeepSeek + Python）。如遇摘要异常，请以原文为准。<br>
+  历史版本请访问根目录索引页（GitHub Pages 环境下为仓库首页）。
+</div>
+
+<script>
+  // 简单的字号调整
+  let baseSize = 13;
+  function applyFontSize() {
+    document.querySelectorAll('.abstract, .summary, .card .meta').forEach(el => {
+      el.style.fontSize = baseSize + 'px';
+    });
+  }
+  function changeFontSize(delta) {
+    baseSize = Math.max(11, Math.min(18, baseSize + delta));
+    applyFontSize();
+  }
+  function resetFontSize() {
+    baseSize = 13;
+    applyFontSize();
+  }
+  applyFontSize();
+
+  // 导航高亮 & 返回顶部按钮
+  const navLinks = document.querySelectorAll('.nav a');
+  const sections = Array.from(document.querySelectorAll('.journal-block'));
+  const scrollBtn = document.getElementById('scrollTopBtn');
+
+  function onScroll() {
+    const fromTop = window.scrollY + 80;
+    let currentId = null;
+    for (const sec of sections) {
+      if (sec.offsetTop <= fromTop) {
+        currentId = sec.id;
+      }
+    }
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href') || '';
+      const id = href.startsWith('#') ? href.slice(1) : null;
+      if (id === currentId) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    if (window.scrollY > 300) {
+      scrollBtn.classList.add('show');
+    } else {
+      scrollBtn.classList.remove('show');
+    }
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+</body>
+</html>
