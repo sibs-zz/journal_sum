@@ -251,7 +251,6 @@ prompt = f"""
 3. **GitHub 同步失败**
    - 确认已配置 SSH 密钥
    - 测试 SSH 连接：`ssh -T git@github.com`
-   - 查看 `TROUBLESHOOTING.md` 获取详细帮助
 
 ---
 
