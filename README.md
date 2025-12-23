@@ -277,11 +277,11 @@ prompt = f"""
 - Journal of Integrative Plant Biology
 - Plant Communications
 - Molecular Plant
+- The Crop Journal
 
 ### 其他
 - PNAS
 - Science Advances
-- The Crop Journal
 
 ---
 
