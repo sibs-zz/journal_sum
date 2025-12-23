@@ -74,6 +74,8 @@ cd journal_sum
 
 2. **安装依赖**
 ```bash
+conda create -n journal_agent python=3.7
+conda activate journal_agent
 pip install -r requirements.txt
 ```
 
