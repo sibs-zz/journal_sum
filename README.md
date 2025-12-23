@@ -307,32 +307,6 @@ prompt = f"""
 
 ---
 
-## 🤝 贡献指南
-
-欢迎贡献代码！请遵循以下步骤：
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
-
----
-
-## 📄 许可证
-
-本项目采用 MIT 许可证。详情请查看 [LICENSE](LICENSE) 文件。
-
----
-
-## 🙏 致谢
-
-- 感谢所有提供 RSS Feed 的期刊
-- 感谢 DeepSeek 提供强大的 LLM API
-- 感谢所有贡献者和使用者
-
----
-
 ## 📮 联系方式
 
 - **GitHub Issues**: [提交问题](https://github.com/sibs-zz/journal_sum/issues)
