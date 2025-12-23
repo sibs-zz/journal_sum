@@ -1,0 +1,3 @@
+conda activate journal_agent
+export AUTO_SYNC_GITHUB=true
+python journal_summarizer_advanced_v2.py
