@@ -208,7 +208,7 @@ JOURNALS = [
 # 配置常量
 MAX_ITEMS_PER_JOURNAL = int(os.getenv("MAX_ITEMS_PER_JOURNAL", "50"))
 TARGET_ARTICLES_PER_JOURNAL = int(os.getenv("TARGET_ARTICLES_PER_JOURNAL", "15"))
-MAX_WORKERS = int(os.getenv("MAX_WORKERS", "10"))  # 并行处理线程数
+MAX_WORKERS = int(os.getenv("MAX_WORKERS", "5"))  # 并行处理线程数
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))  # 重试次数
 
 # ================= 工具函数 =================
