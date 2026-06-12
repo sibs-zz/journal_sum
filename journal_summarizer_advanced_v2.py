@@ -3,19 +3,26 @@
 功能：从多个期刊 RSS 抓取文章，使用 LLM 筛选和总结，生成 HTML 页面
 """
 import os
+import re
 import json
 import logging
 import datetime as dt
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from functools import wraps
+import threading
 import time
 
 import feedparser
+import requests
 from bs4 import BeautifulSoup
 from openai import OpenAI
-from tenacity import retry, stop_after_attempt, wait_exponential
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type,
+)
 
 # ================= 配置区 =================
 
@@ -74,6 +81,42 @@ def load_api_key() -> Optional[str]:
             logger.warning(f"⚠️ 读取脚本目录 key.txt 失败: {e}")
     
     return None
+
+
+def load_ncbi_api_key() -> str:
+    """
+    加载 NCBI API Key，按优先级尝试：
+    1. 环境变量 NCBI_API_KEY
+    2. 当前目录的 ncbi_key.txt 文件
+    3. 脚本所在目录的 ncbi_key.txt 文件
+    """
+    api_key = os.getenv("NCBI_API_KEY")
+    if api_key:
+        logger.info("✅ 从环境变量读取 NCBI API Key")
+        return api_key.strip()
+
+    current_dir_key = Path("ncbi_key.txt")
+    if current_dir_key.exists():
+        try:
+            api_key = current_dir_key.read_text(encoding="utf-8").strip()
+            if api_key:
+                logger.info("✅ 从当前目录的 ncbi_key.txt 读取 NCBI API Key")
+                return api_key
+        except Exception as e:
+            logger.warning(f"⚠️ 读取当前目录 ncbi_key.txt 失败: {e}")
+
+    script_dir = Path(__file__).parent
+    script_dir_key = script_dir / "ncbi_key.txt"
+    if script_dir_key.exists():
+        try:
+            api_key = script_dir_key.read_text(encoding="utf-8").strip()
+            if api_key:
+                logger.info("✅ 从脚本目录的 ncbi_key.txt 读取 NCBI API Key")
+                return api_key
+        except Exception as e:
+            logger.warning(f"⚠️ 读取脚本目录 ncbi_key.txt 失败: {e}")
+
+    return ""
 
 
 # API Key 加载（支持环境变量和 key.txt 文件）
@@ -146,7 +189,7 @@ JOURNALS = [
         "rss": "https://www.science.org/action/showFeed?feed=rss&jc=sciadv&type=etoc",
     },
 
-    # --- 植物/作物方向新增期刊 ---
+    # --- 植物/作物方向期刊（PubMed RSS） ---
     {
         "name": "The Plant Journal (PubMed)",
         "id": "plant_journal_pubmed",
@@ -208,8 +251,29 @@ JOURNALS = [
 # 配置常量
 MAX_ITEMS_PER_JOURNAL = int(os.getenv("MAX_ITEMS_PER_JOURNAL", "50"))
 TARGET_ARTICLES_PER_JOURNAL = int(os.getenv("TARGET_ARTICLES_PER_JOURNAL", "15"))
-MAX_WORKERS = int(os.getenv("MAX_WORKERS", "5"))  # 并行处理线程数
+MAX_WORKERS = int(os.getenv("MAX_WORKERS", "10"))  # 并行处理线程数
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))  # 重试次数
+DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-pro")
+DEEPSEEK_MAX_TOKENS = int(os.getenv("DEEPSEEK_MAX_TOKENS", "4096"))
+MIN_ABSTRACT_CHARS = int(os.getenv("MIN_ABSTRACT_CHARS", "80"))
+FETCH_FULL_TEXT = os.getenv("FETCH_FULL_TEXT", "true").lower() == "true"
+MAX_FULL_TEXT_CHARS = int(os.getenv("MAX_FULL_TEXT_CHARS", "6000"))
+
+# NCBI API（用于 PubMed / PMC 摘要与开放获取正文补全）
+NCBI_API_KEY = load_ncbi_api_key()
+NCBI_BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+_NCBI_MIN_INTERVAL = 0.12 if NCBI_API_KEY else 0.4
+_ncbi_last_request_time = 0.0
+_ncbi_rate_lock = threading.Lock()
+
+if NCBI_API_KEY:
+    logger.info("✅ 已加载 NCBI API Key（更高请求频率）")
+else:
+    logger.warning(
+        "⚠️ 未找到 NCBI API Key（环境变量 NCBI_API_KEY 或 ncbi_key.txt 文件），"
+        "PubMed/PMC 补全将使用默认限速（3 req/s）。"
+        "可在 https://www.ncbi.nlm.nih.gov/account/settings/ 免费申请。"
+    )
 
 # ================= 工具函数 =================
 
@@ -222,6 +286,443 @@ def clean_text(html_text: str) -> str:
     except Exception as e:
         logger.warning(f"清理 HTML 文本时出错: {e}")
         return html_text.strip()
+
+
+def clean_plain_text(text: str) -> str:
+    """清理 XML/HTML 标签并压缩空白。"""
+    if not text:
+        return ""
+    text = re.sub(r"<[^>]+>", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+DOI_RE = re.compile(r"10\.\d{4,9}/[^\s\"'<>]+", re.IGNORECASE)
+NATURE_NEWS_DOI_RE = re.compile(r"10\.1038/d41586-", re.IGNORECASE)
+PMID_RE = re.compile(r"pubmed\.ncbi\.nlm\.nih\.gov/(\d+)", re.IGNORECASE)
+
+SCIENCE_RESEARCH_TYPES = {
+    "Research Article",
+    "Report",
+    "Letter",
+    "Research",
+    "Brief Report",
+}
+SCIENCE_EXCLUDE_TYPES = {
+    "Editorial",
+    "Perspective",
+    "Feature",
+    "In Depth",
+    "Books et al.",
+    "Working Life",
+    "Expert Voices",
+    "New Products",
+    "Policy Article",
+    "Expression of Concern",
+    "Research Highlights",
+}
+CELL_RESEARCH_SECTIONS = {
+    "Article",
+    "Resource",
+    "Short article",
+    "Review",
+    "Report",
+}
+CELL_EXCLUDE_SECTIONS = {
+    "Commentary",
+    "Preview",
+    "Correction",
+    "Editorial",
+    "Forum",
+    "Meeting Report",
+}
+
+EXCLUDE_TITLE_KEYWORDS = [
+    "author correction",
+    "publisher correction",
+    "corrigendum",
+    "erratum",
+    "retraction",
+    "expression of concern",
+    "editorial:",
+    "editor's note",
+    "in this issue",
+    "research highlight",
+    "news & views",
+    "news and views",
+    "careers column",
+    "book review",
+    "obituary",
+    "world cup",
+    "summer reading",
+]
+
+EXCLUDE_KEYWORDS = [
+    "news feature",
+    "editorial",
+    "perspective",
+    "commentary",
+    "correspondence",
+    "viewpoint",
+    "opinion",
+    "policy forum",
+    "in brief",
+    "brief communication",
+    "conference report",
+    "technical report",
+    "expert voices",
+    "working life",
+]
+
+
+def _ncbi_rate_limit() -> None:
+    """NCBI E-utilities 全局限速（线程安全）。"""
+    global _ncbi_last_request_time
+    with _ncbi_rate_lock:
+        elapsed = time.time() - _ncbi_last_request_time
+        if elapsed < _NCBI_MIN_INTERVAL:
+            time.sleep(_NCBI_MIN_INTERVAL - elapsed)
+        _ncbi_last_request_time = time.time()
+
+
+@retry(
+    stop=stop_after_attempt(MAX_RETRIES),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+    )),
+)
+def _ncbi_request(url: str, params: dict, timeout: int = 60) -> requests.Response:
+    _ncbi_rate_limit()
+    resp = requests.post(url, data=params, timeout=timeout)
+    if resp.status_code == 429:
+        retry_after = int(resp.headers.get("Retry-After", 5))
+        logger.warning(f"NCBI 429 — 等待 {retry_after}s 后重试")
+        time.sleep(retry_after)
+        resp.raise_for_status()
+    resp.raise_for_status()
+    return resp
+
+
+def chat_complete(
+    system: str,
+    user: str,
+    temperature: float = 0.2,
+    max_tokens: int = DEEPSEEK_MAX_TOKENS,
+) -> str:
+    """统一 DeepSeek Chat Completions 调用（对齐 post_gwas_gene_agent_v1.py）。"""
+    if client is None:
+        raise EnvironmentError("DeepSeek API client not initialized")
+    resp = client.chat.completions.create(
+        model=DEEPSEEK_MODEL,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+        temperature=temperature,
+        stream=False,
+        max_tokens=max_tokens,
+    )
+    return (resp.choices[0].message.content or "").strip()
+
+
+def extract_doi_from_entry(entry: Any) -> Optional[str]:
+    """从 RSS entry 中提取 DOI。"""
+    for raw in (
+        entry.get("prism_doi"),
+        entry.get("dc_identifier"),
+        entry.get("summary", ""),
+        entry.get("link", ""),
+        entry.get("id", ""),
+    ):
+        if not raw:
+            continue
+        text = str(raw).strip()
+        if text.lower().startswith("doi:"):
+            text = text[4:].strip()
+        text = re.sub(r"\?.*$", "", text)
+        if text.lower().startswith("10."):
+            return text.rstrip(".,;")
+        match = DOI_RE.search(text)
+        if match:
+            return re.sub(r"\?.*$", "", match.group(0)).rstrip(".,;")
+    return None
+
+
+def extract_pmid_from_link(link: str) -> Optional[str]:
+    match = PMID_RE.search(link or "")
+    if match:
+        return match.group(1)
+    return None
+
+
+def extract_pmid_from_entry(entry: Any) -> Optional[str]:
+    pmid = extract_pmid_from_link(entry.get("link", ""))
+    if pmid:
+        return pmid
+    entry_id = str(entry.get("id", "") or "")
+    if entry_id.lower().startswith("pubmed:"):
+        return entry_id.split(":", 1)[1].strip()
+    return None
+
+
+def is_boilerplate_only_abstract(text: str) -> bool:
+    """判断摘要是否仅为 RSS 模板/占位文本，而非真实科研摘要。"""
+    cleaned = clean_plain_text(text).strip()
+    if not cleaned:
+        return True
+    lower = cleaned.lower()
+    if lower in {"no abstract", "abstract not available", "暂无摘要"}:
+        return True
+    if len(cleaned) < MIN_ABSTRACT_CHARS:
+        return True
+    boilerplate_patterns = [
+        r"^nature,\s*published online:",
+        r"^science,\s*volume\s+\d+,\s*issue",
+        r"^pnas,\s*vol\.",
+        r"^cell,\s*published",
+        r"^in this issue of cell",
+    ]
+    for pattern in boilerplate_patterns:
+        if re.match(pattern, lower) and len(cleaned) < 280:
+            return True
+    return False
+
+
+def is_core_research(entry: Dict[str, Any]) -> bool:
+    """判断是否是科研核心文章（元数据 + 标题/摘要关键词）。"""
+    title = (entry.get("title") or "").strip()
+    title_lower = title.lower()
+    abstract = (entry.get("abstract") or "").strip()
+    text = (title + " " + abstract).lower()
+
+    if any(kw in title_lower for kw in EXCLUDE_TITLE_KEYWORDS):
+        return False
+    if any(kw in text for kw in EXCLUDE_KEYWORDS):
+        return False
+
+    doi = (entry.get("doi") or "").lower()
+    if doi and NATURE_NEWS_DOI_RE.search(doi):
+        return False
+
+    pub_type = (entry.get("pub_type") or "").strip()
+    if pub_type:
+        if pub_type in SCIENCE_EXCLUDE_TYPES:
+            return False
+        if entry.get("journal_id") in {"science", "science_advances", "pnas"} and pub_type not in SCIENCE_RESEARCH_TYPES:
+            return False
+
+    section = (entry.get("article_section") or "").strip()
+    if section:
+        if section in CELL_EXCLUDE_SECTIONS:
+            return False
+        if entry.get("journal_id") in {"cell", "plant_communications", "molecular_plant"} and section not in CELL_RESEARCH_SECTIONS:
+            return False
+
+    # Cell Preview/Commentary 常见开头
+    if re.match(r"^(in this issue of cell|cell preview|preview:)", abstract.lower()):
+        return False
+
+    return True
+
+
+def has_usable_content(entry: Dict[str, Any]) -> bool:
+    """补全后是否具备可用于总结的正文/摘要。"""
+    abstract = (entry.get("abstract") or "").strip()
+    full_text = (entry.get("full_text") or "").strip()
+    if full_text and len(full_text) >= 200:
+        return True
+    if abstract and not is_boilerplate_only_abstract(abstract):
+        return True
+    return False
+
+
+@retry(
+    stop=stop_after_attempt(MAX_RETRIES),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+    )),
+)
+def pubmed_lookup_pmid_by_doi(doi: str) -> Optional[str]:
+    params = {
+        "db": "pubmed",
+        "term": f"{doi}[doi]",
+        "retmode": "json",
+        "retmax": 1,
+    }
+    if NCBI_API_KEY:
+        params["api_key"] = NCBI_API_KEY
+    resp = _ncbi_request(f"{NCBI_BASE_URL}/esearch.fcgi", params)
+    ids = resp.json().get("esearchresult", {}).get("idlist", [])
+    return ids[0] if ids else None
+
+
+@retry(
+    stop=stop_after_attempt(MAX_RETRIES),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+    )),
+)
+def pubmed_fetch_abstract(pmid: str) -> str:
+    params = {
+        "db": "pubmed",
+        "id": pmid,
+        "retmode": "xml",
+    }
+    if NCBI_API_KEY:
+        params["api_key"] = NCBI_API_KEY
+    resp = _ncbi_request(f"{NCBI_BASE_URL}/efetch.fcgi", params)
+    blocks = re.findall(r"<AbstractText[^>]*>(.*?)</AbstractText>", resp.text, flags=re.DOTALL)
+    if not blocks:
+        return ""
+    parts = [clean_plain_text(part) for part in blocks if clean_plain_text(part)]
+    return " ".join(parts).strip()
+
+
+@retry(
+    stop=stop_after_attempt(MAX_RETRIES),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+    )),
+)
+def crossref_fetch_abstract(doi: str) -> str:
+    resp = requests.get(
+        f"https://api.crossref.org/works/{doi}",
+        timeout=30,
+        headers={"User-Agent": "journal-agent/2.0 (mailto:lab@example.com)"},
+    )
+    resp.raise_for_status()
+    abstract = resp.json().get("message", {}).get("abstract", "")
+    return clean_plain_text(str(abstract or ""))
+
+
+@retry(
+    stop=stop_after_attempt(MAX_RETRIES),
+    wait=wait_exponential(multiplier=1, min=2, max=10),
+    retry=retry_if_exception_type((
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+    )),
+)
+def pmc_fetch_fulltext_snippet(pmid: str, max_chars: int = MAX_FULL_TEXT_CHARS) -> str:
+    """若文章在 PMC 开放获取，抓取正文片段供 LLM 使用。"""
+    params = {
+        "dbfrom": "pubmed",
+        "db": "pmc",
+        "id": pmid,
+        "retmode": "json",
+    }
+    if NCBI_API_KEY:
+        params["api_key"] = NCBI_API_KEY
+    resp = _ncbi_request(f"{NCBI_BASE_URL}/elink.fcgi", params)
+    linksets = resp.json().get("linksets", [])
+    pmc_ids: List[str] = []
+    for linkset in linksets:
+        for linksetdb in linkset.get("linksetdbs", []):
+            if linksetdb.get("dbto") == "pmc":
+                pmc_ids.extend(linksetdb.get("links", []))
+    if not pmc_ids:
+        return ""
+
+    params = {
+        "db": "pmc",
+        "id": str(pmc_ids[0]),
+        "retmode": "xml",
+    }
+    if NCBI_API_KEY:
+        params["api_key"] = NCBI_API_KEY
+    xml_resp = _ncbi_request(f"{NCBI_BASE_URL}/efetch.fcgi", params, timeout=90)
+    body_match = re.search(r"<body>(.*?)</body>", xml_resp.text, flags=re.DOTALL)
+    if not body_match:
+        return ""
+    text = clean_plain_text(body_match.group(1))
+    if len(text) > max_chars:
+        return text[:max_chars] + "..."
+    return text
+
+
+def enrich_article_content(article: Dict[str, Any]) -> Dict[str, Any]:
+    """RSS 摘要不足时，通过 PubMed / CrossRef / PMC 补全摘要或开放获取正文。"""
+    abstract = (article.get("abstract") or "").strip()
+    full_text = (article.get("full_text") or "").strip()
+    sources: List[str] = []
+    doi = article.get("doi")
+    pmid = article.get("pmid")
+
+    needs_abstract = is_boilerplate_only_abstract(abstract)
+    if not needs_abstract:
+        sources.append("rss")
+
+    if needs_abstract:
+        if not pmid and doi:
+            try:
+                pmid = pubmed_lookup_pmid_by_doi(doi)
+                if pmid:
+                    article["pmid"] = pmid
+            except Exception as e:
+                logger.debug(f"DOI→PMID 查询失败 ({doi}): {e}")
+
+        if pmid:
+            try:
+                fetched = pubmed_fetch_abstract(pmid)
+                if fetched and not is_boilerplate_only_abstract(fetched):
+                    abstract = fetched
+                    if "pubmed" not in sources:
+                        sources.append("pubmed")
+            except Exception as e:
+                logger.debug(f"PubMed 摘要获取失败 (PMID {pmid}): {e}")
+
+        if (not abstract or is_boilerplate_only_abstract(abstract)) and doi:
+            try:
+                fetched = crossref_fetch_abstract(doi)
+                if fetched and not is_boilerplate_only_abstract(fetched):
+                    abstract = fetched
+                    if "crossref" not in sources:
+                        sources.append("crossref")
+            except Exception as e:
+                logger.debug(f"CrossRef 摘要获取失败 ({doi}): {e}")
+
+    if FETCH_FULL_TEXT and not full_text and pmid:
+        try:
+            fetched_ft = pmc_fetch_fulltext_snippet(pmid)
+            if fetched_ft:
+                full_text = fetched_ft
+                sources.append("pmc")
+        except Exception as e:
+            logger.debug(f"PMC 正文获取失败 (PMID {pmid}): {e}")
+
+    article["abstract"] = abstract
+    article["full_text"] = full_text
+    article["content_source"] = "+".join(sources) if sources else "none"
+    return article
+
+
+def enrich_articles(articles: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    enriched = []
+    for art in articles:
+        try:
+            enriched.append(enrich_article_content(art))
+        except Exception as e:
+            logger.warning(f"内容补全失败「{art.get('title', '')[:60]}」: {e}")
+            art.setdefault("content_source", "rss")
+            enriched.append(art)
+    before = len(articles)
+    filtered = [a for a in enriched if has_usable_content(a)]
+    dropped = before - len(filtered)
+    if dropped:
+        logger.info(f"  内容补全后过滤掉 {dropped} 篇无有效摘要/正文的文章")
+    return filtered
 
 
 @retry(stop=stop_after_attempt(MAX_RETRIES), wait=wait_exponential(multiplier=1, min=2, max=10))
@@ -253,6 +754,11 @@ def fetch_rss_articles(journal: Dict[str, str], max_items: int = MAX_ITEMS_PER_J
             else:
                 pub_date = dt.date.today().isoformat()
 
+            doi = extract_doi_from_entry(entry)
+            pmid = extract_pmid_from_entry(entry)
+            pub_type = (entry.get("dc_type") or "").strip()
+            article_section = (entry.get("prism_section") or "").strip()
+
             articles.append({
                 "journal": journal["name"],
                 "journal_id": journal["id"],
@@ -260,6 +766,12 @@ def fetch_rss_articles(journal: Dict[str, str], max_items: int = MAX_ITEMS_PER_J
                 "link": link,
                 "abstract": abstract,
                 "pub_date": pub_date,
+                "doi": doi,
+                "pmid": pmid,
+                "pub_type": pub_type,
+                "article_section": article_section,
+                "full_text": "",
+                "content_source": "rss",
             })
 
         logger.info(f"  找到 {len(articles)} 篇（未过滤）")
@@ -269,24 +781,7 @@ def fetch_rss_articles(journal: Dict[str, str], max_items: int = MAX_ITEMS_PER_J
         return []
 
 
-# ---------- 基于标题+摘要的粗过滤：去掉非科研核心内容 ----------
-
-EXCLUDE_KEYWORDS = [
-    "news", "editorial", "perspective", "comment",
-    "correspondence", "viewpoint", "opinion",
-    "highlight", "policy", "correction", "erratum",
-    "retraction", "protocol", "methods", "methodology",
-    "in brief", "brief communication", "obituary",
-    "news feature", "book review", "conference report",
-    "in this issue", "research highlight", "research news",
-    "technical report"
-]
-
-
-def is_core_research(entry: Dict[str, Any]) -> bool:
-    """判断是否是科研核心文章（基于标题+摘要关键词排除非研究类内容）"""
-    text = (entry.get("title", "") + " " + entry.get("abstract", "")).lower()
-    return not any(kw in text for kw in EXCLUDE_KEYWORDS)
+# ---------- 基于元数据 + 标题/摘要的粗过滤 ----------
 
 
 # ---------- 利用大模型挑选"对你有价值"的文章 ----------
@@ -307,12 +802,19 @@ def select_valuable_with_llm(journal_name: str, articles: List[Dict[str, Any]], 
         abs_trim = (art.get("abstract") or "").replace("\n", " ")
         if len(abs_trim) > 800:
             abs_trim = abs_trim[:800] + "..."
-        items_for_llm.append({
+        item = {
             "id": idx,
             "title": art["title"],
             "abstract": abs_trim,
             "pub_date": art["pub_date"],
-        })
+        }
+        if art.get("pub_type"):
+            item["pub_type"] = art["pub_type"]
+        if art.get("article_section"):
+            item["article_section"] = art["article_section"]
+        if art.get("content_source"):
+            item["content_source"] = art["content_source"]
+        items_for_llm.append(item)
 
     prompt = f"""
 你是一名作物科学/育种/功能基因组学方向的科研助理，帮我从该期刊最新论文中挑出【对作物研究有启发价值】的文章。
@@ -324,7 +826,11 @@ def select_valuable_with_llm(journal_name: str, articles: List[Dict[str, Any]], 
 - 新技术/新方法（基因编辑、单细胞/空间组学、高通量表型、AI/计算方法等）
 - 可迁移到作物上的机制工作（模式生物、人类/小鼠/微生物，只要对作物思路有启发，也可以保留）
 
-请注意：尽量排除非 research article 的内容，例如 News、Comment、Perspective、Research highlight、人物纪念、编辑部文章、撤稿、勘误等。仅在标题与摘要明显属于科研文章（有明确实验/分析/方法/数据）时才予以保留。
+请严格排除以下类型（即使标题看起来有趣也不要选）：
+- News / News & Views / Research Highlights / Feature / Editorial / Perspective / Commentary / Preview
+- 职业建议、书评、政策评论、世界杯/体育等非科研内容
+- Author Correction / Erratum / Retraction / Expression of Concern
+- 仅有短新闻导语、没有真实科研摘要的条目
 
 下面是该期刊的若干候选文章（title+abstract 摘要节选）：
 
@@ -332,7 +838,7 @@ def select_valuable_with_llm(journal_name: str, articles: List[Dict[str, Any]], 
 
 请你完成两件事：
 1）为每篇文章打一个 0–10 的分数，表示"对作物育种/作物功能基因组学/组学分析是否有启发"；
-2）从中选择【最多 {target_n} 篇】你认为最值得关注的文章。
+2）从中选择【最多 {target_n} 篇】你认为最值得关注的【Research Article 类】文章。
 
 请只输出 JSON，不要任何解释性文字，格式为：
 
@@ -348,20 +854,16 @@ def select_valuable_with_llm(journal_name: str, articles: List[Dict[str, Any]], 
 
 要求：
 - 不要捏造内容，只根据给出的标题和摘要推断。
+- 如果摘要缺失或明显是新闻导语，必须 keep=false。
 - 如果难以判断，就给中等分数（比如 5-6），但不要完全乱猜。
 """
 
     try:
-        resp = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": prompt},
-            ],
-            stream=False,
+        raw = chat_complete(
+            system="You are an expert assistant for plant science literature triage. Output JSON only.",
+            user=prompt,
             temperature=0.2,
         )
-        raw = resp.choices[0].message.content.strip()
 
         # 容错：找到第一个 '[' 开始解析 JSON
         start = raw.find("[")
@@ -401,7 +903,13 @@ def select_valuable_with_llm(journal_name: str, articles: List[Dict[str, Any]], 
 
 
 @retry(stop=stop_after_attempt(MAX_RETRIES), wait=wait_exponential(multiplier=1, min=2, max=10))
-def summarize(title: str, abstract: str, journal: str) -> str:
+def summarize(
+    title: str,
+    abstract: str,
+    journal: str,
+    full_text: str = "",
+    content_source: str = "rss",
+) -> str:
     """调用 DeepSeek 生成中文精炼总结（带重试机制）。"""
     if client is None:
         return (
@@ -410,34 +918,34 @@ def summarize(title: str, abstract: str, journal: str) -> str:
             "- 要点2：请点击下方原文链接查看详细内容。\n"
         )
 
-    if not abstract:
-        abstract = "（该条目未提供摘要，请仅基于标题做一个非常简短的介绍。）"
+    if not abstract or is_boilerplate_only_abstract(abstract):
+        abstract = "（该条目未提供有效摘要。）"
+
+    content_parts = [f"摘要：{abstract}"]
+    if full_text:
+        content_parts.append(f"正文节选（开放获取，来源 {content_source}）：\n{full_text[:MAX_FULL_TEXT_CHARS]}")
+    content_block = "\n\n".join(content_parts)
 
     prompt = f"""
-你是一名严谨的中文科研助理，负责从论文标题与摘要中提取高质量信息。请严格按照以下要求生成总结：
+你是一名严谨的中文科研助理，负责从论文标题、摘要及（如有）开放获取正文中提取高质量信息。请严格按照以下要求生成总结：
 
-1.专业、精炼地翻译论文标题和摘要（分别以"标题：""摘要："开头；要求忠实、完整、无删减，无字数限制）。
-2.用四句话概括论文的核心科学发现或主要贡献（以"核心："开头，并按 1、2、3、4 分条列出；不超过 500 字）。
-3.所有内容必须完全基于原文标题与摘要，不得加入外部知识、推测、虚构信息或未出现的细节。
-4.语言要求清晰、客观、专业，不包含与论文无关的内容。
+1. 专业、精炼地翻译论文标题和摘要（分别以"标题：""摘要："开头；要求忠实、完整、无删减）。
+2. 用四句话概括论文的核心科学发现或主要贡献（以"核心："开头，并按 1、2、3、4 分条列出；不超过 500 字）。
+3. 若提供了正文节选，可在"核心"部分补充 RSS 摘要未覆盖的关键实验/方法细节，但不得编造。
+4. 所有内容必须完全基于给定材料，不得加入外部知识、推测、虚构信息或未出现的细节。
+5. 语言要求清晰、客观、专业，不包含与论文无关的内容。
 
 期刊：{journal}
 标题：{title}
-摘要：{abstract}
+{content_block}
 """
 
     try:
-        response = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": prompt},
-            ],
-            stream=False,
+        return chat_complete(
+            system="You are a helpful assistant for scientific literature summarization in Chinese.",
+            user=prompt,
             temperature=0.2,
         )
-        summary = response.choices[0].message.content.strip()
-        return summary
     except Exception as e:
         logger.error(f"❌ DeepSeek 调用失败：{e}", exc_info=True)
         return (
@@ -480,16 +988,11 @@ def summarize_journal_trends(journal_name: str, articles_for_this_journal: List[
 """
 
     try:
-        resp = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant"},
-                {"role": "user", "content": prompt},
-            ],
-            stream=False,
+        return chat_complete(
+            system="You are a helpful assistant for plant science journal trend analysis.",
+            user=prompt,
             temperature=0.3,
         )
-        return resp.choices[0].message.content.strip()
     except Exception as e:
         logger.warning(f"⚠️ 期刊趋势总结失败（{journal_name}）：{e}", exc_info=True)
         return ""
@@ -1093,7 +1596,11 @@ def generate_daily_html(grouped: Dict[str, List[Dict[str, Any]]], journal_trends
         
         for a in arts:
             full_abs = (a.get("abstract") or "").strip()
+            full_text = (a.get("full_text") or "").strip()
+            content_source = a.get("content_source", "rss")
             meta_line = f"发表日期：{a['pub_date']}，期刊：{a['journal']}"
+            if content_source and content_source != "rss":
+                meta_line += f"，内容来源：{content_source}"
             html += f"""
       <div class="card" data-journal="{a['journal']}">
         <div class="title">{a['title']}</div>
@@ -1101,9 +1608,13 @@ def generate_daily_html(grouped: Dict[str, List[Dict[str, Any]]], journal_trends
         <button type="button" class="toggle-btn" onclick="toggleCardBody(this)">收起详情</button>
         <div class="card-body">
 """
-            if full_abs:
+            if full_abs and not is_boilerplate_only_abstract(full_abs):
                 html += f"""          <div class="abstract-label">原始摘要：</div>
           <div class="abstract">{full_abs}</div>
+"""
+            if full_text:
+                html += f"""          <div class="abstract-label">开放获取正文节选：</div>
+          <div class="abstract">{full_text[:2000]}{"..." if len(full_text) > 2000 else ""}</div>
 """
             html += f"""          <div class="summary">{a['summary']}</div>
           <div style="margin-top:8px;"><a href="{a['link']}" target="_blank" rel="noopener noreferrer">原文链接</a></div>
@@ -1217,30 +1728,38 @@ def process_journal(journal: Dict[str, str]) -> Tuple[Dict[str, str], List[Dict[
         # 1. 抓取文章
         items = fetch_rss_articles(journal, max_items=MAX_ITEMS_PER_JOURNAL)
         
-        # 2. 过滤非科研核心内容
+        # 2. 过滤非科研核心内容（News/Editorial/Preview 等）
+        before_filter = len(items)
         items = [a for a in items if is_core_research(a)]
+        if before_filter > len(items):
+            logger.info(f"  元数据过滤掉 {before_filter - len(items)} 篇非 research article")
+
+        # 3. 通过 PubMed/CrossRef/PMC 补全缺失摘要，并尝试读取开放获取正文
+        items = enrich_articles(items)
         
         if not items:
-            logger.warning(f"⚠️ {journal['name']} 过滤后无有效文章，跳过。")
+            logger.warning(f"⚠️ {journal['name']} 过滤/补全后无有效文章，跳过。")
             return (journal, [], "")
         
-        # 3. 利用大模型从该期刊中挑选"对你有启发的"文章
+        # 4. 利用大模型从该期刊中挑选"对你有启发的"文章
         valuable = select_valuable_with_llm(
             journal_name=journal["name"], 
             articles=items, 
             target_n=TARGET_ARTICLES_PER_JOURNAL
         )
         
-        # 4. 对挑出的文章生成中文摘要
+        # 5. 对挑出的文章生成中文摘要
         for art in valuable:
             logger.info(f"▶ 生成摘要：{art['title']}")
             art["summary"] = summarize(
                 title=art["title"],
-                abstract=art["abstract"],
+                abstract=art.get("abstract", ""),
                 journal=art["journal"],
+                full_text=art.get("full_text", ""),
+                content_source=art.get("content_source", "rss"),
             )
         
-        # 5. 总结该期刊最近研究方向
+        # 6. 总结该期刊最近研究方向
         trends_text = ""
         if valuable:
             trends_text = summarize_journal_trends(
@@ -1300,25 +1819,6 @@ def main():
     logger.info("开始生成 HTML 页面...")
     
     generate_html(all_articles, journal_trends)
-    
-    # 可选：自动同步到 GitHub
-    if os.getenv("AUTO_SYNC_GITHUB", "false").lower() == "true":
-        logger.info("=" * 60)
-        logger.info("开始自动同步到 GitHub...")
-        try:
-            # 动态导入同步模块，避免循环依赖
-            import sys
-            sync_script = Path(__file__).parent / "sync_to_github.py"
-            if sync_script.exists():
-                import importlib.util
-                spec = importlib.util.spec_from_file_location("sync_to_github", sync_script)
-                sync_module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(sync_module)
-                sync_module.main()
-            else:
-                logger.warning("⚠️ 未找到 sync_to_github.py，跳过自动同步")
-        except Exception as e:
-            logger.error(f"❌ 自动同步失败: {e}", exc_info=True)
     
     logger.info("=" * 60)
     logger.info("任务完成！")
