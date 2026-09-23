@@ -88,6 +88,24 @@ def load_api_key() -> str:
     return ""
 
 
+def load_ncbi_api_key() -> str:
+    env = os.getenv("NCBI_API_KEY", "").strip()
+    if env:
+        return env
+    for path in (Path("ncbi_key.txt"), ROOT / "ncbi_key.txt"):
+        if not path.exists():
+            continue
+        raw = path.read_text(encoding="utf-8").strip()
+        if not raw:
+            continue
+        match = re.search(r'NCBI_API_KEY\s*=\s*["\']?([^"\']+)["\']?', raw)
+        if match:
+            return match.group(1).strip()
+        if "export" not in raw.casefold():
+            return raw.split()[0]
+    return ""
+
+
 @dataclass
 class Article:
     journal: str

@@ -6,6 +6,7 @@ import html
 import logging
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 from journal_agent.common import OUTPUT_DIR, Article
 
@@ -104,32 +105,101 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
 
 def _write_index(generated: str, latest_date: str) -> None:
     pages = sorted(OUTPUT_DIR.glob("index_*.html"), reverse=True)
-    items = []
+    cards = []
     for page in pages:
         label = page.name.replace("index_", "").replace(".html", "")
-        items.append(f"<li><a href='{html.escape(page.name)}'>{html.escape(label)}</a></li>")
-    body = "\n".join(items) or "<li>暂无页面</li>"
-    archive_html = f"""<!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><title>期刊摘要归档</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>{STYLES}</style></head><body>
-<header><h1>期刊摘要归档</h1><p>更新于 {html.escape(generated)} · <a href="index.html">返回最新摘要</a></p></header>
-<main style="max-width:800px;margin:20px auto;"><ol>{body}</ol></main>
-</body></html>"""
-    (OUTPUT_DIR / "archive.html").write_text(archive_html, encoding="utf-8")
-
-    latest_file = f"index_{latest_date}.html"
-    landing = f"""<!DOCTYPE html>
+        is_latest = label == latest_date
+        cls = "day-card latest" if is_latest else "day-card"
+        star = " ★" if is_latest else ""
+        cards.append(
+            f"<a class='{cls}' href='{html.escape(page.name)}'>"
+            f"<span class='day-date{' latest-text' if is_latest else ''}'>{html.escape(label)}{star}</span>"
+            f"<span class='day-hint'>{'最新' if is_latest else '查看摘要'}</span>"
+            f"</a>"
+        )
+    body = "\n".join(cards) or "<p class='empty'>暂无历史摘要页</p>"
+    index_html = f"""<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
-<title>期刊每日摘要 · {html.escape(latest_date)}</title>
+<title>期刊摘要索引 · 作物视角</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url={html.escape(latest_file)}">
-<link rel="canonical" href="{html.escape(latest_file)}">
-<style>{STYLES}</style></head><body>
-<header><h1>期刊自动摘要 · 作物视角</h1>
-<p>正在打开 {html.escape(latest_date)} 的最新摘要…</p></header>
-<main style="max-width:800px;margin:20px auto;">
-<p><a href="{html.escape(latest_file)}">点此查看今日摘要</a></p>
-<p><a href="archive.html">历史归档</a></p>
-</main></body></html>"""
-    (OUTPUT_DIR / "index.html").write_text(landing, encoding="utf-8")
+<style>
+{INDEX_STYLES}
+</style></head><body>
+<div class="wrap">
+  <header class="hero">
+    <h1>期刊摘要索引</h1>
+    <p class="sub">作物 / 育种 / 功能基因组 · 选择日期进入当日摘要</p>
+    <p class="meta">更新于 {html.escape(generated)} · 最新 <span class="latest-text">{html.escape(latest_date)} ★</span></p>
+  </header>
+  <main class="grid">{body}</main>
+  <footer class="foot">本地脚本生成 · 摘要请以原文为准</footer>
+</div>
+</body></html>"""
+    (OUTPUT_DIR / "index.html").write_text(index_html, encoding="utf-8")
+
+
+def rebuild_index(latest_date: Optional[str] = None) -> Path:
+    """Regenerate site/index.html from existing index_*.html pages (no redirect)."""
+    generated = datetime.now().strftime("%Y-%m-%d %H:%M")
+    pages = sorted(OUTPUT_DIR.glob("index_*.html"), reverse=True)
+    if not latest_date and pages:
+        latest_date = pages[0].name.replace("index_", "").replace(".html", "")
+    latest_date = latest_date or datetime.now().strftime("%Y-%m-%d")
+    _write_index(generated, latest_date)
+    path = OUTPUT_DIR / "index.html"
+    logger.info("已刷新索引页 %s", path)
+    return path
+
+
+INDEX_STYLES = """
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;
+  background:linear-gradient(165deg,#e8f5ea 0%,#f7fbf8 45%,#e3f0e6 100%);
+  color:#1b3a1f;
+  min-height:100vh;
+}
+.wrap { max-width:920px; margin:0 auto; padding:28px 18px 40px; }
+.hero {
+  background:linear-gradient(120deg,#1f7a3a,#2d9a52);
+  color:#fff;
+  border-radius:16px;
+  padding:28px 26px;
+  box-shadow:0 10px 30px rgba(31,122,58,.25);
+}
+.hero h1 { margin:0 0 8px; font-size:28px; letter-spacing:.02em; }
+.sub { margin:0; opacity:.92; font-size:15px; }
+.meta { margin:14px 0 0; font-size:13px; opacity:.88; }
+.latest-text { color:#ff6b6b; font-weight:700; }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:14px;
+  margin-top:22px;
+}
+.day-card {
+  display:flex; flex-direction:column; gap:6px;
+  background:#fff;
+  border:1px solid #cfe3d3;
+  border-radius:12px;
+  padding:16px 18px;
+  text-decoration:none;
+  color:inherit;
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.day-card:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(31,122,58,.12);
+  border-color:#8ecfaa;
+}
+.day-card.latest {
+  border-color:#e57373;
+  background:linear-gradient(180deg,#fff5f5,#ffffff);
+  box-shadow:0 6px 18px rgba(229,115,115,.18);
+}
+.day-date { font-size:18px; font-weight:650; color:#1f5f32; }
+.day-card.latest .day-date { color:#c62828; }
+.day-hint { font-size:13px; color:#5d7262; }
+.foot { text-align:center; color:#5d7262; font-size:13px; margin-top:28px; }
+.empty { color:#5d7262; padding:12px 4px; }
+""".strip()

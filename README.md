@@ -10,7 +10,7 @@
 
 - Nature：官网检索里限定 research，学科为 biological sciences
 - Nature Genetics、Nature Plants：官网 Research articles 列表
-- Cell：Elsevier 官方 ScienceDirect 的在线发表列表，读取题目、日期和 DOI。文章页目前常被拦截，刚上线的论文在登记库里也往往还没有摘要，这类条目按标题筛选，总结时不会补写标题里没有的实验
+- Cell：ScienceDirect / cell.com 文章页常被反爬拦截。Cell 正文改从 **PubMed** 同期 `Cell[Journal]` 条目读取题目与摘要（可选 `ncbi_key.txt` 提高频率）；PubMed 为空时才尝试 ScienceDirect 在线列表（通常只有标题）
 - Science：官网目录页经常被 Cloudflare 拦截。脚本会尝试打开文章页；打不开时使用该刊已登记的题录和摘要，并只保留生命科学相关条目
 
 单次运行的日期窗口是 15 天，含当天。更早的论文不会进入本轮。**数量上只受时间窗和缓存约束**，不再按分数或每个来源篇数封顶。
@@ -41,7 +41,12 @@
 
 公众号不限于上面五个期刊，用来补中文解读和其他植物、生命科学来源。目前跟踪四个栏目：植物科学最前沿、BioArt植物、BioArt、iPlants。同样只取最近半个月。
 
-这些栏目的正文经常需要登录才能看全，所以脚本使用栏目标题和日期做筛选与总结，并在总结里避免编造标题里没有的实验细节。
+列表与日期来自 **今天看啥** 栏目页；每条再用 **搜狗微信搜索** 按标题检索 `txt-info` 摘要（不是全文，但比只有标题多一段可总结的导语）。微信原文仍常需登录，摘要请以链接为准。
+
+## 页面
+
+- `site/index_YYYY-MM-DD.html`：当日摘要
+- `site/index.html`：**日期目录**（卡片列表，不自跳转到当天）；最新日期标红并带 ★
 
 ## 运行
 
@@ -57,7 +62,7 @@ python journal_summarizer_v4.py
 ./run.sh
 ```
 
-密钥也可以放在环境变量 `DEEPSEEK_API_KEY`。输出在 `site/index_YYYY-MM-DD.html`，`site/index.html` 是日期索引。
+密钥也可以放在环境变量 `DEEPSEEK_API_KEY`。输出在 `site/index_YYYY-MM-DD.html`；根目录 `site/index.html` 为日期索引（见上文「页面」）。
 
 可选环境变量：
 

@@ -1,17 +1,28 @@
-"""Fetch recent biology articles from journal sites and WeChat columns."""
+"""Fetch recent biology articles from journal sites and WeChat (Sogou search)."""
 
 from __future__ import annotations
 
 import logging
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from typing import Iterable, Optional
 from urllib.parse import urljoin
+from xml.etree import ElementTree as ET
 
+import requests
 from bs4 import BeautifulSoup
 
-from journal_agent.common import Article, Http, MAX_WORKERS, clean_text, cutoff_date, extract_doi
+from journal_agent.common import (
+    Article,
+    Http,
+    MAX_WORKERS,
+    UA,
+    clean_text,
+    cutoff_date,
+    extract_doi,
+    load_ncbi_api_key,
+)
 
 logger = logging.getLogger("journal_agent")
 
@@ -85,7 +96,7 @@ WECHAT_NOISE = (
 )
 
 REL_DATE = re.compile(
-    r"(刚刚|\d+\s*分钟前|\d+\s*小时前|昨天|前天|\d+\s*天前|\d+\s*月前|\d+\s*年前)"
+    r"(刚刚|\d+\s*分钟前|\d+\s*小时前|昨天|前天|\d+\s*天前|\d+\s*周前|\d+\s*月前|\d+\s*年前)"
 )
 
 
@@ -212,12 +223,123 @@ def _fill_nature_abstract(http: Http, article: Article) -> None:
 
 
 def fetch_cell(http: Http, today: Optional[date] = None) -> list[Article]:
+    """Cell 文章页 / ScienceDirect 常被反爬拦截，摘要用 PubMed 同期条目补全。"""
     today = today or date.today()
     cutoff = cutoff_date(today)
-    registered = {
-        (work.get("DOI") or "").casefold(): work
-        for work in _crossref_works("0092-8674", cutoff)
-    }
+    articles = _fetch_cell_from_pubmed(cutoff, today)
+    if not articles:
+        logger.warning("PubMed 未返回 Cell 条目，尝试 ScienceDirect 仅抓标题列表")
+        articles = _fetch_cell_sciencedirect_titles(http, cutoff)
+    logger.info("Cell %d 篇（%s 之后，摘要来源 pubmed/sciencedirect）", len(articles), cutoff)
+    return articles
+
+
+def _pubmed_params(extra: dict) -> dict:
+    params = dict(extra)
+    key = load_ncbi_api_key()
+    if key:
+        params["api_key"] = key
+    return params
+
+
+def _pubmed_article_date(node: ET.Element, fallback: date) -> date:
+    for tag in ("PubDate", "ArticleDate", "DateRevised"):
+        dnode = node.find(f".//JournalIssue/{tag}") or node.find(f".//{tag}")
+        if dnode is None:
+            continue
+        parsed = _ymd_to_date(
+            dnode.findtext("Year"),
+            dnode.findtext("Month"),
+            dnode.findtext("Day"),
+        )
+        if parsed:
+            return parsed
+    return fallback
+
+
+def _ymd_to_date(year: Optional[str], month: Optional[str], day: Optional[str]) -> Optional[date]:
+    if not year or not str(year).isdigit():
+        return None
+    m = (month or "1").strip()
+    d = (day or "1").strip()
+    if not str(d).isdigit():
+        d = "1"
+    if str(m).isdigit():
+        month_num = int(m)
+    else:
+        try:
+            month_num = datetime.strptime(m[:3], "%b").month
+        except ValueError:
+            try:
+                month_num = datetime.strptime(m, "%B").month
+            except ValueError:
+                month_num = 1
+    try:
+        return date(int(year), month_num, int(d))
+    except ValueError:
+        return None
+
+
+def _fetch_cell_from_pubmed(cutoff: date, today: date) -> list[Article]:
+    term = (
+        f"Cell[Journal] AND {cutoff.strftime('%Y/%m/%d')}:{today.strftime('%Y/%m/%d')}[PDAT]"
+    )
+    search = requests.get(
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+        params=_pubmed_params({"db": "pubmed", "term": term, "retmax": 200, "retmode": "json"}),
+        timeout=60,
+        headers={"User-Agent": "journal-agent/1.0 (mailto:journal-agent@local)"},
+    )
+    search.raise_for_status()
+    ids = search.json().get("esearchresult", {}).get("idlist") or []
+    if not ids:
+        return []
+    fetch = requests.get(
+        "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+        params=_pubmed_params({"db": "pubmed", "id": ",".join(ids), "retmode": "xml"}),
+        timeout=120,
+        headers={"User-Agent": "journal-agent/1.0 (mailto:journal-agent@local)"},
+    )
+    fetch.raise_for_status()
+    root = ET.fromstring(fetch.content)
+    articles: list[Article] = []
+    for node in root.findall(".//PubmedArticle"):
+        title = clean_text("".join(node.find(".//ArticleTitle").itertext()) if node.find(".//ArticleTitle") is not None else "")
+        if not title:
+            continue
+        abs_parts = [
+            clean_text("".join(el.itertext()))
+            for el in node.findall(".//Abstract/AbstractText")
+        ]
+        abstract = clean_text(" ".join(p for p in abs_parts if p))
+        doi = ""
+        for aid in node.findall(".//ArticleId"):
+            if aid.get("IdType") == "doi" and aid.text:
+                doi = aid.text.strip()
+                break
+        pub_date = _pubmed_article_date(node, cutoff)
+        if pub_date < cutoff:
+            continue
+        pmid_el = node.find(".//PMID")
+        pmid = (pmid_el.text or "").strip() if pmid_el is not None else ""
+        url = f"https://doi.org/{doi}" if doi else f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
+        articles.append(
+            Article(
+                journal="Cell",
+                title=title,
+                url=url,
+                pub_date=pub_date.isoformat(),
+                abstract=abstract,
+                doi=doi,
+                article_type="Research article",
+                source="official",
+                content_source="pubmed",
+            )
+        )
+    return articles
+
+
+def _fetch_cell_sciencedirect_titles(http: Http, cutoff: date) -> list[Article]:
     articles: list[Article] = []
     seen: set[str] = set()
     try:
@@ -231,31 +353,9 @@ def fetch_cell(http: Http, today: Optional[date] = None) -> list[Article]:
             if not article or article.doi in seen:
                 continue
             seen.add(article.doi or article.url)
-            work = registered.get(article.doi.casefold())
-            if work:
-                article.abstract = clean_text(work.get("abstract") or "")
             articles.append(article)
     except Exception as exc:
-        logger.warning("Cell 官网列表打开失败，改用同期登记信息: %s", exc)
-    if not articles:
-        for doi, work in registered.items():
-            title = clean_text((work.get("title") or [""])[0])
-            if not title:
-                continue
-            published = _crossref_date(work) or cutoff
-            articles.append(
-                Article(
-                    journal="Cell",
-                    title=title,
-                    url=f"https://www.cell.com/cell/fulltext/{doi}",
-                    pub_date=published.isoformat(),
-                    abstract=clean_text(work.get("abstract") or ""),
-                    doi=doi,
-                    source="official",
-                    content_source="crossref",
-                )
-            )
-    logger.info("Cell %d 篇（%s 之后）", len(articles), cutoff)
+        logger.warning("ScienceDirect 列表不可用: %s", exc)
     return articles
 
 
@@ -394,7 +494,7 @@ def _science_page_abstract(http: Http, url: str) -> str:
     return ""
 
 
-def _wechat_column_fetch(args: tuple[str, str, date, date]) -> tuple[str, list[Article]]:
+def _sogou_wechat_fetch(args: tuple[str, str, date, date]) -> tuple[str, list[Article]]:
     name, column_url, today, cutoff = args
     try:
         http = Http()
@@ -406,6 +506,7 @@ def _wechat_column_fetch(args: tuple[str, str, date, date]) -> tuple[str, list[A
 
 
 def fetch_wechat(http: Http, today: Optional[date] = None) -> list[Article]:
+    """近窗文章来自今天看啥栏目；正文摘要用搜狗微信按标题检索的 txt-info 摘要。"""
     today = today or date.today()
     cutoff = cutoff_date(today)
     articles: list[Article] = []
@@ -413,12 +514,13 @@ def fetch_wechat(http: Http, today: Optional[date] = None) -> list[Article]:
     jobs = [(name, url, today, cutoff) for name, url in WECHAT_COLUMNS]
     workers = min(MAX_WORKERS, len(jobs))
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        for name, batch in pool.map(_wechat_column_fetch, jobs):
-            logger.info("公众号 %s：近窗 %d 篇", name, len(batch))
+        for name, batch in pool.map(_sogou_wechat_fetch, jobs):
+            logger.info("公众号 %s 近窗 %d 篇（含搜狗摘要）", name, len(batch))
             for article in batch:
-                if article.url in seen:
+                key = article.dedupe_key
+                if key in seen:
                     continue
-                seen.add(article.url)
+                seen.add(key)
                 articles.append(article)
     return articles
 
@@ -426,12 +528,19 @@ def fetch_wechat(http: Http, today: Optional[date] = None) -> list[Article]:
 def _wechat_column(http: Http, name: str, column_url: str, today: date, cutoff: date) -> list[Article]:
     html = http.get(column_url)
     soup = BeautifulSoup(html, "html.parser")
+    session = requests.Session()
+    session.headers.update(
+        {
+            "User-Agent": UA,
+            "Accept-Language": "zh-CN,zh;q=0.9",
+        }
+    )
     articles: list[Article] = []
     for row in soup.select("tr"):
         link = row.select_one("a[href*='/t/']")
         if not link:
             continue
-        title = link.get_text(" ", strip=True)
+        title = clean_text(link.get_text(" ", strip=True))
         if not title or any(word in title for word in WECHAT_NOISE):
             continue
         published = _relative_date(row.get_text(" ", strip=True), today)
@@ -440,20 +549,52 @@ def _wechat_column(http: Http, name: str, column_url: str, today: date, cutoff: 
         href = link.get("href") or ""
         if href.startswith("/"):
             href = urljoin("https://www.jintiankansha.com", href)
+        abstract = _sogou_wechat_blurb(session, title) or title
         articles.append(
             Article(
                 journal=name,
                 title=title,
                 url=href,
                 pub_date=published.isoformat(),
-                abstract=title,
-                doi=extract_doi(title),
+                abstract=abstract,
+                doi=extract_doi(title + " " + abstract),
                 article_type="wechat",
                 source="wechat",
-                content_source="wechat",
+                content_source="jintiankansha+sogou",
             )
         )
     return articles
+
+
+def _sogou_wechat_blurb(session: requests.Session, title: str) -> str:
+    query = title if len(title) <= 96 else title[:96]
+    try:
+        resp = session.get(
+            "https://weixin.sogou.com/weixin",
+            params={"type": "2", "query": query, "ie": "utf8"},
+            timeout=25,
+        )
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        needle = title[:28]
+        for box in soup.select(".txt-box"):
+            head = box.select_one("h3 a")
+            if not head:
+                continue
+            hit = clean_text(head.get_text(" ", strip=True))
+            if needle not in hit and hit[:28] not in title:
+                continue
+            info = box.select_one(".txt-info")
+            if info:
+                text = clean_text(info.get_text(" ", strip=True))
+                if len(text) >= 40:
+                    return text
+        info = soup.select_one(".txt-box .txt-info")
+        if info:
+            return clean_text(info.get_text(" ", strip=True))
+    except Exception as exc:
+        logger.debug("搜狗摘要检索失败 %s: %s", title[:40], exc)
+    return ""
 
 
 def _relative_date(text: str, today: date) -> Optional[date]:
@@ -470,6 +611,12 @@ def _relative_date(text: str, today: date) -> Optional[date]:
     days = re.match(r"(\d+)天前", token)
     if days:
         return today.fromordinal(today.toordinal() - int(days.group(1)))
+    weeks = re.match(r"(\d+)周前", token)
+    if weeks:
+        return today.fromordinal(today.toordinal() - 7 * int(weeks.group(1)))
+    months = re.match(r"(\d+)月前", token)
+    if months:
+        return today - timedelta(days=30 * int(months.group(1)))
     return None
 
 
