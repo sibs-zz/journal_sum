@@ -1,137 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<title>期刊每日摘要索引</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;
-  background: #e5f6e8;
-  margin: 0;
-  padding: 0;
-}
-header {
-  background: #14532d;
-  color: #fff;
-  padding: 16px 24px;
-}
-.header-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-header h1 {
-  margin: 0;
-  font-size: 20px;
-}
-header p {
-  margin: 4px 0 0;
-  font-size: 12px;
-  opacity: 0.9;
-}
-.lab-name {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-family: 'Microsoft YaHei','SimHei','Segoe UI',sans-serif;
-  color: #ffffff;
-}
-.container {
-  max-width: 900px;
-  margin: 20px auto 40px;
-  padding: 0 16px;
-}
-.box {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  padding: 16px 20px;
-  border: 1px solid rgba(22,163,74,0.15);
-}
-.box h2 {
-  margin-top: 0;
-  font-size: 18px;
-  color: #064e3b;
-}
-.desc {
-  font-size: 13px;
-  color: #4b5563;
-  margin-bottom: 10px;
-}
-ul.archive {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-ul.archive li {
-  padding: 6px 4px;
-  border-bottom: 1px dashed #e5e7eb;
-  font-size: 13px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-ul.archive li:last-child {
-  border-bottom: none;
-}
-ul.archive a {
-  color: #2563eb;
-  text-decoration: none;
-}
-ul.archive a:hover {
-  text-decoration: underline;
-}
-.tag-latest {
-  font-size: 11px;
-  color: #f97316;
-  margin-left: 8px;
-}
-.footer {
-  text-align: center;
-  font-size: 11px;
-  color: #6b7280;
-  padding: 12px 0 24px;
-}
-</style>
-</head>
-<body>
-<header>
-  <div class="header-inner">
-    <div>
-      <h1>期刊自动摘要 · 索引</h1>
-      <p>最新更新：2026-06-12 16:42</p>
-    </div>
-    <div class="lab-name">Sweet Home</div>
-  </div>
-</header>
-
-<div class="container">
-  <div class="box">
-    <h2>历史日期页面</h2>
-    <div class="desc">
-      这里列出了所有已生成的每日摘要页面，点击日期即可打开对应版本。
-      最新的一天会标记为「最新」。
-    </div>
-    <ul class="archive">
-      <li><a href="index_2026-06-12.html">2026-06-12</a> <span class="tag-latest">最新</span></li>
-      <li><a href="index_2026-02-26.html">2026-02-26</a></li>
-      <li><a href="index_2025-12-29.html">2025-12-29</a></li>
-      <li><a href="index_2025-12-23.html">2025-12-23</a></li>
-      <li><a href="index_2025-12-15.html">2025-12-15</a></li>
-      <li><a href="index_2025-12-11.html">2025-12-11</a></li>
-      <li><a href="index_2025-12-10.html">2025-12-10</a></li>
-      <li><a href="index_2025-12-09.html">2025-12-09</a></li>
-      <li><a href="index_2025-12-07.html">2025-12-07</a></li>
-      <li><a href="index_2025-12-06.html">2025-12-06</a></li>
-      <li><a href="index_2025-12-05.html">2025-12-05</a></li>
-      <li><a href="index_2025-12-03.html">2025-12-03</a></li>
-    </ul>
-  </div>
-</div>
-
-<div class="footer">
-  本索引页由实验室内部脚本自动生成。如遇问题，请联系维护者。
-</div>
-</body>
-</html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>期刊摘要索引</title>
+<style>body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; background:#e5f6e8; color:#1b3a1f; }
+header { background:#1f7a3a; color:#fff; padding:20px 28px; }
+h1 { margin:0 0 6px; font-size:26px; }
+.container { display:flex; gap:18px; padding:18px; max-width:1200px; margin:0 auto; }
+nav { width:220px; flex:none; }
+nav a { display:block; background:#fff; margin-bottom:8px; padding:8px 10px; border-radius:8px; color:#1f7a3a; text-decoration:none; }
+main { flex:1; min-width:0; }
+.journal { background:#fff; border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+.trends { background:#f3fbf4; border-left:4px solid #1f7a3a; padding:8px 12px; white-space:pre-wrap; }
+.card { border-top:1px solid #e3efe4; padding:12px 0; }
+.title { font-weight:650; font-size:18px; }
+.meta { color:#5d7262; font-size:13px; margin:4px 0 8px; }
+.summary { white-space:pre-wrap; line-height:1.55; }
+a { color:#0b6b32; }
+.footer { text-align:center; color:#5d7262; padding:18px; }
+input { width:100%; padding:8px 10px; border:1px solid #cfe3d3; border-radius:8px; }</style></head><body>
+<header><h1>期刊摘要索引</h1><p>更新于 2026-09-23 09:34</p></header>
+<main style="max-width:800px;margin:20px auto;"><ol><li><a href='index_2026-09-23.html'>2026-09-23</a></li>
+<li><a href='index_2026-06-12.html'>2026-06-12</a></li>
+<li><a href='index_2026-02-26.html'>2026-02-26</a></li>
+<li><a href='index_2025-12-29.html'>2025-12-29</a></li>
+<li><a href='index_2025-12-23.html'>2025-12-23</a></li>
+<li><a href='index_2025-12-15.html'>2025-12-15</a></li>
+<li><a href='index_2025-12-11.html'>2025-12-11</a></li>
+<li><a href='index_2025-12-10.html'>2025-12-10</a></li>
+<li><a href='index_2025-12-09.html'>2025-12-09</a></li>
+<li><a href='index_2025-12-07.html'>2025-12-07</a></li>
+<li><a href='index_2025-12-06.html'>2025-12-06</a></li>
+<li><a href='index_2025-12-05.html'>2025-12-05</a></li>
+<li><a href='index_2025-12-03.html'>2025-12-03</a></li></ol></main>
+</body></html>
