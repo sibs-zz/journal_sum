@@ -7,6 +7,7 @@ import logging
 import os
 import re
 import sqlite3
+import threading
 import time
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
@@ -22,10 +23,9 @@ OUTPUT_DIR = Path(os.getenv("JOURNAL_OUTPUT_DIR", str(ROOT / "site")))
 CACHE_PATH = Path(os.getenv("JOURNAL_CACHE_PATH", str(ROOT / "cache" / "articles.sqlite")))
 LOG_DIR = Path(os.getenv("JOURNAL_LOG_DIR", str(ROOT / "logs")))
 LOOKBACK_DAYS = int(os.getenv("LOOKBACK_DAYS", "15"))
-DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-pro")
+DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-flash")
 DEEPSEEK_MAX_TOKENS = int(os.getenv("DEEPSEEK_MAX_TOKENS", "8192"))
-MIN_SCORE = float(os.getenv("MIN_SCORE", "7"))
-MAX_KEEP_PER_SOURCE = int(os.getenv("MAX_KEEP_PER_SOURCE", "12"))
+MAX_WORKERS = int(os.getenv("MAX_WORKERS", "10"))
 RANK_BATCH = int(os.getenv("RANK_BATCH", "12"))
 
 UA = (
@@ -153,7 +153,8 @@ class ArticleCache:
 
     def __init__(self, path: Path = CACHE_PATH) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
-        self.conn = sqlite3.connect(path)
+        self._lock = threading.Lock()
+        self.conn = sqlite3.connect(str(path), check_same_thread=False)
         self.conn.row_factory = sqlite3.Row
         self.conn.execute(
             """
@@ -180,24 +181,25 @@ class ArticleCache:
         self.conn.commit()
 
     def lookup(self, article: Article) -> Optional[sqlite3.Row]:
-        row = self.conn.execute(
-            "SELECT * FROM articles WHERE dedupe_key = ?",
-            (article.dedupe_key,),
-        ).fetchone()
-        if row:
-            return row
-        if article.doi:
+        with self._lock:
             row = self.conn.execute(
-                "SELECT * FROM articles WHERE doi = ? AND doi != ''",
-                (article.doi.casefold(),),
+                "SELECT * FROM articles WHERE dedupe_key = ?",
+                (article.dedupe_key,),
             ).fetchone()
             if row:
                 return row
-        if article.title_norm:
-            return self.conn.execute(
-                "SELECT * FROM articles WHERE title_norm = ? AND title_norm != ''",
-                (article.title_norm,),
-            ).fetchone()
+            if article.doi:
+                row = self.conn.execute(
+                    "SELECT * FROM articles WHERE doi = ? AND doi != ''",
+                    (article.doi.casefold(),),
+                ).fetchone()
+                if row:
+                    return row
+            if article.title_norm:
+                return self.conn.execute(
+                    "SELECT * FROM articles WHERE title_norm = ? AND title_norm != ''",
+                    (article.title_norm,),
+                ).fetchone()
         return None
 
     def is_finished(self, article: Article) -> bool:
@@ -210,9 +212,11 @@ class ArticleCache:
             return True
         title = article.title
         norm = article.title_norm
-        rows = self.conn.execute(
-            "SELECT title, title_norm, title_zh, doi FROM articles WHERE status IN ('summarized', 'dismissed', 'ranked')"
-        ).fetchall()
+        with self._lock:
+            rows = self.conn.execute(
+                "SELECT title, title_norm, title_zh, doi FROM articles "
+                "WHERE status IN ('summarized', 'dismissed', 'ranked')"
+            ).fetchall()
         for row in rows:
             known = row["title_norm"] or ""
             if known and len(known) >= 28 and (known in norm or norm in known):
@@ -229,42 +233,43 @@ class ArticleCache:
             if match:
                 zh = match.group(1).strip()
                 article.title_zh = zh
-        self.conn.execute(
-            """
-            INSERT INTO articles (
-                dedupe_key, doi, title, title_norm, title_zh, url, journal, source,
-                pub_date, status, score, reason, summary, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(dedupe_key) DO UPDATE SET
-                doi=excluded.doi,
-                title=excluded.title,
-                title_norm=excluded.title_norm,
-                title_zh=excluded.title_zh,
-                url=excluded.url,
-                status=excluded.status,
-                score=excluded.score,
-                reason=excluded.reason,
-                summary=excluded.summary,
-                updated_at=excluded.updated_at
-            """,
-            (
-                article.dedupe_key,
-                article.doi.casefold(),
-                article.title,
-                article.title_norm,
-                zh,
-                article.url,
-                article.journal,
-                article.source,
-                article.pub_date,
-                status,
-                article.score,
-                article.reason,
-                article.summary,
-                datetime.now().isoformat(timespec="seconds"),
-            ),
-        )
-        self.conn.commit()
+        with self._lock:
+            self.conn.execute(
+                """
+                INSERT INTO articles (
+                    dedupe_key, doi, title, title_norm, title_zh, url, journal, source,
+                    pub_date, status, score, reason, summary, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(dedupe_key) DO UPDATE SET
+                    doi=excluded.doi,
+                    title=excluded.title,
+                    title_norm=excluded.title_norm,
+                    title_zh=excluded.title_zh,
+                    url=excluded.url,
+                    status=excluded.status,
+                    score=excluded.score,
+                    reason=excluded.reason,
+                    summary=excluded.summary,
+                    updated_at=excluded.updated_at
+                """,
+                (
+                    article.dedupe_key,
+                    article.doi.casefold(),
+                    article.title,
+                    article.title_norm,
+                    zh,
+                    article.url,
+                    article.journal,
+                    article.source,
+                    article.pub_date,
+                    status,
+                    article.score,
+                    article.reason,
+                    article.summary,
+                    datetime.now().isoformat(timespec="seconds"),
+                ),
+            )
+            self.conn.commit()
 
 
 def stable_id(text: str) -> str:

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional
 
 from openai import OpenAI
@@ -13,8 +14,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from journal_agent.common import (
     DEEPSEEK_MAX_TOKENS,
     DEEPSEEK_MODEL,
-    MAX_KEEP_PER_SOURCE,
-    MIN_SCORE,
+    MAX_WORKERS,
     RANK_BATCH,
     Article,
     load_api_key,
@@ -57,37 +57,43 @@ class Ranker:
         )
         return (resp.choices[0].message.content or "").strip()
 
-    def select(self, journal: str, articles: list[Article]) -> tuple[list[Article], list[Article], list[Article]]:
-        """Return (kept, dismissed, overflow). Unjudged articles are in none of the lists."""
+    def select(self, journal: str, articles: list[Article]) -> tuple[list[Article], list[Article]]:
+        """Return (kept, dismissed). Only the 15-day window limits volume; no score or per-source cap."""
         if not articles:
-            return [], [], []
+            return [], []
         if self.client is None:
-            return articles[:MAX_KEEP_PER_SOURCE], [], articles[MAX_KEEP_PER_SOURCE:]
+            return articles, []
         kept: list[Article] = []
         dismissed: list[Article] = []
-        for start in range(0, len(articles), RANK_BATCH):
-            batch = articles[start:start + RANK_BATCH]
-            judged = self._score_batch(journal, batch)
-            if judged is None:
-                continue
-            seen = set()
-            for item in judged:
-                idx = item["idx"]
-                seen.add(idx)
-                article = batch[idx]
-                article.score = item["score"]
-                article.reason = item["reason"]
-                if item["keep"] and item["score"] >= MIN_SCORE:
-                    kept.append(article)
-                else:
-                    dismissed.append(article)
-            for idx, article in enumerate(batch):
-                if idx not in seen:
-                    logger.info("模型未返回 %s，本轮不写入缓存", article.title[:60])
+        batches = [articles[i:i + RANK_BATCH] for i in range(0, len(articles), RANK_BATCH)]
+        workers = min(MAX_WORKERS, max(1, len(batches)))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {
+                pool.submit(self._score_batch, journal, batch): batch
+                for batch in batches
+            }
+            for future, batch in futures.items():
+                judged = future.result()
+                if judged is None:
+                    kept.extend(batch)
+                    continue
+                seen = set()
+                for item in judged:
+                    idx = item["idx"]
+                    seen.add(idx)
+                    article = batch[idx]
+                    article.score = item["score"]
+                    article.reason = item["reason"]
+                    if item["keep"]:
+                        kept.append(article)
+                    else:
+                        dismissed.append(article)
+                for idx, article in enumerate(batch):
+                    if idx not in seen:
+                        logger.info("模型未返回 %s，默认保留并总结", article.title[:60])
+                        kept.append(article)
         kept.sort(key=lambda item: item.score, reverse=True)
-        overflow = kept[MAX_KEEP_PER_SOURCE:]
-        kept = kept[:MAX_KEEP_PER_SOURCE]
-        return kept, dismissed, overflow
+        return kept, dismissed
 
     def _score_batch(self, journal: str, articles: list[Article]) -> Optional[list[dict]]:
         payload = []

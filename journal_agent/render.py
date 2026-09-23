@@ -97,22 +97,39 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
     parts.append("</body></html>")
     path = OUTPUT_DIR / f"index_{date_tag}.html"
     path.write_text("\n".join(parts), encoding="utf-8")
-    _write_index(generated)
+    _write_index(generated, date_tag)
     logger.info("已写入 %s", path)
     return path
 
 
-def _write_index(generated: str) -> None:
+def _write_index(generated: str, latest_date: str) -> None:
     pages = sorted(OUTPUT_DIR.glob("index_*.html"), reverse=True)
     items = []
     for page in pages:
         label = page.name.replace("index_", "").replace(".html", "")
         items.append(f"<li><a href='{html.escape(page.name)}'>{html.escape(label)}</a></li>")
     body = "\n".join(items) or "<li>暂无页面</li>"
-    html_text = f"""<!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><title>期刊摘要索引</title>
+    archive_html = f"""<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>期刊摘要归档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>{STYLES}</style></head><body>
-<header><h1>期刊摘要索引</h1><p>更新于 {html.escape(generated)}</p></header>
+<header><h1>期刊摘要归档</h1><p>更新于 {html.escape(generated)} · <a href="index.html">返回最新摘要</a></p></header>
 <main style="max-width:800px;margin:20px auto;"><ol>{body}</ol></main>
 </body></html>"""
-    (OUTPUT_DIR / "index.html").write_text(html_text, encoding="utf-8")
+    (OUTPUT_DIR / "archive.html").write_text(archive_html, encoding="utf-8")
+
+    latest_file = f"index_{latest_date}.html"
+    landing = f"""<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<title>期刊每日摘要 · {html.escape(latest_date)}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="0; url={html.escape(latest_file)}">
+<link rel="canonical" href="{html.escape(latest_file)}">
+<style>{STYLES}</style></head><body>
+<header><h1>期刊自动摘要 · 作物视角</h1>
+<p>正在打开 {html.escape(latest_date)} 的最新摘要…</p></header>
+<main style="max-width:800px;margin:20px auto;">
+<p><a href="{html.escape(latest_file)}">点此查看今日摘要</a></p>
+<p><a href="archive.html">历史归档</a></p>
+</main></body></html>"""
+    (OUTPUT_DIR / "index.html").write_text(landing, encoding="utf-8")

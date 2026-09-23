@@ -12,6 +12,7 @@ import logging
 
 # 配置
 LOCAL_SITE_DIR = Path("/tiandata2/zzh/journal-agent/site")
+LOCAL_PROJECT_DIR = LOCAL_SITE_DIR.parent
 # 使用 SSH URL（更稳定，无需 token）
 GITHUB_REPO_URL = "git@github.com:sibs-zz/journal_sum.git"
 GITHUB_REPO_DIR = Path("/tiandata2/zzh/journal-agent/github_repo")
@@ -100,14 +101,12 @@ def clone_or_update_repo():
         ensure_ssh_remote()
         
         success, output = run_command(
-            ["git", "pull", "origin", "main"],
+            ["git", "pull", "--rebase", "origin", "main"],
             cwd=GITHUB_REPO_DIR,
             check=False
         )
         if not success:
-            logger.warning(f"⚠️ 更新失败，尝试拉取: {output}")
-            run_command(["git", "fetch"], cwd=GITHUB_REPO_DIR, check=False)
-            run_command(["git", "reset", "--hard", "origin/main"], cwd=GITHUB_REPO_DIR, check=False)
+            logger.warning(f"⚠️ git pull 失败，将继续用本地内容推送: {output}")
         # 检查 Git 配置
         check_git_config()
     else:
@@ -157,6 +156,38 @@ def sync_directories():
     return True
 
 
+CODE_SYNC_ITEMS = (
+    "journal_summarizer_v4.py",
+    "journal_agent",
+    "README.md",
+    "requirements.txt",
+    "run.sh",
+    "sync_to_github.py",
+    "check_sync_status.sh",
+    "sync_github.sh",
+    ".gitignore",
+)
+
+
+def sync_project_files() -> bool:
+    """将本地项目代码同步到 github_repo（Pages 站点仍来自 docs/）。"""
+    logger.info("📋 同步项目代码 %s -> %s", LOCAL_PROJECT_DIR, GITHUB_REPO_DIR)
+    for name in CODE_SYNC_ITEMS:
+        src = LOCAL_PROJECT_DIR / name
+        dst = GITHUB_REPO_DIR / name
+        if not src.exists():
+            continue
+        if src.is_dir():
+            if dst.exists():
+                shutil.rmtree(dst)
+            shutil.copytree(src, dst)
+            logger.info("  ✅ 复制目录: %s", name)
+        else:
+            shutil.copy2(src, dst)
+            logger.info("  ✅ 复制文件: %s", name)
+    return True
+
+
 def commit_and_push():
     """提交并推送到 GitHub"""
     logger.info("📝 检查更改...")
@@ -173,8 +204,9 @@ def commit_and_push():
         return True
     
     logger.info("📝 添加更改...")
+    paths = ["docs/"] + list(CODE_SYNC_ITEMS)
     success, output = run_command(
-        ["git", "add", "docs/"],
+        ["git", "add", "-A", "--"] + paths,
         cwd=GITHUB_REPO_DIR
     )
     if not success:
@@ -210,7 +242,7 @@ def commit_and_push():
             check=False
         )
         if success:
-            logger.info("✅ 同步完成！")
+            logger.info("✅ 同步完成！Pages: https://sibs-zz.github.io/journal_sum/")
             return True
         
         if attempt < max_retries - 1:
@@ -239,11 +271,15 @@ def main():
     if not clone_or_update_repo():
         return
     
-    # 2. 同步目录
+    # 2. 同步 site -> docs（GitHub Pages）
     if not sync_directories():
         return
-    
-    # 3. 提交并推送
+
+    # 3. 同步脚本与 README 到仓库根目录
+    if not sync_project_files():
+        return
+
+    # 4. 提交并推送
     commit_and_push()
     
     logger.info("=" * 60)

@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import logging
 import re
-import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
 from typing import Iterable, Optional
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
-from journal_agent.common import Article, Http, clean_text, cutoff_date, extract_doi
+from journal_agent.common import Article, Http, MAX_WORKERS, clean_text, cutoff_date, extract_doi
 
 logger = logging.getLogger("journal_agent")
 
@@ -35,11 +35,6 @@ NATURE_SOURCES = [
         "name": "Nature Plants",
         "url": "https://www.nature.com/nplants/research-articles",
         "params": {},
-    },
-    {
-        "name": "Nature Communications",
-        "url": "https://www.nature.com/subjects/biological-sciences/ncomms",
-        "params": {"searchType": "subject", "sort": "PubDate"},
     },
 ]
 
@@ -122,6 +117,15 @@ def looks_biological(title: str, abstract: str) -> bool:
     return bio
 
 
+def _fill_nature_one(article: Article) -> Article:
+    http = Http()
+    try:
+        _fill_nature_abstract(http, article)
+    except Exception as exc:
+        logger.warning("打开 Nature 文章失败 %s: %s", article.url, exc)
+    return article
+
+
 def fetch_nature_family(http: Http, today: Optional[date] = None) -> list[Article]:
     today = today or date.today()
     cutoff = cutoff_date(today)
@@ -129,14 +133,14 @@ def fetch_nature_family(http: Http, today: Optional[date] = None) -> list[Articl
     for source in NATURE_SOURCES:
         journal_items = _nature_listing(http, source, cutoff)
         logger.info("%s 列表 %d 篇（%s 之后）", source["name"], len(journal_items), cutoff)
-        for item in journal_items:
-            try:
-                _fill_nature_abstract(http, item)
-            except Exception as exc:
-                logger.warning("打开 Nature 文章失败 %s: %s", item.url, exc)
+        if not journal_items:
+            continue
+        workers = min(MAX_WORKERS, max(1, len(journal_items)))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            filled = list(pool.map(_fill_nature_one, journal_items))
+        for item in filled:
             if item.abstract or item.title:
                 found.append(item)
-            time.sleep(0.25)
     return found
 
 
@@ -303,50 +307,78 @@ def _parse_sciencedirect_item(item, cutoff: date) -> Optional[Article]:
     )
 
 
+def _science_work_to_article(
+    work: dict,
+    cutoff: date,
+    *,
+    try_official: bool,
+) -> Optional[Article]:
+    title = clean_text((work.get("title") or [""])[0])
+    abstract = clean_text(work.get("abstract") or "")
+    if not looks_biological(title, abstract):
+        return None
+    doi = (work.get("DOI") or "").strip()
+    published = _crossref_date(work) or cutoff
+    if published < cutoff:
+        return None
+    url = f"https://www.science.org/doi/{doi}" if doi else work.get("URL") or ""
+    content_source = "crossref"
+    if doi and try_official:
+        try:
+            page_abstract = _science_page_abstract(Http(), url)
+            if page_abstract:
+                abstract = page_abstract
+                content_source = "science.org"
+        except Exception:
+            pass
+    if not title:
+        return None
+    return Article(
+        journal="Science",
+        title=title,
+        url=url,
+        pub_date=published.isoformat(),
+        abstract=abstract,
+        doi=doi,
+        article_type="journal-article",
+        source="official",
+        content_source=content_source,
+    )
+
+
 def fetch_science(http: Http, today: Optional[date] = None) -> list[Article]:
     """Science 目录页经常被 Cloudflare 拦住，先打开 DOI 页，失败再用期刊登记摘要。"""
     today = today or date.today()
     cutoff = cutoff_date(today)
     works = _crossref_works("0036-8075", cutoff)
+    candidates = [
+        work
+        for work in works
+        if looks_biological(
+            clean_text((work.get("title") or [""])[0]),
+            clean_text(work.get("abstract") or ""),
+        )
+    ]
     articles: list[Article] = []
     official_pages_ok: Optional[bool] = None
-    for work in works:
-        title = clean_text((work.get("title") or [""])[0])
-        abstract = clean_text(work.get("abstract") or "")
-        if not looks_biological(title, abstract):
-            continue
-        doi = (work.get("DOI") or "").strip()
-        published = _crossref_date(work) or cutoff
-        if published < cutoff:
-            continue
-        url = f"https://www.science.org/doi/{doi}" if doi else work.get("URL") or ""
-        content_source = "crossref"
-        if doi and official_pages_ok is not False:
-            try:
-                page_abstract = _science_page_abstract(http, url)
-                if page_abstract:
-                    abstract = page_abstract
-                    content_source = "science.org"
-                    official_pages_ok = True
-            except Exception as exc:
-                official_pages_ok = False
-                logger.info("Science 官网页面被拦截，其余篇目使用期刊登记摘要（%s）", exc)
-        if not title:
-            continue
-        articles.append(
-            Article(
-                journal="Science",
-                title=title,
-                url=url,
-                pub_date=published.isoformat(),
-                abstract=abstract,
-                doi=doi,
-                article_type="journal-article",
-                source="official",
-                content_source=content_source,
-            )
-        )
-        time.sleep(0.15)
+    if candidates:
+        probe = _science_work_to_article(candidates[0], cutoff, try_official=True)
+        if probe and probe.content_source == "science.org":
+            official_pages_ok = True
+        else:
+            official_pages_ok = False
+            logger.info("Science 官网页面被拦截，本批使用期刊登记摘要")
+    try_official = official_pages_ok is not False
+    workers = min(MAX_WORKERS, max(1, len(candidates)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [
+            pool.submit(_science_work_to_article, work, cutoff, try_official=try_official)
+            for work in candidates
+        ]
+        for future in as_completed(futures):
+            article = future.result()
+            if article:
+                articles.append(article)
     logger.info("Science 生物学相关 %d 篇（%s 之后）", len(articles), cutoff)
     return articles
 
@@ -362,24 +394,32 @@ def _science_page_abstract(http: Http, url: str) -> str:
     return ""
 
 
+def _wechat_column_fetch(args: tuple[str, str, date, date]) -> tuple[str, list[Article]]:
+    name, column_url, today, cutoff = args
+    try:
+        http = Http()
+        batch = _wechat_column(http, name, column_url, today, cutoff)
+        return name, batch
+    except Exception as exc:
+        logger.warning("公众号栏目抓取失败 %s: %s", name, exc)
+        return name, []
+
+
 def fetch_wechat(http: Http, today: Optional[date] = None) -> list[Article]:
     today = today or date.today()
     cutoff = cutoff_date(today)
     articles: list[Article] = []
     seen: set[str] = set()
-    for name, column_url in WECHAT_COLUMNS:
-        try:
-            batch = _wechat_column(http, name, column_url, today, cutoff)
-        except Exception as exc:
-            logger.warning("公众号栏目抓取失败 %s: %s", name, exc)
-            continue
-        for article in batch:
-            if article.url in seen:
-                continue
-            seen.add(article.url)
-            articles.append(article)
-        logger.info("公众号 %s：近窗 %d 篇", name, len(batch))
-        time.sleep(0.4)
+    jobs = [(name, url, today, cutoff) for name, url in WECHAT_COLUMNS]
+    workers = min(MAX_WORKERS, len(jobs))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for name, batch in pool.map(_wechat_column_fetch, jobs):
+            logger.info("公众号 %s：近窗 %d 篇", name, len(batch))
+            for article in batch:
+                if article.url in seen:
+                    continue
+                seen.add(article.url)
+                articles.append(article)
     return articles
 
 

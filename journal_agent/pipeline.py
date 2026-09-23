@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import logging
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 
-from journal_agent.common import Article, ArticleCache, Http, setup_logging
+from journal_agent.common import Article, ArticleCache, Http, MAX_WORKERS, setup_logging
 from journal_agent.rank import Ranker
 from journal_agent.render import write_report
 from journal_agent.sources import fetch_cell, fetch_nature_family, fetch_science, fetch_wechat
@@ -43,26 +44,36 @@ def _judge(ranker: Ranker, cache: ArticleCache, journal: str, articles: list[Art
             ready.append(article)
             continue
         pending.append(article)
-    kept, dismissed, overflow = ranker.select(journal, pending)
+    kept, dismissed = ranker.select(journal, pending)
     for article in dismissed:
         cache.save(article, "dismissed")
-    for article in overflow:
-        cache.save(article, "ranked")
     chosen = ready + kept
-    summarized = []
-    for article in chosen:
+    if not chosen:
+        return []
+
+    def _summarize_one(article: Article) -> Article:
         if not article.summary:
             article.summary = ranker.summarize(article)
-        cache.save(article, "summarized")
-        summarized.append(article)
-        logger.info("已整理 %s | %s", journal, article.title[:80])
+        return article
+
+    summarized: list[Article] = []
+    workers = min(MAX_WORKERS, max(1, len(chosen)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for article in pool.map(_summarize_one, chosen):
+            cache.save(article, "summarized")
+            summarized.append(article)
+            logger.info("已整理 %s | %s", journal, article.title[:80])
     return summarized
+
+
+def _fetch_official(label: str, fetcher) -> tuple[str, list[Article]]:
+    http = Http()
+    return label, fetcher(http)
 
 
 def run() -> None:
     setup_logging()
-    logger.info("开始本轮抓取，回溯起点 %s", date.today().isoformat())
-    http = Http()
+    logger.info("开始本轮抓取，回溯起点 %s，并行线程数 %d", date.today().isoformat(), MAX_WORKERS)
     cache = ArticleCache()
     ranker = Ranker()
     stats = {"fetched": 0, "cached": 0, "duplicate": 0}
@@ -74,21 +85,23 @@ def run() -> None:
         ("Science", fetch_science),
     ]
     official_by_journal: dict[str, list[Article]] = defaultdict(list)
-    for label, fetcher in fetchers:
-        try:
-            found = fetcher(http)
-        except Exception as exc:
-            logger.error("%s 抓取失败: %s", label, exc, exc_info=True)
-            continue
-        fresh = _new_articles(cache, found, stats)
-        for article in fresh:
-            official_by_journal[article.journal].append(article)
+    with ThreadPoolExecutor(max_workers=min(3, MAX_WORKERS)) as pool:
+        futures = [pool.submit(_fetch_official, label, fn) for label, fn in fetchers]
+        for future in as_completed(futures):
+            try:
+                label, found = future.result()
+            except Exception as exc:
+                logger.error("官方源抓取失败: %s", exc, exc_info=True)
+                continue
+            fresh = _new_articles(cache, found, stats)
+            for article in fresh:
+                official_by_journal[article.journal].append(article)
 
     for journal, articles in official_by_journal.items():
         kept.extend(_judge(ranker, cache, journal, articles))
 
     try:
-        wechat = fetch_wechat(http)
+        wechat = fetch_wechat(Http())
     except Exception as exc:
         logger.error("公众号抓取失败: %s", exc, exc_info=True)
         wechat = []
@@ -110,8 +123,18 @@ def run() -> None:
     grouped: dict[str, list[Article]] = defaultdict(list)
     for article in kept:
         grouped[article.journal].append(article)
-    for journal, articles in grouped.items():
-        trends[journal] = ranker.trends(journal, articles)
+
+    def _trend(job: tuple[str, list[Article]]) -> tuple[str, str]:
+        journal, articles = job
+        return journal, ranker.trends(journal, articles)
+
+    jobs = list(grouped.items())
+    if jobs:
+        workers = min(MAX_WORKERS, len(jobs))
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            for journal, text in pool.map(_trend, jobs):
+                trends[journal] = text
+
     write_report(kept, trends, stats)
     logger.info(
         "完成。抓取 %d，缓存跳过 %d，重复跳过 %d，保留 %d",
