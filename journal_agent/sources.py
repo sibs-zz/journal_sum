@@ -209,16 +209,12 @@ def _nature_listing(http: Http, source: dict, cutoff: date) -> list[Article]:
     return articles
 
 
-def _format_author_list(names: list[str], limit: int = 18) -> str:
+def _format_author_list(names: list[str]) -> str:
     cleaned = [n for n in names if n]
-    if not cleaned:
-        return ""
-    if len(cleaned) > limit:
-        return "; ".join(cleaned[:limit]) + " et al."
     return "; ".join(cleaned)
 
 
-def _format_crossref_authors(work: dict, limit: int = 18) -> str:
+def _format_crossref_authors(work: dict) -> str:
     names: list[str] = []
     for author in work.get("author") or []:
         family = (author.get("family") or "").strip()
@@ -226,17 +222,17 @@ def _format_crossref_authors(work: dict, limit: int = 18) -> str:
         if not family and not given:
             continue
         names.append(f"{given} {family}".strip() if given else family)
-    return _format_author_list(names, limit)
+    return _format_author_list(names)
 
 
-def _pubmed_authors(node: ET.Element, limit: int = 18) -> str:
+def _pubmed_authors(node: ET.Element) -> str:
     names: list[str] = []
     for au in node.findall(".//Author"):
         last = (au.findtext("LastName") or "").strip()
         fore = (au.findtext("ForeName") or "").strip()
         if last:
             names.append(f"{fore} {last}".strip() if fore else last)
-    return _format_author_list(names, limit)
+    return _format_author_list(names)
 
 
 def fetch_authors_by_doi(doi: str) -> str:
@@ -251,7 +247,11 @@ def fetch_authors_by_doi(doi: str) -> str:
 
 
 def backfill_authors(articles: list[Article]) -> None:
-    pending = [a for a in articles if not a.authors and a.doi]
+    pending = [
+        a
+        for a in articles
+        if a.doi and (not a.authors or " et al." in a.authors)
+    ]
     if not pending:
         return
 

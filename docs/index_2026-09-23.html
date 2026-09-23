@@ -216,6 +216,31 @@ input#q:focus {
   font-weight:550;
 }
 .link-row a:hover { background:#d1fae5; }
+.scroll-top {
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  z-index:80;
+  padding:10px 14px;
+  border:none;
+  border-radius:999px;
+  background:#16a34a;
+  color:#fff;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(22,163,74,.35);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.scroll-top.show {
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.scroll-top:hover { background:#15803d; }
 .footer {
   text-align:center;
   color:#5d7262;
@@ -232,7 +257,7 @@ input#q:focus {
 <a class='back-home' href='index.html' title='返回日期目录'>← 目录首页</a>
 <div class='header-main'>
 <h1>期刊自动摘要 · 作物视角</h1>
-<p class='stats'>日期 2026-09-23 · 生成 2026-09-23 10:57 · 新抓取 0 · 缓存跳过 0 · 重复跳过 0 · 页面 66 篇</p>
+<p class='stats'>日期 2026-09-23 · 生成 2026-09-23 16:37 · 新抓取 0 · 缓存跳过 0 · 重复跳过 0 · 页面 66 篇</p>
 </div></header>
 <div class='hero'><div class='hero-inner'>
 <img src='soybean.jpg' alt='大豆' onerror="this.style.display='none'">
@@ -276,7 +301,7 @@ input#q:focus {
 <span class="card-date">2026-09-16</span>
 </div>
 <div class="title">Sex without crossovers mimics clonal reproduction in Rhynchospora tenuis</div>
-<div class="authors"><span class="authors-label">作者</span>Meng Zhang; Marco Castellani; Stefan Steckenborn; Maciej Majka; Georgios Tsipas; Thiago Nascimento; Ulla Neumann; Gokilavani Thangavel; Laura A. Robledillo; Thomas Lux; Lorraine Deberón; Ursula Pfordt; José A. Campoy; Athul Vijayan; Ton Timmers; Nafiseh Sargheini; Magdalena Marek; Hequan Sun et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Meng Zhang; Marco Castellani; Stefan Steckenborn; Maciej Majka; Georgios Tsipas; Thiago Nascimento; Ulla Neumann; Gokilavani Thangavel; Laura A. Robledillo; Thomas Lux; Lorraine Deberón; Ursula Pfordt; José A. Campoy; Athul Vijayan; Ton Timmers; Nafiseh Sargheini; Magdalena Marek; Hequan Sun; Paulo G. Hofstatter; Bruno Huettel; Steven Dreissig; Klaus F. X. Mayer; Duarte D. Figueiredo; André L. L. Vanzela; Korbinian Schneeberger; André Marques</div>
 <div class="meta">official · 相关度 9 · 发现植物无交叉减数分裂与克隆繁殖机制，可启发作物减数分裂重组、固定杂种优势与无融合生殖育种。</div>
 <div class='summary'>标题：无交叉的有性生殖模拟 Rhynchospora tenuis 中的克隆繁殖
 
@@ -333,7 +358,7 @@ input#q:focus {
 <span class="card-date">2026-09-16</span>
 </div>
 <div class="title">Scalable near-real-time Bayesian phylogenetics for outbreaks with Delphy</div>
-<div class="authors"><span class="authors-label">作者</span>Patrick Varilly; Mark Schifferli; Katherine Yang; Paul Cronan; Ivan Specht; Tim Burcham; Olivia Glennon; Olivia Jacks; Ellory Laning; Libby Marrs; Kyle Oba; Shannon Yeung; Karlie Wenran Zhao; Edyth Parker; Ifeanyi Omah; Jonathan E. Pekar; Laura Luebbert; Kristian G. Andersen et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Patrick Varilly; Mark Schifferli; Katherine Yang; Paul Cronan; Ivan Specht; Tim Burcham; Olivia Glennon; Olivia Jacks; Ellory Laning; Libby Marrs; Kyle Oba; Shannon Yeung; Karlie Wenran Zhao; Edyth Parker; Ifeanyi Omah; Jonathan E. Pekar; Laura Luebbert; Kristian G. Andersen; Daniel J. Park; Stephen F. Schaffner; Bronwyn L. MacInnis; Christian Happi; Jacob E. Lemieux; Al Ozonoff; Michael Mitzenmacher; Ben Fry; Pardis C. Sabeti</div>
 <div class="meta">official · 相关度 7 · Delphy可扩展贝叶斯系统发育方法，可迁移到作物病原监测和群体进化分析。</div>
 <div class='summary'>标题：利用 Delphy 实现面向疫情的可扩展近实时贝叶斯系统发育分析
 
@@ -424,7 +449,7 @@ input#q:focus {
 <span class="card-date">2026-09-09</span>
 </div>
 <div class="title">Highly efficient base editing at PCSK9 and normal human embryo development</div>
-<div class="authors"><span class="authors-label">作者</span>Stepan Jerabek; Chanju Jung; Michelle Kappy; Qiaojin Zhao; Julie Sung; Ning Wang; Euihyun Kim; Jimin Kim; Marcos Iuri Roos Kulmann; Madeleine Bliss King; Mitchell John McAndrew; Meng Li; Sakshi Bhatele; Melisa Isado; Hong-Su Jang; Michal Dolezal; Robert Prosser; Shuangyi Xu et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Stepan Jerabek; Chanju Jung; Michelle Kappy; Qiaojin Zhao; Julie Sung; Ning Wang; Euihyun Kim; Jimin Kim; Marcos Iuri Roos Kulmann; Madeleine Bliss King; Mitchell John McAndrew; Meng Li; Sakshi Bhatele; Melisa Isado; Hong-Su Jang; Michal Dolezal; Robert Prosser; Shuangyi Xu; Gue-Ho Hwang; Iva Pichova; Jia Xu; Diego Marin; Jae-Sung Woo; Sangsu Bae; Nathan Treff; Audrone Lapinaite; Dieter Egli</div>
 <div class="meta">official · 相关度 7 · 碱基编辑在胚胎中的修复结局、嵌合与脱靶评估，对作物精准碱基编辑的递送方式和安全性设计有直接借鉴。</div>
 <div class='summary'>标题：PCSK9 的高效碱基编辑与正常人类胚胎发育
 
@@ -461,7 +486,7 @@ input#q:focus {
 <span class="card-date">2026-09-09</span>
 </div>
 <div class="title">TM184C is a GPCR-like regulator of intercellular exchange and autophagy</div>
-<div class="authors"><span class="authors-label">作者</span>Kyutae D. Lee; Samuel Taylor; Jennifer Arcuri; Shraddha Chandthakuri; Jacinda Pujols; Bruno Colon; Qiang Wang; Chenzhou Wu; Zhipeng Meng; Sebastian J. Thompson-Ceccato; Jonathan Mitchell; Defne Bayik; Alexandra Carbone; Vladlen Slepak; Tatiana I. Slepak; Scott M. Welford; Michael E. Ivan; Dazhi Wang et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Kyutae D. Lee; Samuel Taylor; Jennifer Arcuri; Shraddha Chandthakuri; Jacinda Pujols; Bruno Colon; Qiang Wang; Chenzhou Wu; Zhipeng Meng; Sebastian J. Thompson-Ceccato; Jonathan Mitchell; Defne Bayik; Alexandra Carbone; Vladlen Slepak; Tatiana I. Slepak; Scott M. Welford; Michael E. Ivan; Dazhi Wang; Blake O. Goldberg; Warner Baringer; Elvis Maradzike; Daniel G. Isom</div>
 <div class="meta">official · 相关度 7 · 通过挖掘AlphaFold模型发现无同源注释蛋白的新功能家族，该方法论可直接用于作物大量未注释基因的功能挖掘。</div>
 <div class='summary'>标题：TM184C 是细胞间交换与自噬的 GPCR 样调节因子
 
@@ -480,7 +505,7 @@ input#q:focus {
 <span class="card-date">2026-09-09</span>
 </div>
 <div class="title">An operational perturbation proteomics-based virtual cell model</div>
-<div class="authors"><span class="authors-label">作者</span>Rui Sun; Liujia Qian; Yongge Li; Tong Liu; Honghan Cheng; Xuedong Zhang; Xueya Zhou; Yuecheng Zhan; Guangmei Zhang; Zhengchao Luo; Kunpeng Ma; Chunlong Wu; Dongchen Ji; Zhangzhi Xue; Hongxue Meng; Yuhang Xiang; Dingwei Lei; Qianhe Zhou et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Rui Sun; Liujia Qian; Yongge Li; Tong Liu; Honghan Cheng; Xuedong Zhang; Xueya Zhou; Yuecheng Zhan; Guangmei Zhang; Zhengchao Luo; Kunpeng Ma; Chunlong Wu; Dongchen Ji; Zhangzhi Xue; Hongxue Meng; Yuhang Xiang; Dingwei Lei; Qianhe Zhou; Wenbin Hu; Yuhan Deng; Lingling Tan; Qi Xiao; Zhiwei Liu; Lei Zeng; Liqin Qian; Xuan Zheng; Qiong Hu; Nianzi Luo; Weinan E; Peijie Zhou; Han Wen; Yi Zhu; Tiannan Guo</div>
 <div class="meta">official · 相关度 7 · 扰动蛋白质组虚拟细胞模型启发作物多组学扰动预测、基因功能建模与育种模拟。</div>
 <div class='summary'>标题：基于扰动蛋白质组学的可操作虚拟细胞模型
 
@@ -499,7 +524,7 @@ input#q:focus {
 <span class="card-date">2026-09-09</span>
 </div>
 <div class="title">Proximity-guided graph learning reveals tumour-associated proximity antigens</div>
-<div class="authors"><span class="authors-label">作者</span>Cody Scandore; Clare F. Malone; Christopher K. May; Anna K. de Regt; Jeff Guernsey; Hayley Ma; Noah Dephoure; Ben Setter; Rebecca A. Howell; Kendall R. Johnson; Carol L. Farr; Sophia Romero; Lydia Vignale; Tali Vittum; Emma Dawson; Tsadik Habtetsion; Francesca Nardi; Brian Woodruff et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Cody Scandore; Clare F. Malone; Christopher K. May; Anna K. de Regt; Jeff Guernsey; Hayley Ma; Noah Dephoure; Ben Setter; Rebecca A. Howell; Kendall R. Johnson; Carol L. Farr; Sophia Romero; Lydia Vignale; Tali Vittum; Emma Dawson; Tsadik Habtetsion; Francesca Nardi; Brian Woodruff; Martin Mathay; Julia Swanson; Mikaela Rusnak; Quynh Ton; Payam E. Farahani; Robert W. Gene; Jason Misurelli; Zach Caldwell; Hengyu Xu; Michael Hornsby; Marc A. Gavin; Heath E. Klock; Ertan Eryilmaz; Pamela M. Holland; Scott A. Lesley; Rob C. Oslund; Olugbeminiyi O. Fadeyi</div>
 <div class="meta">official · 相关度 5 · 邻近标记结合图学习解析膜蛋白空间互作，可迁移到作物受体激酶网络与靶标发现。</div>
 <div class='summary'>标题：邻近引导的图学习揭示肿瘤相关邻近抗原
 
@@ -537,7 +562,7 @@ input#q:focus {
 <span class="card-date">2026-09-09</span>
 </div>
 <div class="title">Integrated signatures define mutational processes in prostate cancer</div>
-<div class="authors"><span class="authors-label">作者</span>Andreas J. Gruber; André V. Olsen; Barbara Hernando; Kevin C. L. Cheng; Clarissa Gerhäuser; Marina Torres; Francesco Favero; Daria Kiriy; Ángel Fernández-Sanromán; Juan Maria Roldan-Romero; Lucy Barton; Diogo Pellegrina; G. Steven Bova; Daniel S. Brewer; Mark N. Brook; Benedikt Brors; Adam Butler; Géraldine Cancel-Tassin et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Andreas J. Gruber; André V. Olsen; Barbara Hernando; Kevin C. L. Cheng; Clarissa Gerhäuser; Marina Torres; Francesco Favero; Daria Kiriy; Ángel Fernández-Sanromán; Juan Maria Roldan-Romero; Lucy Barton; Diogo Pellegrina; G. Steven Bova; Daniel S. Brewer; Mark N. Brook; Benedikt Brors; Adam Butler; Géraldine Cancel-Tassin; Niall M. Corcoran; Olivier Cussenot; Abraham Gihawi; Etsehiwot G. Girma; Vincent J. Gnanapragasam; Anis A. Hamid; Vanessa M. Hayes; Housheng Hansen He; Christopher M. Hovens; Eddie L. Imada; G. Maria Jakobsdottir; Chol-Hee Jung; Francesca Khani; Zsofia Kote-Jarai; Philippe Lamy; Gregory Leeman; Massimo Loda; Pavlo Lutsik; Luigi Marchionni; Ramyar Molania; Anthony T. Papenfuss; Bernard Pope; Lucio R. Queiroz; Tobias Rausch; Brian Robinson; Atef Sahli; Karina D. Sørensen; Takafumi N. Yamaguchi; Sebastian Uhrig; Yaobo Xu; Claudio Zanettini; Alain Bergeron; Alan F. Rubin; Alastair D. Lamb; Alejandro Berlin; Aleksandra S. Ziuboniewicz; Andrew Erickson; Andrew Ryan; Andy G. Lynch; Angelo Corso Faini; Anne Nguyen; Anne Warren; Aravind Sankar; Arfa Mehmood; Balthasar C. Schlotmann; Beng Lim; Bethany K. Campbell; Breon Feran; Charlie E. Massie; Chen Hong; Chris Foster; Christoph Plass; Christopher Wirth; Colin Collins; Corinna Grima; Dan J. Woodcock; Daniel Barrowdale; Daniel J. Park; Emre Esentürk; Esther Baena; Fabian Falkenbach; Filippo Pederzoli; Giselle Kerry; Giuseppe N. Fanelli; Grace Hall; Harveer Dev; Holger Sültmann; Hubert Pakula; Ian Mills; Jan Korbel; Jennifer Ureta; Jessica Heilmann; Jingjing Zhang; Jocelyn Sietsma Penington; Jue Jiang; Justin Bedő; Justin S. Peters; Keiran Raine; Ken Chow; Kira Furlano; Lars Feuerbach; Lena Voith von Voithenberg; Marek Cmero; Markus Graefen; Matthew K. H. Hong; Matthew Wakefield; Matti Nykter; Melissa Cheung; Michael Borre; Michael J. Clarkson; Michael Kerger; Michael Scherer; Mohamed Omar; Nana Mensah; Natalie Kurganovs; Nening Dennis; Noora Al-Muftah; Parsa Pirhady; Patrick McCoy; Peter Georgeson; Peter Van Loo; Philip Dundee; Pier Vitale Nuzzo; Pierre Tennstedt; Pramit M. Phal; Radoslaw Lach; Rajbir N. Batra; Simon Pacey; Ronnie Rodrigues Pereira; Ruining Dong; Ryan Carelli; Ryan Stuchbery; Sam Norden; Samson Olofinsae; Silvia Rodrigues; Stefano Mangiola; Thomas Keane; Toby Milne-Clark; Tony Costello; Valeriia Haberland; Vivien Holmes; Weerachai Jaratlerdsiri; Wi Burns; Wikum Dinalankara; William J. Hutchison; Xiaotong He; Yidan Pan; Yong-Jie Lu; Yunfan Fu; Yves Fradet; Ronald Simon; Guido Sauter; Ros A. Eeles; Colin S. Cooper; Robert G. Bristow; David C. Wedge; Thorsten Schlomm; Geoff Macintyre; Jüri Reimand; Joachim Weischenfeldt</div>
 <div class="meta">official · 相关度 5 · 整合突变特征解析基因组突变过程，可启发作物突变育种与基因组稳定性研究。</div>
 <div class='summary'>标题：整合特征定义前列腺癌中的突变过程
 
@@ -615,7 +640,7 @@ input#q:focus {
 <span class="card-date">2026-09-15</span>
 </div>
 <div class="title">Pan-genome-based resequencing of 2,320 accessions reveals structural variations and accelerates breeding advances in cultivated peanut</div>
-<div class="authors"><span class="authors-label">作者</span>Yiyang Liu; Weitao Li; Rongchong Li; Manish K. Pandey; Bo Bai; Yan Han; Guiying Tang; Lei Zhang; Annapurna Chitkineni; Yanjiao Li; Libing Li; Shulong Li; Vanika Garg; Fengping Du; Feng Cui; Liangqiong He; Lei Shan; Fangji Xu et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Yiyang Liu; Weitao Li; Rongchong Li; Manish K. Pandey; Bo Bai; Yan Han; Guiying Tang; Lei Zhang; Annapurna Chitkineni; Yanjiao Li; Libing Li; Shulong Li; Vanika Garg; Fengping Du; Feng Cui; Liangqiong He; Lei Shan; Fangji Xu; Pingli Xu; Ronghua Tang; Reyazul R. Mir; Feng Guo; Xinguo Li; Jialei Zhang; Zheng Zhang; Kuldeep Singh; Qiang He; Guowei Li; Xinyou Zhang; Rajeev K. Varshney; Shubo Wan</div>
 <div class="meta">official · 相关度 10 · 花生图形泛基因组+2320份材料重测序，解析结构变异与同源交换并直接育成矮化高产材料，是作物泛基因组育种范本。</div>
 <div class='summary'>标题：基于泛基因组的2,320份种质重测序揭示结构变异并加速栽培花生育种进展
 
@@ -653,7 +678,7 @@ input#q:focus {
 <span class="card-date">2026-09-14</span>
 </div>
 <div class="title">APOE -stratified genome-wide association analyses provide insights into the genetic etiology of Alzheimers’s disease</div>
-<div class="authors"><span class="authors-label">作者</span>Jesper Qvist Thomassen; Hampton Leonard; Brittany Ulms; Benjamin Grenier-Boley; Sami Heikkinen; Pablo Garcia-González; Atahualapa Castillo-Morales; Masataka Kikuchi; Jungsoo Gim; Han Cao; Fahri Küçükali; Najaf Amin; Dabin Yoon; Itziar de Rojas; Pilar Alvarez Jerez; Victoria Alvarez; Beatrice Arosio; Céline Bellenguez et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Jesper Qvist Thomassen; Hampton Leonard; Brittany Ulms; Benjamin Grenier-Boley; Sami Heikkinen; Pablo Garcia-González; Atahualapa Castillo-Morales; Masataka Kikuchi; Jungsoo Gim; Han Cao; Fahri Küçükali; Najaf Amin; Dabin Yoon; Itziar de Rojas; Pilar Alvarez Jerez; Victoria Alvarez; Beatrice Arosio; Céline Bellenguez; Sverre Bergh; Kimberley Billingsley; Cornelis Blauwendraat; Merce Boada; Barbara Borroni; Paola Bossù; María J. Bullido; Antonio Daniele; Ángel Carracedo; Alexandre de Mendonça; Mark Cookson; Jürgen Deckert; Martin Dichgans; Srdjan Djurovic; Oriol Dols-Icardo; Carole Dufouil; Emrah Düzel; Valentina Escott-Price; Tormod Fladby; Laura Fratiglioni; Amy K. Y. Fu; Daniela Galimberti; Jose Maria García-Alberca; Vilmantas Giedraitis; Guillermo Garcia-Ribas; Caroline Graff; Timo Grimmer; Edna Grünblatt; Olivier Hanon; Lucrezia Hausner; Stefanie Heilmann-Heimbach; Jakub Hort; Frank Jessen; Kendall Jensen; Caroline Jonson; Yoontae Kim; Nicole Kuznetsov; Ville Leinonen; Anssi Lipponen; Jiao Luo; Mary Makarious; Henna Martiskainen; Carlo Masullo; Patrizia Mecocci; Shima Mehrabian; Pablo Mir; Akinori Miyashita; Susanne Moebus; Kin Y. Mok; Laura Molina Porcel; Fermin Moreno; Benedetta Nacmias; Lucilla Parnetti; Pau Pastor; Jordi Pérez-Tur; Oliver Peters; Yolande A. L. Pijnenburg; Gerard Piñol-Ripoll; Julius Popp; Innocenzo Rainero; Luis M. Real; Steffi Riedel-Heller; Eloy Rodriguez-Rodriguez; Arvid Rongve; Giacomina Rossi; Jose Luis Royo; Dan Rujescu; Ingvild Saltvedt; María Eugenia Sáez; Raquel Sánchez-Valle; Florentino Sanchez-Garcia; Nicolai Sandau; Nikolaos Scarmeas; Katja Scheffler; Norbert Scherbaum; Anja Schneider; Geir Selbæk; Davide Seripa; Vincenzo Solfrizzi; Marco Spallazzi; Alessio Squassina; Eystein Stordal; Niccoló Tesi; Lucio Tremolizzo; Kumar P. Tripathi; Wiesje M. van der Flier; Julie Williams; Jens Wiltfang; Dag Aarsland; Andrew B. Singleton; Philippe Amouyel; Stéphanie Debette; Magda Tsolaki; Gael Nicolas; Sven van der Lee; Henne Holstege; Maria Victoria Fernandez; Patrick Gavin Kehoe; Kristel Sleegers; Martin Ingelsson; Roberta Ghidoni; Ole A. Andreassen; Peter A. Holmans; Pascual Sánchez-Juan; Rebecca Sims; Nancy Y. Ip; Kun Ho Lee; Takeshi Ikeuchi; Alfredo Ramirez; Agustin Ruiz; Mikko Hiltunen; Jean-Charles Lambert; Cornelia van Duijn; Mike Nalls; Ruth Frikke-Schmidt</div>
 <div class="meta">official · 相关度 5 · 按主效位点分层（APOE）做GWAS并整合eQTL，其条件/分层关联策略可迁移到作物主效基因背景下的微效位点挖掘。</div>
 <div class='summary'>标题：APOE分层全基因组关联分析为阿尔茨海默病的遗传病因学提供见解
 
@@ -672,7 +697,7 @@ input#q:focus {
 <span class="card-date">2026-09-11</span>
 </div>
 <div class="title">Contribution of copy number variants to schizophrenia in East Asian populations</div>
-<div class="authors"><span class="authors-label">作者</span>Yu Chen; Qidi Feng; Max Lam; Mingrui Yu; Yaoyao Sun; Cong Huai; Bimal Jana; Jack Fu; Calwing Liao; Robert Ye; Soyeon Kim; Justin D. Tubbs; Omar Shanta; Bhooma Thiruvahindrapuram; Yawen Jen; Guorui Zhao; Jess Wang; Sibylle G. Schwab et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Yu Chen; Qidi Feng; Max Lam; Mingrui Yu; Yaoyao Sun; Cong Huai; Bimal Jana; Jack Fu; Calwing Liao; Robert Ye; Soyeon Kim; Justin D. Tubbs; Omar Shanta; Bhooma Thiruvahindrapuram; Yawen Jen; Guorui Zhao; Jess Wang; Sibylle G. Schwab; Rene Kahn; Kyung-Sue Hong; Ming Tsuang; Masanari Itokawa; Jianjun Liu; Stephen J. Glatt; Nakao Iwata; Masashi Ikeda; Jimmy Lee; Yunfeng Ruan; Ruize Liu; Yasue Horiuchi; Byung-Dae Lee; Eun-Jeong Joo; Woojae Myung; Kyooseob Ha; Hong-Hee Won; Ji-Hyun Baek; Young-Chul Chung; Sung-Wan Kim; Dieter B. Wildenauer; Agung Kusumawardhani; Hai-Gwo Hwu; Kang Sim; Akitoyo Hishimoto; Ikuo Otsuka; Ichiro Sora; Tomoko Toyota; Takeo Yoshikawa; Hiroshi Kunugi; Kotaro Hattori; Sayuri Ishiwata; Shusuke Numata; Tetsuro Ohmori; Makoto Arai; Yuji Ozeki; Kumiko Fujii; Se-Joo Kim; Heon-Jeong Lee; Yong-Min Ahn; Se-Hyun Kim; Kazufumi Akiyama; Kazutaka Shimoda; Makoto Kinoshita; Teruhiko Higuchi; Alice Zheng; Lu Shen; Takeo Saito; Yanhui Liao; Shanshan Chen; Toshiya Murai; Jun Miyata; Yujiro Yoshihara; Norio Ozaki; Itaru Kushima; Takahiro A. Kato; Shigenobu Kanba; Minoru Takebayashi; Shuken Boku; Toshifumi Kishimoto; Michihiro Toritsuka; Hiroki Ishiguro; Tetsuaki Arai; Masayuki Ide; Michio Suzuki; Yoichiro Takayanagi; Hideyuki Okano; Masaru Mimura; Hideto Niimura; Shogyoku Bun; Naohiro Arai; Juan Xu; Wenzhao Shi; Stephen W. Scherer; Feng Zhu; Chih-Min Liu; Zhenglin Guo; Daniel Howrigan; Mark Daly; Benjamin M. Neale; Akira Sawa; Jonathan Sebat; Michael E. Talkowski; Jinsong Tang; Xiancang Ma; Wei J. Chen; Shengying Qin; Weihua Yue; Tian Ge; Hailiang Huang</div>
 <div class="meta">official · 相关度 4 · 大样本稀有CNV负荷与跨群体比较分析，方法可迁移到作物结构变异/拷贝数变异的群体遗传与表型关联研究。</div>
 <div class='summary'>标题：拷贝数变异对东亚人群精神分裂症的贡献
 
@@ -691,7 +716,7 @@ input#q:focus {
 <span class="card-date">2026-09-08</span>
 </div>
 <div class="title">Cohesin prevents local mixing of condensed euchromatic domains in living human cells</div>
-<div class="authors"><span class="authors-label">作者</span>Masa A. Shimazoe; Shiori Iida; Katsuhiko Minami; Koichi Higashi; Sachiko Tamura; Yoshiaki Kobayashi; Shin Fujishiro; Le Xiong; Kako Nakazato; S. S. Ashwin; Tomoko Nishiyama; Yu Nagata; Masato T. Kanemaki; Akane Kawaguchi; Yasuyuki Ohkawa; Lothar Schermelleh; Atsushi Toyoda; Liangqi Xie et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Masa A. Shimazoe; Shiori Iida; Katsuhiko Minami; Koichi Higashi; Sachiko Tamura; Yoshiaki Kobayashi; Shin Fujishiro; Le Xiong; Kako Nakazato; S. S. Ashwin; Tomoko Nishiyama; Yu Nagata; Masato T. Kanemaki; Akane Kawaguchi; Yasuyuki Ohkawa; Lothar Schermelleh; Atsushi Toyoda; Liangqi Xie; Ken Kurokawa; Hiroshi Ochiai; Masaki Sasai; Kazuhiro Maeshima</div>
 <div class="meta">official · 相关度 5 · 黏连蛋白维持真核染色质结构域完整性与转录绝缘，对作物三维基因组、染色质构象与基因表达调控研究有机制启发。</div>
 <div class='summary'>标题：黏连蛋白防止活体人类细胞中凝聚的常染色质结构域发生局部混合
 
@@ -821,7 +846,7 @@ input#q:focus {
 <span class="card-date">2026-09-10</span>
 </div>
 <div class="title">Decoding the landscape of cell-type-specific co-expressed transcription factors in soybean</div>
-<div class="authors"><span class="authors-label">作者</span>Sandra B. Thibivilliers; Sergio Alan Cervantes-Pérez; Eric J. Y. Yang; Yaohua Li; Sahand Amini; Julie M. Pelletier; Ian Meyer; Hengping Xu; Sutton Tennant; Chandler M. Sprueill; Andrew D. Farmer; Jeremy E. Coate; Hilde Nelissen; Olivier C. Martin; Erik J. Amézquita; Robert B. Goldberg; John J. Harada; Jason Nichols et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Sandra B. Thibivilliers; Sergio Alan Cervantes-Pérez; Eric J. Y. Yang; Yaohua Li; Sahand Amini; Julie M. Pelletier; Ian Meyer; Hengping Xu; Sutton Tennant; Chandler M. Sprueill; Andrew D. Farmer; Jeremy E. Coate; Hilde Nelissen; Olivier C. Martin; Erik J. Amézquita; Robert B. Goldberg; John J. Harada; Jason Nichols; Marc Libault</div>
 <div class="meta">official · 相关度 9 · 构建大豆单细胞转录组图谱并解析细胞类型特异转录因子，直接助力作物单细胞组学和功能基因组学。</div>
 <div class='summary'>标题：解码大豆细胞类型特异性共表达转录因子的图景
 
@@ -897,7 +922,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">Phosphate backbone epitranscriptomics: Discovery of natural RNA phosphorothioates and their writer machinery</div>
-<div class="authors"><span class="authors-label">作者</span>Alexander Maman; Yuko Nobe; Kristin A. Fluke; Katrin Weidenbach; Alexandra N. Harte; Brett W. Burkhart; Jakub Nowak; Priyadarshini Mukherjee; Deepak Kumar Choudhary; Anatoly Kustanovich; Ronit Nir; Katharina Vogl; Kiall Suazo; Danijela Radovanović; Donna Matzov; Walter Rossmanith; Jordan L. Meier; Moran Shalev-Benami et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Alexander Maman; Yuko Nobe; Kristin A. Fluke; Katrin Weidenbach; Alexandra N. Harte; Brett W. Burkhart; Jakub Nowak; Priyadarshini Mukherjee; Deepak Kumar Choudhary; Anatoly Kustanovich; Ronit Nir; Katharina Vogl; Kiall Suazo; Danijela Radovanović; Donna Matzov; Walter Rossmanith; Jordan L. Meier; Moran Shalev-Benami; Dina Grohmann; Kylie D. Allen; Eric Westhof; Sebastian Glatt; Ruth A. Schmitz; Thomas J. Santangelo; Masato Taoka; Schraga Schwartz</div>
 <div class="meta">official · 相关度 6 · 发现天然 RNA 磷酸硫代修饰及其 writer，启发作物表观转录组与 RNA 修饰研究。</div>
 <div class='summary'>标题：磷酸骨架表观转录组学：天然 RNA 硫代磷酸酯及其写入机器的发现
 
@@ -970,7 +995,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">Predicting cellular responses to perturbation across diverse contexts with State.</div>
-<div class="authors"><span class="authors-label">作者</span>Abhinav K. Adduri; Dhruv Gautam; Beatrice Bevilacqua; Mohsen Naghipourfar; Alishba Imran; Rohan Shah; Noam Teyssier; Rishi Verma; Christopher Carpenter; Basak Eraslan; Francis Chalissery; Rajesh Ilango; Vishvak Subramanyam; Chiara Ricci-Tam; Sanjay Nagaraj; Aidan Winters; Mingze Dong; Stefanie Fellinger et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Abhinav K. Adduri; Dhruv Gautam; Beatrice Bevilacqua; Mohsen Naghipourfar; Alishba Imran; Rohan Shah; Noam Teyssier; Rishi Verma; Christopher Carpenter; Basak Eraslan; Francis Chalissery; Rajesh Ilango; Vishvak Subramanyam; Chiara Ricci-Tam; Sanjay Nagaraj; Aidan Winters; Mingze Dong; Stefanie Fellinger; Adam Krejci; Tilmann Burckstummer; Sravya Tirukkovular; Jeremy Sullivan; Brian S. Plosky; Nicholas D. Youngblut; Jure Leskovec; Luke A. Gilbert; Silvana Konermann; Patrick D. Hsu; Alexander Dobin; Dave P. Burke; Hani Goodarzi; Yusuf H. Roohani</div>
 <div class="meta">official · 相关度 8 · 跨细胞环境预测扰动响应的单细胞AI模型，对作物基因扰动预测、功能基因组学与eQTL/网络分析有强启发。</div>
 <div class='summary'>标题：利用 State 预测跨多种情境的细胞对扰动的响应
 
@@ -1028,7 +1053,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">Synthetic transcription factors designed by domain recombination enhance CAR T cell antitumor function.</div>
-<div class="authors"><span class="authors-label">作者</span>Oliver Takacsi-Nagy; Sivakanthan Kasinathan; Austin Hartman; Yajie Yin; Lujing Wu; Andy Y. Chen; Laura M. Moser; Audre P. May; Gabriella C. Reeder; Emily Celallos Fuentes; Courtney Kernick; Johnathan Lu; Alison K. McClellan; Colin J. Raposo; Brendan Terrall; Nicole E. Theberath; Patrick K. Yan; Peng Xu et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Oliver Takacsi-Nagy; Sivakanthan Kasinathan; Austin Hartman; Yajie Yin; Lujing Wu; Andy Y. Chen; Laura M. Moser; Audre P. May; Gabriella C. Reeder; Emily Celallos Fuentes; Courtney Kernick; Johnathan Lu; Alison K. McClellan; Colin J. Raposo; Brendan Terrall; Nicole E. Theberath; Patrick K. Yan; Peng Xu; Elena Sotillo; Justin Eyquem; Crystal L. Mackall; Theodore L. Roth; Ansuman T. Satpathy</div>
 <div class="meta">official · 相关度 7 · 通过结构域重组设计合成转录因子并重编程细胞状态，可启发作物合成生物学与人工转录因子育种改良。</div>
 <div class='summary'>标题：通过结构域重组设计的合成转录因子增强 CAR T 细胞抗肿瘤功能。
 
@@ -1066,7 +1091,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">Tahoe-100M: Mapping drug-induced molecular phenotypes at single-cell resolution.</div>
-<div class="authors"><span class="authors-label">作者</span>Jesse Zhang; Airol A. Ubas; Valentine Svensson; Nicole Thomas; Vishvak Subramanyam; Christopher Carpenter; Aidan Winters; Richard de Borja; Noam Teyssier; Neha Thakar; Umair Khan; Pooja V. Akella; Harper J. Green; John D. Thompson; Vuong Tran; Joseph Pangallo; Efthymia Papalexi; Ajay Sapre et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Jesse Zhang; Airol A. Ubas; Valentine Svensson; Nicole Thomas; Vishvak Subramanyam; Christopher Carpenter; Aidan Winters; Richard de Borja; Noam Teyssier; Neha Thakar; Umair Khan; Pooja V. Akella; Harper J. Green; John D. Thompson; Vuong Tran; Joseph Pangallo; Efthymia Papalexi; Ajay Sapre; Hoai Nguyen; Oliver Sanderson; Maria Nigos; Olivia Kaplan; Sarah Schroeder; Bryan Hariadi; Simone Marrujo; Crina Curca; Alec Salvino; Guillermo Gallareta Olivares; Ryan Koehler; Alexander Rosenberg; Charles Roco; Chiara Ricci-Tam; Matthew G. Jones; Alexander Dobin; Brian S. Plosky; Danielle E. Lyons; Daniele Merico; Nima Alidoust; Hani Goodarzi; Johnny Yu</div>
 <div class="meta">official · 相关度 6 · 大规模单细胞扰动图谱及表型量化方法，对作物单细胞水平胁迫/处理响应研究有方法学启发。</div>
 <div class='summary'>标题：Tahoe-100M：在单细胞分辨率下绘制药物诱导的分子表型。
 
@@ -1096,7 +1121,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">Advancing cancer detection and treatment using longitudinal routine clinical data.</div>
-<div class="authors"><span class="authors-label">作者</span>Fei Liu; Kai Wang; Hui Xu; Cheng Tang; Xian Shen; Meihao Wang; Lei Yang; Li Yang; Li Liu; Changxi Hu; Gen Li; Wei Wu; Zixing Zou; Bingzhou Li; Sian Liu; Jin Kang; Jungho Kong; Ting Li et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Fei Liu; Kai Wang; Hui Xu; Cheng Tang; Xian Shen; Meihao Wang; Lei Yang; Li Yang; Li Liu; Changxi Hu; Gen Li; Wei Wu; Zixing Zou; Bingzhou Li; Sian Liu; Jin Kang; Jungho Kong; Ting Li; Io Nam Wong; Xiaoying Huang; Gang Chen; Wenyang Lu; Ian Ziyar; Charlotte L. Zhang; Yiwen Sun; Weihong Lin; Caiwen Ou; Manson Fok; Taiwa Hou; Winston Wang; Kanmin Xue; Yun Yin; Hao Zhu; Jonathan Gootenberg; Omar O. Abudayyeh; Michael Karin; Alexandre Loupy; John E.J. Rasko; Trey Ideker; Huiyan Luo; Eric Oermann; Kang Zhang</div>
 <div class="meta">official · 相关度 6 · 多模态Transformer整合纵向临床数据，可迁移到作物多时相表型/多组学预测。</div>
 <div class='summary'>标题：利用纵向常规临床数据推进癌症检测与治疗
 
@@ -1168,7 +1193,7 @@ input#q:focus {
 <span class="card-date">2026-09-16</span>
 </div>
 <div class="title">3D chromatin remodeling during domestication defines novel targets for crop improvement</div>
-<div class="authors"><span class="authors-label">作者</span>Xianhui Huang; Yabin Peng; Xiubao Hu; Yuejin Wang; Zeyu Zhang; Xianzhe Huang; Xuanxuan Luo; Sainan Zhang; Zengyuan Zhao; Erin Farmer; Sheng-Kai Hsu; Corrinne E. Grover; Zhengyang Qi; Lu Li; Jinglei Yang; Yinfang He; Zhiwei Chen; Yuanhang Zhang et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Xianhui Huang; Yabin Peng; Xiubao Hu; Yuejin Wang; Zeyu Zhang; Xianzhe Huang; Xuanxuan Luo; Sainan Zhang; Zengyuan Zhao; Erin Farmer; Sheng-Kai Hsu; Corrinne E. Grover; Zhengyang Qi; Lu Li; Jinglei Yang; Yinfang He; Zhiwei Chen; Yuanhang Zhang; Ye Mei; Pengcheng Deng; Yang Meng; Yufei Wang; Mengyuan Ji; Junyuan Lv; Liuling Pei; Fang Liu; Xinhui Nie; Lili Tu; Keith Lindsey; Adnane Boualem; Abdelhafid Bendahmane; Jonathan F. Wendel; Michael A. Gore; Xianlong Zhang; Maojun Wang</div>
 <div class="meta">official · 相关度 10 · 驯化过程中 3D 染色质重塑直接定义作物改良新靶点，高度契合育种与功能基因组学。</div>
 <div class='summary'>标题：驯化过程中的三维染色质重塑确定了作物改良的新靶点
 
@@ -1255,7 +1280,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">Transcriptome-based classification in mice with ASD-risk mutations</div>
-<div class="authors"><span class="authors-label">作者</span>Junyeop Daniel Roh; Yukyung Jun; Heesu Jeon; Junyoung Kim; Yunho Yi; Minji Kim; Heejin Cho; Yusang Oh; Heera Moon; Jinkyeong Kim; Seongbin Kim; Jeseung Ryu; Muwon Kang; Jisoo Kim; Yeonghyeon Kim; Yewon Jung; Taesun Yoo; Hyoseon Oh et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Junyeop Daniel Roh; Yukyung Jun; Heesu Jeon; Junyoung Kim; Yunho Yi; Minji Kim; Heejin Cho; Yusang Oh; Heera Moon; Jinkyeong Kim; Seongbin Kim; Jeseung Ryu; Muwon Kang; Jisoo Kim; Yeonghyeon Kim; Yewon Jung; Taesun Yoo; Hyoseon Oh; Hyosang Kim; Chunmei Jin; Yeji Yang; Gahyeon Choi; Sunjoo Ahn; Jin Young Kim; Hyojin Kang; Mihyun Bae; Eunjoon Kim</div>
 <div class="meta">official · 相关度 7 · 跨突变系转录组分类与单核RNA-seq框架可迁移到作物突变体表型分组、eQTL/网络和分子分层。</div>
 <div class='summary'>标题：基于转录组对携带ASD风险突变小鼠的分类
 
@@ -1312,7 +1337,7 @@ input#q:focus {
 <span class="card-date">2026-09-17</span>
 </div>
 <div class="title">An expert-level generalist AI for abdominal CT diagnosis</div>
-<div class="authors"><span class="authors-label">作者</span>Qi Zhang; Jianpeng Zhang; Weiwei Cao; Zilin Lu; Wanxing Chang; Haonan Ding; Cao Chen; Zhi Li; Xing Xue; Sinuo Wang; Shaoteng Zhang; Yutong Xie; Yong Xia; Qi Wu; Zhongyi Shui; Xi Li; Zhilin Zheng; Yanjie Zhou et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Qi Zhang; Jianpeng Zhang; Weiwei Cao; Zilin Lu; Wanxing Chang; Haonan Ding; Cao Chen; Zhi Li; Xing Xue; Sinuo Wang; Shaoteng Zhang; Yutong Xie; Yong Xia; Qi Wu; Zhongyi Shui; Xi Li; Zhilin Zheng; Yanjie Zhou; Tony C.W. Mok; Yingda Xia; Hongkan Wang; Xianghua Ye; Tao Ma; Jie Peng; Xiaoguang Wang; Jian Ding; Yuming Gao; Huazhen Ye; Yiping Liu; Dongjie Chen; Zhaomin Ni; Jianwen Ning; Wei Zhang; Jian Liu; Chaohui Yu; Shenghong Ju; Jianfeng Zhang; Wenbo Xiao; Ling Zhang; Tingbo Liang</div>
 <div class="meta">official · 相关度 6 · 通用视觉-语言医学影像AI可从临床报告学习并泛化，可启发作物高通量表型/病害图像诊断模型。</div>
 <div class='summary'>标题：用于腹部CT诊断的专家级通用人工智能
 
@@ -1353,7 +1378,7 @@ input#q:focus {
 <span class="card-date">2026-09-10</span>
 </div>
 <div class="title">Glycan recognition by a plant damage-sensing immune receptor</div>
-<div class="authors"><span class="authors-label">作者</span>Pedro Jiménez-Sandoval; Owen Kentish; Caroline Broyart; Hyun Kyung Lee; Klara Culjak; Uwe Osswald; Meriem Aitouguinane; Emanuele Tettamanti; Manon Schmidli; Lu Zhang; Louis-Philippe Maier; Charles Roussin-Léveillée; Diego José Berlanga; Marina Martin-Dacal; Miguel Angel Torres; Varun Kumar; Patricia Fernández-Calvo; José M. Jimenez-Gomez et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Pedro Jiménez-Sandoval; Owen Kentish; Caroline Broyart; Hyun Kyung Lee; Klara Culjak; Uwe Osswald; Meriem Aitouguinane; Emanuele Tettamanti; Manon Schmidli; Lu Zhang; Louis-Philippe Maier; Charles Roussin-Léveillée; Diego José Berlanga; Marina Martin-Dacal; Miguel Angel Torres; Varun Kumar; Patricia Fernández-Calvo; José M. Jimenez-Gomez; Philippe Reymond; Alberto P. Macho; Fabian Pfrengle; Lucía Jordá; Antonio Molina; Julia Santiago</div>
 <div class="meta">official · 相关度 9 · 解析植物细胞壁损伤信号受体IGP1识别纤维素衍生DAMP的结构机制，直接关联作物抗病免疫受体改造与抗性育种。</div>
 <div class='summary'>标题：植物损伤感知免疫受体的聚糖识别
 
@@ -1391,7 +1416,7 @@ input#q:focus {
 <span class="card-date">2026-09-10</span>
 </div>
 <div class="title">Manipulation of protein translation and stem cell self-renewal by CRISPR activation of rRNA transcription</div>
-<div class="authors"><span class="authors-label">作者</span>Maximilian Wiesbeck; Emilie L. Alard; Florencia Merino; Niti Chowdhury; Luisa Egert; Anna Danese; Simon Imhof; Matilde Iraci Borgia; Akshaya Rajan; Nadine Fernandez-Novel Marx; Edina Kepesidis; Anna Köferle; Luis Miguel Cerron-Alvan; Franziska Vierl; Thi-Tram Truong; Manja Thorwirth; Lorina Bilalli; André Santos Dias Mourão et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Maximilian Wiesbeck; Emilie L. Alard; Florencia Merino; Niti Chowdhury; Luisa Egert; Anna Danese; Simon Imhof; Matilde Iraci Borgia; Akshaya Rajan; Nadine Fernandez-Novel Marx; Edina Kepesidis; Anna Köferle; Luis Miguel Cerron-Alvan; Franziska Vierl; Thi-Tram Truong; Manja Thorwirth; Lorina Bilalli; André Santos Dias Mourão; Jovica Ninkovic; Rico Schieweck; Markus Diefenbacher; Stefanie M. Hauck; Paul A. Trainor; Faraz K. Mardakheh; Magdalena Götz; Stefan H. Stricker</div>
 <div class="meta">official · 相关度 7 · CRISPR激活rRNA/翻译调控干细胞自我更新的方法可启发作物CRISPRa、再生与分生组织翻译调控研究。</div>
 <div class='summary'>标题：通过CRISPR激活rRNA转录操控蛋白质翻译与干细胞自我更新
 
@@ -1410,7 +1435,7 @@ input#q:focus {
 <span class="card-date">2026-09-10</span>
 </div>
 <div class="title">Growth rate overrides the benefit of extended growing season from boreal to semiarid conifers</div>
-<div class="authors"><span class="authors-label">作者</span>Antoine Cabon; Patrick Fonti; Georg von Arx; Franco Biondi; J. Julio Camarero; Filipe Campelo; Marco Carrer; Katarina Čufar; Henri Cuny; Annie Deslauriers; Marek Fajstavr; Marina Fonti; David Frank; Alessio Giovannelli; Andreas Gruber; Jožica Gričar; Vladimír Gryc; Aylin Güney et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Antoine Cabon; Patrick Fonti; Georg von Arx; Franco Biondi; J. Julio Camarero; Filipe Campelo; Marco Carrer; Katarina Čufar; Henri Cuny; Annie Deslauriers; Marek Fajstavr; Marina Fonti; David Frank; Alessio Giovannelli; Andreas Gruber; Jožica Gričar; Vladimír Gryc; Aylin Güney; Minhui He; Petr Horáček; Jianguo Huang; Malcolm Hughes; Yuan Jiang; Hans-Peter Kahle; Gregory King; Alexander V. Kirdyanov; Elena Larysch; Xiaoxia Li; Eryuan Liang; Martín de Luis; Harri Mäkinen; Edurne Martínez del Castillo; Sergei Mikhailov; Tobias Walter Miller; Kiyomi Morino; Cristina Nabais; Walter Oberhuber; Momchil Panayotov; Richard L. Peters; Peter Prislan; Sergio Rossi; Seyedehmasoumeh Saderi; Antonio Saracino; Luigi Saulino; Roberto Silvestro; Thomas Seifert; Anne Sophie Sergent; Dominik Florian Stangler; Marko Stojanović; Vaclav Treml; Hanuš Vavrčík; Joana Vieira; Wenjin Wang; Gerhard Wieser; Bao Yang; Yiping Zhang; Emanuele Ziaco; Cyrille B. K. Rathgeber</div>
 <div class="meta">official · 相关度 6 · 用细胞学观测量化形成层分裂速率与生长季长度的相对贡献，思路可迁移到作物生长模型与气候变暖下的产量/生物量预测。</div>
 <div class='summary'>标题：从寒带到半干旱针叶林，生长速率压倒了延长生长季带来的益处
 
@@ -1467,7 +1492,7 @@ input#q:focus {
 <span class="card-date">2026-09-10</span>
 </div>
 <div class="title">Extensive and differential platinum chemotherapy mutagenesis in livers of children</div>
-<div class="authors"><span class="authors-label">作者</span>Anna Wenger; Jean-Baptiste Vannier; Henry Lee-Six; Robin Loesch; Giulia Emanuelli; Manas Dave; Mehdi Layeghifard; Andrew R. J. Lawson; Federico Abascal; Pantelis A. Nicola; Taryn D. Treger; Toochi Ogbonnah; Conor Parks; Thomas R. W. Oliver; Jonathan Kennedy; Angus Hodder; Nathaniel D. Anderson; Felipe Luz Torres Silva et al.</div>
+<div class="authors"><span class="authors-label">作者</span>Anna Wenger; Jean-Baptiste Vannier; Henry Lee-Six; Robin Loesch; Giulia Emanuelli; Manas Dave; Mehdi Layeghifard; Andrew R. J. Lawson; Federico Abascal; Pantelis A. Nicola; Taryn D. Treger; Toochi Ogbonnah; Conor Parks; Thomas R. W. Oliver; Jonathan Kennedy; Angus Hodder; Nathaniel D. Anderson; Felipe Luz Torres Silva; Mi K. Trinh; Thomas Dowe; Marwo Habarwaa; James J. Sun; Sergio Assia-Zamora; Miriam Cortes-Cerisuelo; Wayel Jassem; Charlotte Town; Anil Dhawan; Vandana Jain; Karin Straathof; Maesha Deheragoda; Iñigo Martincorena; Liina Palm; J. Ciaran Hutchinson; Tim H. H. Coorens; Claire Trayers; Mariia Yuneva; Nigel Heaton; Adam Shlien; Yoh Zen; Foad J. Rouhani; Sam Behjati</div>
 <div class="meta">official · 相关度 5 · NanoSeq/duplex sequencing超灵敏突变检测与突变特征分析可启发作物诱变育种、体细胞变异和基因编辑脱靶评估。</div>
 <div class='summary'>标题：儿童肝脏中广泛且差异性的铂类化疗致突变
 
@@ -1482,6 +1507,7 @@ input#q:focus {
 </div>
 </section>
 </main></div>
+<button type='button' class='scroll-top' id='scrollTopBtn' aria-label='回到顶部'>↑ 回到顶部</button>
 <div class='footer'>本地脚本生成 · 摘要依据抓到的题录与摘要，请以原文为准</div>
 <script>
 function filterCards() {
@@ -1509,6 +1535,16 @@ function filterCards() {
   }, { root: null, rootMargin: '-25% 0px -60% 0px', threshold: [0, 0.08, 0.2, 0.4] });
   sections.forEach(section => observer.observe(section));
   setActive(sections[0].id);
+})();
+(function initScrollTop() {
+  const btn = document.getElementById('scrollTopBtn');
+  if (!btn) return;
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 320);
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 })();
 </script>
 </body></html>

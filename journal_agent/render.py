@@ -235,6 +235,31 @@ input#q:focus {
   font-weight:550;
 }
 .link-row a:hover { background:#d1fae5; }
+.scroll-top {
+  position:fixed;
+  left:18px;
+  bottom:18px;
+  z-index:80;
+  padding:10px 14px;
+  border:none;
+  border-radius:999px;
+  background:#16a34a;
+  color:#fff;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(22,163,74,.35);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.scroll-top.show {
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.scroll-top:hover { background:#15803d; }
 .footer {
   text-align:center;
   color:#5d7262;
@@ -276,6 +301,16 @@ function filterCards() {
   }, { root: null, rootMargin: '-25% 0px -60% 0px', threshold: [0, 0.08, 0.2, 0.4] });
   sections.forEach(section => observer.observe(section));
   setActive(sections[0].id);
+})();
+(function initScrollTop() {
+  const btn = document.getElementById('scrollTopBtn');
+  if (!btn) return;
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 320);
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 })();
 </script>
 """.strip()
@@ -369,6 +404,9 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
             parts.append("</div>")
         parts.append("</section>")
     parts.append("</main></div>")
+    parts.append(
+        "<button type='button' class='scroll-top' id='scrollTopBtn' aria-label='回到顶部'>↑ 回到顶部</button>"
+    )
     parts.append("<div class='footer'>本地脚本生成 · 摘要依据抓到的题录与摘要，请以原文为准</div>")
     parts.append(SCRIPT)
     parts.append("</body></html>")
