@@ -73,10 +73,13 @@ header .stats { margin:0; font-size:13px; opacity:.92; line-height:1.45; }
 }
 .hero img {
   display:block;
-  width:140px;
-  max-height:120px;
+  width:auto;
+  max-width:320px;
+  height:auto;
+  max-height:140px;
   border-radius:12px;
-  object-fit:cover;
+  object-fit:contain;
+  object-position:center;
   flex-shrink:0;
   box-shadow:0 4px 14px rgba(0,0,0,.12);
 }
@@ -201,7 +204,7 @@ input#q:focus {
   .container { flex-direction:column; }
   nav.sidebar { position:static; width:auto; max-height:none; }
   .hero-inner { flex-direction:column; text-align:center; }
-  .hero img { width:100%; max-width:280px; max-height:160px; }
+  .hero img { max-width:100%; width:auto; height:auto; max-height:200px; object-fit:contain; }
 }
 """.strip()
 
