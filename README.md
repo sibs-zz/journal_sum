@@ -1,6 +1,6 @@
 # Journal Agent
 
-面向作物科学、育种和功能基因组学的文献雷达。每次运行只回看最近半个月，先到期刊官网找生物学研究论文，再补一批植物与生命科学公众号，并用本地缓存跳过已经整理过的文章。
+面向作物科学、育种和功能基因组学的文献雷达。每次运行只回看最近半个月，从 Nature 系、Cell、Science 抓取生物学研究论文，并用本地缓存跳过已经整理过的文章。
 
 ## 为什么改成这样
 
@@ -33,20 +33,17 @@
 
 - 已经写过中文总结的，下次直接跳过
 - 已经判定为与作物方向无关的，下次也不再送去打分
-- 公众号若与已经处理过的官网论文是同一篇（DOI、英文标题或中文译题对得上），也跳过
-
-公众号标题若是完全另写的中文、又没有 DOI，有可能认不出是同一篇论文。这种情况下两处都会保留。
-
-## 公众号
-
-公众号不限于上面五个期刊，用来补中文解读和其他植物、生命科学来源。目前跟踪四个栏目：植物科学最前沿、BioArt植物、BioArt、iPlants。同样只取最近半个月。
-
-列表与日期来自 **今天看啥** 栏目页；每条再用 **搜狗微信搜索** 按标题检索 `txt-info` 摘要（不是全文，但比只有标题多一段可总结的导语）。微信原文仍常需登录，摘要请以链接为准。
 
 ## 页面
 
-- `site/index_YYYY-MM-DD.html`：当日摘要
+- `site/index_YYYY-MM-DD.html`：当日摘要（顶栏含返回目录；正文区展示 `soybean.jpg`）
 - `site/index.html`：**日期目录**（卡片列表，不自跳转到当天）；最新日期标红并带 ★
+
+仅重建 HTML、不重新抓取时：
+
+```bash
+python journal_summarizer_v4.py --rebuild-page
+```
 
 ## 运行
 
@@ -79,7 +76,7 @@ python journal_summarizer_v4.py
 
 ```text
 journal_summarizer_v4.py    入口
-journal_agent/sources.py    官网与公众号抓取
+journal_agent/sources.py    期刊官网抓取
 journal_agent/rank.py       作物视角筛选和中文总结
 journal_agent/common.py     缓存与 HTTP
 journal_agent/render.py     每日页面

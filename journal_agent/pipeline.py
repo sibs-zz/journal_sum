@@ -1,4 +1,4 @@
-"""Run one harvest: official journals first, then WeChat, with a shared cache."""
+"""Run one harvest: official journal sites with a shared cache."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from datetime import date
 from journal_agent.common import Article, ArticleCache, Http, MAX_WORKERS, cutoff_date, setup_logging
 from journal_agent.rank import Ranker
 from journal_agent.render import write_report
-from journal_agent.sources import fetch_cell, fetch_nature_family, fetch_science, fetch_wechat
+from journal_agent.sources import fetch_cell, fetch_nature_family, fetch_science
 
 logger = logging.getLogger("journal_agent")
 
@@ -74,10 +74,31 @@ def _fetch_official(label: str, fetcher) -> tuple[str, list[Article]]:
 def _merge_for_report(cache: ArticleCache, kept: list[Article]) -> list[Article]:
     """Daily HTML lists all summarized papers in the lookback window, not only this run."""
     cutoff = cutoff_date()
-    merged: dict[str, Article] = {a.dedupe_key: a for a in cache.summarized_in_window(cutoff)}
+    merged: dict[str, Article] = {
+        a.dedupe_key: a
+        for a in cache.summarized_in_window(cutoff)
+        if a.source != "wechat"
+    }
     for article in kept:
-        merged[article.dedupe_key] = article
+        if article.source != "wechat":
+            merged[article.dedupe_key] = article
     return list(merged.values())
+
+
+def rebuild_page_from_cache() -> None:
+    """Regenerate today's HTML from cache (no fetch / LLM). Drops wechat entries."""
+    setup_logging()
+    cache = ArticleCache()
+    removed = cache.purge_wechat()
+    if removed:
+        logger.info("已从缓存删除 %d 条公众号记录", removed)
+    articles = _merge_for_report(cache, [])
+    grouped: dict[str, list[Article]] = defaultdict(list)
+    for article in articles:
+        grouped[article.journal].append(article)
+    trends = {journal: "" for journal in grouped}
+    write_report(articles, trends, {"fetched": 0, "cached": 0, "duplicate": 0})
+    logger.info("已从缓存重建页面，共 %d 篇期刊文献", len(articles))
 
 
 def run() -> None:
@@ -107,25 +128,6 @@ def run() -> None:
                 official_by_journal[article.journal].append(article)
 
     for journal, articles in official_by_journal.items():
-        kept.extend(_judge(ranker, cache, journal, articles))
-
-    try:
-        wechat = fetch_wechat(Http())
-    except Exception as exc:
-        logger.error("公众号抓取失败: %s", exc, exc_info=True)
-        wechat = []
-    wechat_by_journal: dict[str, list[Article]] = defaultdict(list)
-    for article in wechat:
-        stats["fetched"] += 1
-        if cache.is_finished(article) or cache.overlaps_known(article):
-            stats["duplicate" if cache.overlaps_known(article) and not cache.is_finished(article) else "cached"] += 1
-            if not cache.is_finished(article):
-                cache.save(article, "dismissed")
-                article.reason = article.reason or "与已处理文献重复"
-            logger.info("公众号跳过 %s", article.title[:80])
-            continue
-        wechat_by_journal[article.journal].append(article)
-    for journal, articles in wechat_by_journal.items():
         kept.extend(_judge(ranker, cache, journal, articles))
 
     trends = {}

@@ -289,6 +289,12 @@ class ArticleCache:
             )
             self.conn.commit()
 
+    def purge_wechat(self) -> int:
+        with self._lock:
+            cur = self.conn.execute("DELETE FROM articles WHERE source = 'wechat'")
+            self.conn.commit()
+            return cur.rowcount
+
     def summarized_in_window(self, cutoff: date) -> list[Article]:
         with self._lock:
             rows = self.conn.execute(

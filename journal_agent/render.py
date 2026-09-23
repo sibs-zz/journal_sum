@@ -12,26 +12,197 @@ from journal_agent.common import OUTPUT_DIR, Article
 
 logger = logging.getLogger("journal_agent")
 
+JOURNAL_ORDER = (
+    "Nature",
+    "Nature Genetics",
+    "Nature Plants",
+    "Cell",
+    "Science",
+)
+
 STYLES = """
-body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; background:#e5f6e8; color:#1b3a1f; }
-header { background:#1f7a3a; color:#fff; padding:18px 24px; display:flex; align-items:flex-start; gap:16px; }
-.back-home { flex:none; display:inline-flex; align-items:center; padding:8px 14px; margin-top:2px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; text-decoration:none; font-size:14px; font-weight:550; white-space:nowrap; transition:background .15s ease; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;
+  background:linear-gradient(180deg,#e5f6e8 0%,#f0f7f2 240px,#eef5ef 100%);
+  color:#1b3a1f;
+}
+header {
+  background:linear-gradient(120deg,#14532d,#1f7a3a);
+  color:#fff;
+  padding:16px 24px;
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  box-shadow:0 4px 18px rgba(20,83,45,.25);
+}
+.back-home {
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  padding:8px 14px;
+  margin-top:2px;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:8px;
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:550;
+  white-space:nowrap;
+  transition:background .15s ease;
+}
 .back-home:hover { background:rgba(255,255,255,.28); color:#fff; }
 .header-main { flex:1; min-width:0; }
-h1 { margin:0 0 6px; font-size:26px; }
-.container { display:flex; gap:18px; padding:18px; max-width:1200px; margin:0 auto; }
-nav { width:220px; flex:none; }
-nav a { display:block; background:#fff; margin-bottom:8px; padding:8px 10px; border-radius:8px; color:#1f7a3a; text-decoration:none; }
+header h1 { margin:0 0 6px; font-size:22px; letter-spacing:.02em; }
+header .stats { margin:0; font-size:13px; opacity:.92; line-height:1.45; }
+.hero {
+  max-width:1200px;
+  margin:16px auto 0;
+  padding:0 18px;
+}
+.hero-inner {
+  background:linear-gradient(135deg,rgba(34,197,94,.16),rgba(255,255,255,.85));
+  border:1px solid rgba(22,163,74,.2);
+  border-radius:16px;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  box-shadow:0 2px 12px rgba(31,122,58,.08);
+}
+.hero img {
+  display:block;
+  width:140px;
+  max-height:120px;
+  border-radius:12px;
+  object-fit:cover;
+  flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+}
+.hero-text-title { font-size:17px; font-weight:650; color:#064e3b; margin-bottom:6px; }
+.hero-text-sub { font-size:13px; color:#166534; line-height:1.55; max-width:720px; }
+.container {
+  display:flex;
+  gap:18px;
+  padding:18px;
+  max-width:1200px;
+  margin:0 auto 32px;
+  align-items:flex-start;
+}
+nav.sidebar {
+  width:220px;
+  flex:none;
+  position:sticky;
+  top:16px;
+  max-height:calc(100vh - 32px);
+  overflow-y:auto;
+  background:#ecfdf3;
+  border:1px solid rgba(22,163,74,.18);
+  border-radius:14px;
+  padding:12px;
+  box-shadow:0 2px 10px rgba(31,122,58,.06);
+}
+.nav-title { font-size:13px; font-weight:650; color:#065f46; margin-bottom:8px; }
+nav.sidebar a {
+  display:block;
+  margin-bottom:4px;
+  padding:7px 10px;
+  border-radius:8px;
+  color:#065f46;
+  text-decoration:none;
+  font-size:13px;
+}
+nav.sidebar a:hover { background:rgba(22,163,74,.12); }
 main { flex:1; min-width:0; }
-.journal { background:#fff; border-radius:12px; padding:16px 18px; margin-bottom:16px; }
-.trends { background:#f3fbf4; border-left:4px solid #1f7a3a; padding:8px 12px; white-space:pre-wrap; }
-.card { border-top:1px solid #e3efe4; padding:12px 0; }
-.title { font-weight:650; font-size:18px; }
-.meta { color:#5d7262; font-size:13px; margin:4px 0 8px; }
-.summary { white-space:pre-wrap; line-height:1.55; }
-a { color:#0b6b32; }
-.footer { text-align:center; color:#5d7262; padding:18px; }
-input { width:100%; padding:8px 10px; border:1px solid #cfe3d3; border-radius:8px; }
+.search-wrap { margin-bottom:14px; }
+input#q {
+  width:100%;
+  padding:10px 14px;
+  border:1px solid #cfe3d3;
+  border-radius:999px;
+  font-size:14px;
+  background:#fff;
+  box-sizing:border-box;
+}
+input#q:focus {
+  outline:none;
+  border-color:#16a34a;
+  box-shadow:0 0 0 3px rgba(22,163,74,.15);
+}
+.journal {
+  background:#fff;
+  border-radius:14px;
+  padding:18px 20px;
+  margin-bottom:18px;
+  border:1px solid rgba(22,163,74,.1);
+  box-shadow:0 2px 12px rgba(31,122,58,.06);
+}
+.journal h2 {
+  margin:0 0 10px;
+  font-size:20px;
+  color:#064e3b;
+  border-bottom:2px solid rgba(22,163,74,.15);
+  padding-bottom:8px;
+}
+.trends {
+  background:#f3fbf4;
+  border-left:4px solid #16a34a;
+  padding:10px 14px;
+  white-space:pre-wrap;
+  line-height:1.55;
+  font-size:13px;
+  color:#166534;
+  border-radius:0 10px 10px 0;
+  margin-bottom:14px;
+}
+.card {
+  border-top:1px solid #e3efe4;
+  padding:16px 0;
+}
+.card:first-of-type { border-top:none; padding-top:4px; }
+.title { font-weight:650; font-size:17px; line-height:1.4; color:#14291a; }
+.meta {
+  color:#5d7262;
+  font-size:12px;
+  margin:8px 0 10px;
+  line-height:1.5;
+}
+.summary {
+  white-space:pre-wrap;
+  line-height:1.6;
+  font-size:14px;
+  color:#374151;
+  background:#fafdfb;
+  border-radius:10px;
+  padding:12px 14px;
+  border:1px solid #e8f3ea;
+}
+.link-row { margin-top:12px; }
+.link-row a {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:999px;
+  background:#ecfdf3;
+  border:1px solid #a7d7b5;
+  color:#0b6b32;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:550;
+}
+.link-row a:hover { background:#d1fae5; }
+.footer {
+  text-align:center;
+  color:#5d7262;
+  padding:8px 18px 28px;
+  font-size:13px;
+}
+@media (max-width:900px) {
+  .container { flex-direction:column; }
+  nav.sidebar { position:static; width:auto; max-height:none; }
+  .hero-inner { flex-direction:column; text-align:center; }
+  .hero img { width:100%; max-width:280px; max-height:160px; }
+}
 """.strip()
 
 SCRIPT = """
@@ -46,6 +217,13 @@ function filterCards() {
 """.strip()
 
 
+def _journal_sort_key(journal: str) -> tuple[int, str]:
+    try:
+        return (JOURNAL_ORDER.index(journal), journal)
+    except ValueError:
+        return (len(JOURNAL_ORDER), journal)
+
+
 def write_report(articles: list[Article], trends: dict[str, str], stats: dict[str, int]) -> Path:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     generated = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -53,7 +231,7 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
     grouped: dict[str, list[Article]] = {}
     for article in articles:
         grouped.setdefault(article.journal, []).append(article)
-    order = list(dict.fromkeys(article.journal for article in articles))
+    order = sorted(grouped.keys(), key=_journal_sort_key)
     parts = [
         "<!DOCTYPE html>",
         "<html lang='zh-CN'><head><meta charset='UTF-8'>",
@@ -64,19 +242,30 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
         "<a class='back-home' href='index.html' title='返回日期目录'>← 目录首页</a>",
         "<div class='header-main'>",
         "<h1>期刊自动摘要 · 作物视角</h1>",
-        f"<p>日期 {date_tag} · 生成 {generated} · "
+        f"<p class='stats'>日期 {date_tag} · 生成 {generated} · "
         f"新抓取 {stats.get('fetched', 0)} · 缓存跳过 {stats.get('cached', 0)} · "
-        f"重复跳过 {stats.get('duplicate', 0)} · 本次保留 {len(articles)}</p>",
+        f"重复跳过 {stats.get('duplicate', 0)} · 页面 {len(articles)} 篇</p>",
         "</div></header>",
-        "<div class='container'><nav>",
+        "<div class='hero'><div class='hero-inner'>",
+        "<img src='soybean.jpg' alt='大豆' onerror=\"this.style.display='none'\">",
+        "<div>",
+        "<div class='hero-text-title'>面向育种与作物改良的每日文献雷达</div>",
+        "<div class='hero-text-sub'>Nature / Nature Genetics / Nature Plants / Cell / Science · "
+        "近 15 天窗口 · 大模型从作物视角筛选与中文总结</div>",
+        "</div></div></div>",
+        "<div class='container'>",
+        "<nav class='sidebar'>",
+        "<div class='nav-title'>期刊导航</div>",
     ]
     for journal in order:
         anchor = html.escape(journal.replace(" ", "_"))
         parts.append(f"<a href='#{anchor}'>{html.escape(journal)}（{len(grouped[journal])}）</a>")
     parts.append("</nav><main>")
-    parts.append("<p><input id='q' placeholder='搜索标题或总结' oninput='filterCards()'></p>")
+    parts.append(
+        "<div class='search-wrap'><input id='q' placeholder='搜索标题或总结…' oninput='filterCards()'></div>"
+    )
     if not articles:
-        parts.append("<div class='journal'>本次窗口内没有新的、且尚未整理过的文章。</div>")
+        parts.append("<div class='journal'>本次窗口内没有待展示的文章。</div>")
     for journal in order:
         anchor = html.escape(journal.replace(" ", "_"))
         parts.append(f"<section class='journal' id='{anchor}'><h2>{html.escape(journal)}</h2>")
@@ -95,12 +284,13 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
                 parts.append(f"<div class='summary'>{html.escape(article.summary)}</div>")
             if article.url:
                 parts.append(
-                    f"<p><a href='{html.escape(article.url)}' target='_blank' rel='noopener'>原文</a></p>"
+                    f"<div class='link-row'><a href='{html.escape(article.url)}' "
+                    f"target='_blank' rel='noopener'>阅读原文</a></div>"
                 )
             parts.append("</div>")
         parts.append("</section>")
     parts.append("</main></div>")
-    parts.append("<div class='footer'>页面由本地脚本生成。摘要只依据抓到的标题和摘要，请以原文为准。</div>")
+    parts.append("<div class='footer'>本地脚本生成 · 摘要依据抓到的题录与摘要，请以原文为准</div>")
     parts.append(SCRIPT)
     parts.append("</body></html>")
     path = OUTPUT_DIR / f"index_{date_tag}.html"
