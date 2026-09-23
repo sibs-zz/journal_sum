@@ -14,7 +14,10 @@ logger = logging.getLogger("journal_agent")
 
 STYLES = """
 body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif; background:#e5f6e8; color:#1b3a1f; }
-header { background:#1f7a3a; color:#fff; padding:20px 28px; }
+header { background:#1f7a3a; color:#fff; padding:18px 24px; display:flex; align-items:flex-start; gap:16px; }
+.back-home { flex:none; display:inline-flex; align-items:center; padding:8px 14px; margin-top:2px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); border-radius:8px; color:#fff; text-decoration:none; font-size:14px; font-weight:550; white-space:nowrap; transition:background .15s ease; }
+.back-home:hover { background:rgba(255,255,255,.28); color:#fff; }
+.header-main { flex:1; min-width:0; }
 h1 { margin:0 0 6px; font-size:26px; }
 .container { display:flex; gap:18px; padding:18px; max-width:1200px; margin:0 auto; }
 nav { width:220px; flex:none; }
@@ -57,10 +60,14 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
         f"<title>期刊每日摘要 · {date_tag}</title>",
         "<meta name='viewport' content='width=device-width, initial-scale=1'>",
         f"<style>{STYLES}</style></head><body>",
-        "<header><h1>期刊自动摘要 · 作物视角</h1>",
+        "<header>",
+        "<a class='back-home' href='index.html' title='返回日期目录'>← 目录首页</a>",
+        "<div class='header-main'>",
+        "<h1>期刊自动摘要 · 作物视角</h1>",
         f"<p>日期 {date_tag} · 生成 {generated} · "
         f"新抓取 {stats.get('fetched', 0)} · 缓存跳过 {stats.get('cached', 0)} · "
-        f"重复跳过 {stats.get('duplicate', 0)} · 本次保留 {len(articles)}</p></header>",
+        f"重复跳过 {stats.get('duplicate', 0)} · 本次保留 {len(articles)}</p>",
+        "</div></header>",
         "<div class='container'><nav>",
     ]
     for journal in order:

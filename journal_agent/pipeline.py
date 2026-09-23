@@ -7,7 +7,7 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 
-from journal_agent.common import Article, ArticleCache, Http, MAX_WORKERS, setup_logging
+from journal_agent.common import Article, ArticleCache, Http, MAX_WORKERS, cutoff_date, setup_logging
 from journal_agent.rank import Ranker
 from journal_agent.render import write_report
 from journal_agent.sources import fetch_cell, fetch_nature_family, fetch_science, fetch_wechat
@@ -71,6 +71,15 @@ def _fetch_official(label: str, fetcher) -> tuple[str, list[Article]]:
     return label, fetcher(http)
 
 
+def _merge_for_report(cache: ArticleCache, kept: list[Article]) -> list[Article]:
+    """Daily HTML lists all summarized papers in the lookback window, not only this run."""
+    cutoff = cutoff_date()
+    merged: dict[str, Article] = {a.dedupe_key: a for a in cache.summarized_in_window(cutoff)}
+    for article in kept:
+        merged[article.dedupe_key] = article
+    return list(merged.values())
+
+
 def run() -> None:
     setup_logging()
     logger.info("开始本轮抓取，回溯起点 %s，并行线程数 %d", date.today().isoformat(), MAX_WORKERS)
@@ -120,8 +129,9 @@ def run() -> None:
         kept.extend(_judge(ranker, cache, journal, articles))
 
     trends = {}
+    report_articles = _merge_for_report(cache, kept)
     grouped: dict[str, list[Article]] = defaultdict(list)
-    for article in kept:
+    for article in report_articles:
         grouped[article.journal].append(article)
 
     def _trend(job: tuple[str, list[Article]]) -> tuple[str, str]:
@@ -135,8 +145,8 @@ def run() -> None:
             for journal, text in pool.map(_trend, jobs):
                 trends[journal] = text
 
-    write_report(kept, trends, stats)
+    write_report(report_articles, trends, stats)
     logger.info(
-        "完成。抓取 %d，缓存跳过 %d，重复跳过 %d，保留 %d",
-        stats["fetched"], stats["cached"], stats["duplicate"], len(kept),
+        "完成。抓取 %d，缓存跳过 %d，重复跳过 %d，页面 %d 篇（本轮新整理 %d）",
+        stats["fetched"], stats["cached"], stats["duplicate"], len(report_articles), len(kept),
     )

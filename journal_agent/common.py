@@ -289,6 +289,34 @@ class ArticleCache:
             )
             self.conn.commit()
 
+    def summarized_in_window(self, cutoff: date) -> list[Article]:
+        with self._lock:
+            rows = self.conn.execute(
+                """
+                SELECT * FROM articles
+                WHERE status = 'summarized' AND pub_date >= ?
+                ORDER BY pub_date DESC
+                """,
+                (cutoff.isoformat(),),
+            ).fetchall()
+        items: list[Article] = []
+        for row in rows:
+            items.append(
+                Article(
+                    journal=row["journal"] or "",
+                    title=row["title"] or "",
+                    url=row["url"] or "",
+                    pub_date=row["pub_date"] or "",
+                    doi=row["doi"] or "",
+                    source=row["source"] or "",
+                    summary=row["summary"] or "",
+                    score=float(row["score"] or 0),
+                    reason=row["reason"] or "",
+                    title_zh=row["title_zh"] or "",
+                )
+            )
+        return items
+
 
 def stable_id(text: str) -> str:
     return hashlib.sha1(text.encode("utf-8")).hexdigest()[:12]
