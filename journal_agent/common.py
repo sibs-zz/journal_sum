@@ -121,6 +121,7 @@ class Article:
     reason: str = ""
     summary: str = ""
     title_zh: str = ""
+    authors: str = ""
     extra: dict = field(default_factory=dict)
 
     @property
@@ -196,6 +197,9 @@ class ArticleCache:
         )
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_articles_doi ON articles(doi)")
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_articles_title ON articles(title_norm)")
+        cols = {row[1] for row in self.conn.execute("PRAGMA table_info(articles)").fetchall()}
+        if "authors" not in cols:
+            self.conn.execute("ALTER TABLE articles ADD COLUMN authors TEXT DEFAULT ''")
         self.conn.commit()
 
     def lookup(self, article: Article) -> Optional[sqlite3.Row]:
@@ -256,14 +260,16 @@ class ArticleCache:
                 """
                 INSERT INTO articles (
                     dedupe_key, doi, title, title_norm, title_zh, url, journal, source,
-                    pub_date, status, score, reason, summary, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    pub_date, status, score, reason, summary, authors, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(dedupe_key) DO UPDATE SET
                     doi=excluded.doi,
                     title=excluded.title,
                     title_norm=excluded.title_norm,
                     title_zh=excluded.title_zh,
                     url=excluded.url,
+                    journal=excluded.journal,
+                    authors=CASE WHEN excluded.authors != '' THEN excluded.authors ELSE articles.authors END,
                     status=excluded.status,
                     score=excluded.score,
                     reason=excluded.reason,
@@ -284,8 +290,19 @@ class ArticleCache:
                     article.score,
                     article.reason,
                     article.summary,
+                    article.authors or "",
                     datetime.now().isoformat(timespec="seconds"),
                 ),
+            )
+            self.conn.commit()
+
+    def patch_authors(self, article: Article) -> None:
+        if not article.authors:
+            return
+        with self._lock:
+            self.conn.execute(
+                "UPDATE articles SET authors = ? WHERE dedupe_key = ?",
+                (article.authors, article.dedupe_key),
             )
             self.conn.commit()
 
@@ -307,6 +324,9 @@ class ArticleCache:
             ).fetchall()
         items: list[Article] = []
         for row in rows:
+            authors = ""
+            if "authors" in row.keys():
+                authors = row["authors"] or ""
             items.append(
                 Article(
                     journal=row["journal"] or "",
@@ -319,6 +339,7 @@ class ArticleCache:
                     score=float(row["score"] or 0),
                     reason=row["reason"] or "",
                     title_zh=row["title_zh"] or "",
+                    authors=authors,
                 )
             )
         return items

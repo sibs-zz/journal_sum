@@ -10,7 +10,7 @@ from datetime import date
 from journal_agent.common import Article, ArticleCache, Http, MAX_WORKERS, cutoff_date, setup_logging
 from journal_agent.rank import Ranker
 from journal_agent.render import write_report
-from journal_agent.sources import fetch_cell, fetch_nature_family, fetch_science
+from journal_agent.sources import backfill_authors, fetch_cell, fetch_nature_family, fetch_science
 
 logger = logging.getLogger("journal_agent")
 
@@ -93,6 +93,10 @@ def rebuild_page_from_cache() -> None:
     if removed:
         logger.info("已从缓存删除 %d 条公众号记录", removed)
     articles = _merge_for_report(cache, [])
+    backfill_authors(articles)
+    for article in articles:
+        if article.authors:
+            cache.patch_authors(article)
     grouped: dict[str, list[Article]] = defaultdict(list)
     for article in articles:
         grouped[article.journal].append(article)
@@ -132,6 +136,10 @@ def run() -> None:
 
     trends = {}
     report_articles = _merge_for_report(cache, kept)
+    backfill_authors(report_articles)
+    for article in report_articles:
+        if article.authors:
+            cache.patch_authors(article)
     grouped: dict[str, list[Article]] = defaultdict(list)
     for article in report_articles:
         grouped[article.journal].append(article)

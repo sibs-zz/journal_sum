@@ -7,7 +7,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta
 from typing import Iterable, Optional
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 from xml.etree import ElementTree as ET
 
 import requests
@@ -209,6 +209,64 @@ def _nature_listing(http: Http, source: dict, cutoff: date) -> list[Article]:
     return articles
 
 
+def _format_author_list(names: list[str], limit: int = 18) -> str:
+    cleaned = [n for n in names if n]
+    if not cleaned:
+        return ""
+    if len(cleaned) > limit:
+        return "; ".join(cleaned[:limit]) + " et al."
+    return "; ".join(cleaned)
+
+
+def _format_crossref_authors(work: dict, limit: int = 18) -> str:
+    names: list[str] = []
+    for author in work.get("author") or []:
+        family = (author.get("family") or "").strip()
+        given = (author.get("given") or "").strip()
+        if not family and not given:
+            continue
+        names.append(f"{given} {family}".strip() if given else family)
+    return _format_author_list(names, limit)
+
+
+def _pubmed_authors(node: ET.Element, limit: int = 18) -> str:
+    names: list[str] = []
+    for au in node.findall(".//Author"):
+        last = (au.findtext("LastName") or "").strip()
+        fore = (au.findtext("ForeName") or "").strip()
+        if last:
+            names.append(f"{fore} {last}".strip() if fore else last)
+    return _format_author_list(names, limit)
+
+
+def fetch_authors_by_doi(doi: str) -> str:
+    import json
+
+    if not doi:
+        return ""
+    url = f"https://api.crossref.org/works/{quote(doi, safe='')}"
+    raw = Http().get(url)
+    work = json.loads(raw).get("message", {})
+    return _format_crossref_authors(work)
+
+
+def backfill_authors(articles: list[Article]) -> None:
+    pending = [a for a in articles if not a.authors and a.doi]
+    if not pending:
+        return
+
+    def fill(article: Article) -> None:
+        try:
+            article.authors = fetch_authors_by_doi(article.doi)
+        except Exception as exc:
+            logger.debug("Crossref 作者补全失败 %s: %s", article.doi, exc)
+
+    workers = min(MAX_WORKERS, max(1, len(pending)))
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        pool.map(fill, pending)
+    logger.info("已补全 %d 篇文献作者信息", sum(1 for a in pending if a.authors))
+
+
 def _fill_nature_abstract(http: Http, article: Article) -> None:
     html = http.get(article.url)
     soup = BeautifulSoup(html, "html.parser")
@@ -220,6 +278,11 @@ def _fill_nature_abstract(http: Http, article: Article) -> None:
         article.doi = doi_meta["content"].strip()
     if not article.doi:
         article.doi = extract_doi(html)
+    author_metas = soup.select('meta[name="citation_author"]')
+    if author_metas:
+        article.authors = _format_author_list(
+            [m.get("content", "").strip() for m in author_metas if m.get("content")]
+        )
 
 
 def fetch_cell(http: Http, today: Optional[date] = None) -> list[Article]:
@@ -323,6 +386,7 @@ def _fetch_cell_from_pubmed(cutoff: date, today: date) -> list[Article]:
         pmid_el = node.find(".//PMID")
         pmid = (pmid_el.text or "").strip() if pmid_el is not None else ""
         url = f"https://doi.org/{doi}" if doi else f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
+        authors = _pubmed_authors(node)
         articles.append(
             Article(
                 journal="Cell",
@@ -331,6 +395,7 @@ def _fetch_cell_from_pubmed(cutoff: date, today: date) -> list[Article]:
                 pub_date=pub_date.isoformat(),
                 abstract=abstract,
                 doi=doi,
+                authors=authors,
                 article_type="Research article",
                 source="official",
                 content_source="pubmed",
@@ -440,6 +505,7 @@ def _science_work_to_article(
         pub_date=published.isoformat(),
         abstract=abstract,
         doi=doi,
+        authors=_format_crossref_authors(work),
         article_type="journal-article",
         source="official",
         content_source=content_source,
@@ -625,7 +691,7 @@ def _crossref_works(issn: str, cutoff: date) -> list[dict]:
     params = {
         "filter": f"from-pub-date:{cutoff.isoformat()},type:journal-article",
         "rows": 200,
-        "select": "DOI,title,abstract,URL,published-online,published-print,published,type",
+        "select": "DOI,title,abstract,URL,published-online,published-print,published,type,author",
         "mailto": "journal-agent@local",
     }
     http = Http()

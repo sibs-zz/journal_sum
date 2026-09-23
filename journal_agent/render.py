@@ -117,6 +117,12 @@ nav.sidebar a {
   font-size:13px;
 }
 nav.sidebar a:hover { background:rgba(22,163,74,.12); }
+nav.sidebar a.active {
+  background:#16a34a;
+  color:#ecfdf3;
+  font-weight:650;
+  box-shadow:0 2px 8px rgba(22,163,74,.25);
+}
 main { flex:1; min-width:0; }
 .search-wrap { margin-bottom:14px; }
 input#q {
@@ -140,6 +146,7 @@ input#q:focus {
   margin-bottom:18px;
   border:1px solid rgba(22,163,74,.1);
   box-shadow:0 2px 12px rgba(31,122,58,.06);
+  scroll-margin-top:18px;
 }
 .journal h2 {
   margin:0 0 10px;
@@ -159,12 +166,46 @@ input#q:focus {
   border-radius:0 10px 10px 0;
   margin-bottom:14px;
 }
-.card {
-  border-top:1px solid #e3efe4;
-  padding:16px 0;
+.card.article-panel {
+  background:linear-gradient(180deg,#fcfffd,#f7fbf8);
+  border:1px solid #dcefe3;
+  border-radius:12px;
+  padding:14px 16px 16px;
+  margin-bottom:12px;
+  box-shadow:0 1px 6px rgba(31,122,58,.05);
 }
-.card:first-of-type { border-top:none; padding-top:4px; }
-.title { font-weight:650; font-size:17px; line-height:1.4; color:#14291a; }
+.card-top {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:10px;
+}
+.journal-badge {
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#14532d;
+  color:#ecfdf3;
+  font-size:12px;
+  font-weight:650;
+  letter-spacing:.02em;
+}
+.card-date { font-size:12px; color:#5d7262; }
+.title { font-weight:650; font-size:17px; line-height:1.4; color:#14291a; margin-bottom:6px; }
+.authors {
+  font-size:12px;
+  color:#4b5563;
+  line-height:1.55;
+  margin-bottom:8px;
+}
+.authors-label {
+  font-weight:650;
+  color:#065f46;
+  margin-right:4px;
+}
+.card { border-top:none; padding:0; }
 .meta {
   color:#5d7262;
   font-size:12px;
@@ -212,10 +253,30 @@ SCRIPT = """
 <script>
 function filterCards() {
   const q = document.getElementById('q').value.toLowerCase();
-  document.querySelectorAll('.card').forEach(card => {
+  document.querySelectorAll('.card.article-panel').forEach(card => {
     card.style.display = card.innerText.toLowerCase().includes(q) ? '' : 'none';
   });
 }
+(function initJournalNavSpy() {
+  const navLinks = [...document.querySelectorAll('nav.sidebar a.nav-journal')];
+  const sections = [...document.querySelectorAll('section.journal')];
+  if (!navLinks.length || !sections.length) return;
+  function setActive(sectionId) {
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.section === sectionId);
+    });
+  }
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible.length) {
+      setActive(visible[0].target.id);
+    }
+  }, { root: null, rootMargin: '-25% 0px -60% 0px', threshold: [0, 0.08, 0.2, 0.4] });
+  sections.forEach(section => observer.observe(section));
+  setActive(sections[0].id);
+})();
 </script>
 """.strip()
 
@@ -225,6 +286,10 @@ def _journal_sort_key(journal: str) -> tuple[int, str]:
         return (JOURNAL_ORDER.index(journal), journal)
     except ValueError:
         return (len(JOURNAL_ORDER), journal)
+
+
+def _journal_anchor(journal: str) -> str:
+    return journal.replace(" ", "_")
 
 
 def write_report(articles: list[Article], trends: dict[str, str], stats: dict[str, int]) -> Path:
@@ -261,8 +326,11 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
         "<div class='nav-title'>期刊导航</div>",
     ]
     for journal in order:
-        anchor = html.escape(journal.replace(" ", "_"))
-        parts.append(f"<a href='#{anchor}'>{html.escape(journal)}（{len(grouped[journal])}）</a>")
+        anchor = html.escape(_journal_anchor(journal))
+        parts.append(
+            f"<a class='nav-journal' href='#{anchor}' data-section='{anchor}'>"
+            f"{html.escape(journal)}（{len(grouped[journal])}）</a>"
+        )
     parts.append("</nav><main>")
     parts.append(
         "<div class='search-wrap'><input id='q' placeholder='搜索标题或总结…' oninput='filterCards()'></div>"
@@ -270,19 +338,27 @@ def write_report(articles: list[Article], trends: dict[str, str], stats: dict[st
     if not articles:
         parts.append("<div class='journal'>本次窗口内没有待展示的文章。</div>")
     for journal in order:
-        anchor = html.escape(journal.replace(" ", "_"))
+        anchor = html.escape(_journal_anchor(journal))
         parts.append(f"<section class='journal' id='{anchor}'><h2>{html.escape(journal)}</h2>")
         if trends.get(journal):
             parts.append(f"<div class='trends'>{html.escape(trends[journal])}</div>")
         for article in sorted(grouped[journal], key=lambda item: item.pub_date, reverse=True):
-            parts.append("<div class='card'>")
-            parts.append(f"<div class='title'>{html.escape(article.title)}</div>")
-            meta = f"{article.pub_date} · {article.content_source or article.source}"
+            authors = (article.authors or "").strip() or "见原文链接"
+            parts.append('<div class="card article-panel">')
+            parts.append('<div class="card-top">')
+            parts.append(f'<span class="journal-badge">{html.escape(article.journal)}</span>')
+            parts.append(f'<span class="card-date">{html.escape(article.pub_date)}</span>')
+            parts.append("</div>")
+            parts.append(f'<div class="title">{html.escape(article.title)}</div>')
+            parts.append(
+                f'<div class="authors"><span class="authors-label">作者</span>{html.escape(authors)}</div>'
+            )
+            meta = article.content_source or article.source
             if article.score:
                 meta += f" · 相关度 {article.score:g}"
             if article.reason:
                 meta += f" · {article.reason}"
-            parts.append(f"<div class='meta'>{html.escape(meta)}</div>")
+            parts.append(f'<div class="meta">{html.escape(meta)}</div>')
             if article.summary:
                 parts.append(f"<div class='summary'>{html.escape(article.summary)}</div>")
             if article.url:
