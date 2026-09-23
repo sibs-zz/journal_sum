@@ -204,9 +204,8 @@ def commit_and_push():
         return True
     
     logger.info("📝 添加更改...")
-    paths = ["docs/"] + list(CODE_SYNC_ITEMS)
     success, output = run_command(
-        ["git", "add", "-A", "--"] + paths,
+        ["git", "add", "-A"],
         cwd=GITHUB_REPO_DIR
     )
     if not success:
