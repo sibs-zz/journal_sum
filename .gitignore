@@ -1,3 +1,6 @@
 key.txt
 ncbi_key.txt
 logs/
+
+cache/
+__pycache__/

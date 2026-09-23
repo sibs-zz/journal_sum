@@ -1,0 +1,468 @@
+"""Fetch recent biology articles from journal sites and WeChat columns."""
+
+from __future__ import annotations
+
+import logging
+import re
+import time
+from datetime import date, datetime
+from typing import Iterable, Optional
+from urllib.parse import urljoin
+
+from bs4 import BeautifulSoup
+
+from journal_agent.common import Article, Http, clean_text, cutoff_date, extract_doi
+
+logger = logging.getLogger("journal_agent")
+
+NATURE_SOURCES = [
+    {
+        "name": "Nature",
+        "url": "https://www.nature.com/search",
+        "params": {
+            "journal": "nature",
+            "article_type": "research",
+            "subject": "biological-sciences",
+            "order": "date_desc",
+        },
+    },
+    {
+        "name": "Nature Genetics",
+        "url": "https://www.nature.com/ng/research-articles",
+        "params": {},
+    },
+    {
+        "name": "Nature Plants",
+        "url": "https://www.nature.com/nplants/research-articles",
+        "params": {},
+    },
+    {
+        "name": "Nature Communications",
+        "url": "https://www.nature.com/subjects/biological-sciences/ncomms",
+        "params": {"searchType": "subject", "sort": "PubDate"},
+    },
+]
+
+DROP_TYPE_WORDS = (
+    "news",
+    "editorial",
+    "correction",
+    "career",
+    "amendment",
+    "obituary",
+    "comment",
+    "world view",
+    "where i work",
+    "technology feature",
+    "outlook",
+    "perspective",
+    "books",
+)
+
+BIO_WORDS = (
+    "gene", "genome", "protein", "cell", "plant", "crop", "animal", "neuron",
+    "bacteria", "virus", "ecology", "species", "tissue", "immune", "metabol",
+    "rna", "dna", "crispr", "chromosome", "evolution", "organism", "microb",
+    "photosynth", "hormone", "allele", "qtl", "breed", "arabidopsis", "rice",
+    "wheat", "maize", "soybean", "mouse", "human", "cancer", "stem",
+    "chloroplast", "mitochond", "enzyme", "receptor", "transcription", "epigen",
+    "pathogen", "fung", "insect", "root", "leaf", "seed", "flower", "embryo",
+    "neuron", "brain", "antibody", "vaccine", "microbiome", "symbio",
+)
+
+NONBIO_WORDS = (
+    "qubit", "superconduct", "lithograph", "perovskite", "telescope",
+    "exoplanet", "gravitational wave", "battery cathode", "quantum comput",
+)
+
+WECHAT_COLUMNS = [
+    ("植物科学最前沿", "https://www.jintiankansha.com/column/fKqbycyq1p"),
+    ("BioArt植物", "https://www.jintiankansha.com/column/Yyk5kJ9xFa"),
+    ("BioArt", "https://www.jintiankansha.com/column/uRbAcCYKay"),
+    ("iPlants", "https://www.jintiankansha.com/column/jCtqG2JMxy"),
+]
+
+WECHAT_NOISE = (
+    "招聘", "直播", "培训", "博士后", "征稿", "优惠券", "购买", "广告",
+    "基金委", "拟资助", "会议通知", "倒计时", "报名", "采购", "课程",
+    "年会", "预算", "仪器", "黑客", "签约", "实操", "通知", "特价",
+    "做不出来", "搞定", "国自然", "申报", "项目指南",
+)
+
+REL_DATE = re.compile(
+    r"(刚刚|\d+\s*分钟前|\d+\s*小时前|昨天|前天|\d+\s*天前|\d+\s*月前|\d+\s*年前)"
+)
+
+
+def _parse_iso(value: str) -> Optional[date]:
+    value = (value or "")[:10]
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+
+def _keep_type(article_type: str) -> bool:
+    text = (article_type or "").casefold()
+    if not text:
+        return True
+    return not any(word in text for word in DROP_TYPE_WORDS)
+
+
+def _has_term(blob: str, word: str) -> bool:
+    return re.search(rf"(?<![a-z]){re.escape(word)}s?(?![a-z])", blob) is not None
+
+
+def looks_biological(title: str, abstract: str) -> bool:
+    blob = f"{title} {abstract}".casefold()
+    bio = any(_has_term(blob, word) for word in BIO_WORDS)
+    nonbio = any(_has_term(blob, word) for word in NONBIO_WORDS)
+    if nonbio and not bio:
+        return False
+    return bio
+
+
+def fetch_nature_family(http: Http, today: Optional[date] = None) -> list[Article]:
+    today = today or date.today()
+    cutoff = cutoff_date(today)
+    found: list[Article] = []
+    for source in NATURE_SOURCES:
+        journal_items = _nature_listing(http, source, cutoff)
+        logger.info("%s 列表 %d 篇（%s 之后）", source["name"], len(journal_items), cutoff)
+        for item in journal_items:
+            try:
+                _fill_nature_abstract(http, item)
+            except Exception as exc:
+                logger.warning("打开 Nature 文章失败 %s: %s", item.url, exc)
+            if item.abstract or item.title:
+                found.append(item)
+            time.sleep(0.25)
+    return found
+
+
+def _nature_listing(http: Http, source: dict, cutoff: date) -> list[Article]:
+    articles: list[Article] = []
+    seen_urls: set[str] = set()
+    for page in range(1, 9):
+        params = dict(source["params"])
+        params["page"] = page
+        html = http.get(source["url"], params=params)
+        soup = BeautifulSoup(html, "html.parser")
+        cards = soup.select("article")
+        if not cards:
+            break
+        page_dates: list[date] = []
+        for card in cards:
+            link = card.select_one("h3 a[href*='/articles/']")
+            stamp = card.select_one("time")
+            if not link or not stamp:
+                continue
+            published = _parse_iso(stamp.get("datetime") or "")
+            if not published:
+                continue
+            page_dates.append(published)
+            if published < cutoff:
+                continue
+            kind_el = card.select_one("[data-test='article.type']")
+            kind = kind_el.get_text(" ", strip=True) if kind_el else "Article"
+            if not _keep_type(kind):
+                continue
+            href = urljoin("https://www.nature.com", link.get("href", ""))
+            if href in seen_urls:
+                continue
+            seen_urls.add(href)
+            doi = ""
+            slug = re.search(r"/articles/([^/?#]+)", href)
+            if slug and slug.group(1).startswith("s"):
+                doi = "10.1038/" + slug.group(1)
+            articles.append(
+                Article(
+                    journal=source["name"],
+                    title=link.get_text(" ", strip=True),
+                    url=href,
+                    pub_date=published.isoformat(),
+                    doi=doi,
+                    article_type=kind,
+                    source="official",
+                    content_source="nature.com",
+                )
+            )
+        if page_dates and max(page_dates) < cutoff:
+            break
+        if page_dates and min(page_dates) < cutoff:
+            break
+    return articles
+
+
+def _fill_nature_abstract(http: Http, article: Article) -> None:
+    html = http.get(article.url)
+    soup = BeautifulSoup(html, "html.parser")
+    node = soup.select_one("#Abs1-content")
+    if node:
+        article.abstract = clean_text(node.get_text(" ", strip=True))
+    doi_meta = soup.select_one('meta[name="citation_doi"]')
+    if doi_meta and doi_meta.get("content"):
+        article.doi = doi_meta["content"].strip()
+    if not article.doi:
+        article.doi = extract_doi(html)
+
+
+def fetch_cell(http: Http, today: Optional[date] = None) -> list[Article]:
+    today = today or date.today()
+    cutoff = cutoff_date(today)
+    registered = {
+        (work.get("DOI") or "").casefold(): work
+        for work in _crossref_works("0092-8674", cutoff)
+    }
+    articles: list[Article] = []
+    seen: set[str] = set()
+    try:
+        html = http.get(
+            "https://www.sciencedirect.com/journal/cell/articles-in-press",
+            impersonate=True,
+        )
+        soup = BeautifulSoup(html, "html.parser")
+        for item in soup.select("li.js-article-list-item"):
+            article = _parse_sciencedirect_item(item, cutoff)
+            if not article or article.doi in seen:
+                continue
+            seen.add(article.doi or article.url)
+            work = registered.get(article.doi.casefold())
+            if work:
+                article.abstract = clean_text(work.get("abstract") or "")
+            articles.append(article)
+    except Exception as exc:
+        logger.warning("Cell 官网列表打开失败，改用同期登记信息: %s", exc)
+    if not articles:
+        for doi, work in registered.items():
+            title = clean_text((work.get("title") or [""])[0])
+            if not title:
+                continue
+            published = _crossref_date(work) or cutoff
+            articles.append(
+                Article(
+                    journal="Cell",
+                    title=title,
+                    url=f"https://www.cell.com/cell/fulltext/{doi}",
+                    pub_date=published.isoformat(),
+                    abstract=clean_text(work.get("abstract") or ""),
+                    doi=doi,
+                    source="official",
+                    content_source="crossref",
+                )
+            )
+    logger.info("Cell %d 篇（%s 之后）", len(articles), cutoff)
+    return articles
+
+
+def _parse_sciencedirect_item(item, cutoff: date) -> Optional[Article]:
+    text = item.get_text("\n", strip=True)
+    doi_match = re.search(r"10\.1016/j\.cell\.[0-9A-Za-z.()]+", text)
+    date_match = re.search(
+        r"(?:Available online|Published online)\s+(\d{1,2}\s+[A-Za-z]+\s+\d{4})",
+        text,
+    )
+    if not date_match:
+        return None
+    try:
+        published = datetime.strptime(date_match.group(1), "%d %B %Y").date()
+    except ValueError:
+        return None
+    if published < cutoff:
+        return None
+    title = ""
+    url = ""
+    for link in item.select("a[href*='/science/article/pii/']"):
+        href = link.get("href") or ""
+        label = link.get_text(" ", strip=True)
+        if "pdfft" in href or label.lower().startswith("view pdf"):
+            continue
+        if len(label) < 20:
+            continue
+        title = label
+        url = urljoin("https://www.sciencedirect.com", href.split("?")[0])
+        break
+    if not title:
+        return None
+    kind = "Research article"
+    first = text.split("\n", 1)[0]
+    if first:
+        kind = first
+    if not _keep_type(kind):
+        return None
+    doi = doi_match.group(0) if doi_match else extract_doi(text)
+    return Article(
+        journal="Cell",
+        title=title,
+        url=url or (f"https://doi.org/{doi}" if doi else ""),
+        pub_date=published.isoformat(),
+        doi=doi,
+        article_type=kind,
+        source="official",
+        content_source="sciencedirect.com",
+    )
+
+
+def fetch_science(http: Http, today: Optional[date] = None) -> list[Article]:
+    """Science 目录页经常被 Cloudflare 拦住，先打开 DOI 页，失败再用期刊登记摘要。"""
+    today = today or date.today()
+    cutoff = cutoff_date(today)
+    works = _crossref_works("0036-8075", cutoff)
+    articles: list[Article] = []
+    official_pages_ok: Optional[bool] = None
+    for work in works:
+        title = clean_text((work.get("title") or [""])[0])
+        abstract = clean_text(work.get("abstract") or "")
+        if not looks_biological(title, abstract):
+            continue
+        doi = (work.get("DOI") or "").strip()
+        published = _crossref_date(work) or cutoff
+        if published < cutoff:
+            continue
+        url = f"https://www.science.org/doi/{doi}" if doi else work.get("URL") or ""
+        content_source = "crossref"
+        if doi and official_pages_ok is not False:
+            try:
+                page_abstract = _science_page_abstract(http, url)
+                if page_abstract:
+                    abstract = page_abstract
+                    content_source = "science.org"
+                    official_pages_ok = True
+            except Exception as exc:
+                official_pages_ok = False
+                logger.info("Science 官网页面被拦截，其余篇目使用期刊登记摘要（%s）", exc)
+        if not title:
+            continue
+        articles.append(
+            Article(
+                journal="Science",
+                title=title,
+                url=url,
+                pub_date=published.isoformat(),
+                abstract=abstract,
+                doi=doi,
+                article_type="journal-article",
+                source="official",
+                content_source=content_source,
+            )
+        )
+        time.sleep(0.15)
+    logger.info("Science 生物学相关 %d 篇（%s 之后）", len(articles), cutoff)
+    return articles
+
+
+def _science_page_abstract(http: Http, url: str) -> str:
+    html = http.get(url, impersonate=True)
+    soup = BeautifulSoup(html, "html.parser")
+    node = soup.select_one("section#abstract, div.abstract, meta[name='citation_abstract']")
+    if node and node.name == "meta":
+        return clean_text(node.get("content") or "")
+    if node:
+        return clean_text(node.get_text(" ", strip=True))
+    return ""
+
+
+def fetch_wechat(http: Http, today: Optional[date] = None) -> list[Article]:
+    today = today or date.today()
+    cutoff = cutoff_date(today)
+    articles: list[Article] = []
+    seen: set[str] = set()
+    for name, column_url in WECHAT_COLUMNS:
+        try:
+            batch = _wechat_column(http, name, column_url, today, cutoff)
+        except Exception as exc:
+            logger.warning("公众号栏目抓取失败 %s: %s", name, exc)
+            continue
+        for article in batch:
+            if article.url in seen:
+                continue
+            seen.add(article.url)
+            articles.append(article)
+        logger.info("公众号 %s：近窗 %d 篇", name, len(batch))
+        time.sleep(0.4)
+    return articles
+
+
+def _wechat_column(http: Http, name: str, column_url: str, today: date, cutoff: date) -> list[Article]:
+    html = http.get(column_url)
+    soup = BeautifulSoup(html, "html.parser")
+    articles: list[Article] = []
+    for row in soup.select("tr"):
+        link = row.select_one("a[href*='/t/']")
+        if not link:
+            continue
+        title = link.get_text(" ", strip=True)
+        if not title or any(word in title for word in WECHAT_NOISE):
+            continue
+        published = _relative_date(row.get_text(" ", strip=True), today)
+        if not published or published < cutoff:
+            continue
+        href = link.get("href") or ""
+        if href.startswith("/"):
+            href = urljoin("https://www.jintiankansha.com", href)
+        articles.append(
+            Article(
+                journal=name,
+                title=title,
+                url=href,
+                pub_date=published.isoformat(),
+                abstract=title,
+                doi=extract_doi(title),
+                article_type="wechat",
+                source="wechat",
+                content_source="wechat",
+            )
+        )
+    return articles
+
+
+def _relative_date(text: str, today: date) -> Optional[date]:
+    match = REL_DATE.search(text.replace("\xa0", " "))
+    if not match:
+        return None
+    token = re.sub(r"\s+", "", match.group(1))
+    if token in {"刚刚"} or token.endswith("分钟前") or token.endswith("小时前"):
+        return today
+    if token == "昨天":
+        return today.fromordinal(today.toordinal() - 1)
+    if token == "前天":
+        return today.fromordinal(today.toordinal() - 2)
+    days = re.match(r"(\d+)天前", token)
+    if days:
+        return today.fromordinal(today.toordinal() - int(days.group(1)))
+    return None
+
+
+def _crossref_works(issn: str, cutoff: date) -> list[dict]:
+    url = f"https://api.crossref.org/journals/{issn}/works"
+    params = {
+        "filter": f"from-pub-date:{cutoff.isoformat()},type:journal-article",
+        "rows": 200,
+        "select": "DOI,title,abstract,URL,published-online,published-print,published,type",
+        "mailto": "journal-agent@local",
+    }
+    http = Http()
+    raw = http.get(url, params=params)
+    import json
+
+    payload = json.loads(raw)
+    return payload.get("message", {}).get("items", [])
+
+
+def _crossref_date(work: dict) -> Optional[date]:
+    for key in ("published-online", "published-print", "published"):
+        parts = (work.get(key) or {}).get("date-parts") or []
+        if not parts or not parts[0]:
+            continue
+        year, month, day = (parts[0] + [1, 1])[:3]
+        try:
+            return date(int(year), int(month), int(day))
+        except ValueError:
+            continue
+    return None
+
+
+def iter_official(http: Http) -> Iterable[tuple[str, list[Article]]]:
+    yield "Nature 系", fetch_nature_family(http)
+    yield "Cell", fetch_cell(http)
+    yield "Science", fetch_science(http)

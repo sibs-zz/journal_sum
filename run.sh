@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd "$(dirname "$0")"
 set -euo pipefail
-conda activate journal_agent
-python journal_summarizer_advanced_v2.py
+python journal_summarizer_v4.py
+python sync_to_github.py
