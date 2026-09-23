@@ -237,7 +237,7 @@ input#q:focus {
 .link-row a:hover { background:#d1fae5; }
 .scroll-top {
   position:fixed;
-  left:18px;
+  right:18px;
   bottom:18px;
   z-index:80;
   padding:10px 14px;
